@@ -9,7 +9,7 @@ export default class HttpClient {
       HttpClient.instance = axios.create({
         // baseURL: "http://localhost:8080/api",
         baseURL: "https://api-aierview-dev.fly.dev/api",
-        timeout: 10000,
+        timeout: 20000,
         headers: {
           "Content-Type": "application/json",
         },
