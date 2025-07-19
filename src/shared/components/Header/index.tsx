@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Header.module.css";
 import Image from "next/image";
 import Link from "next/link";
-import Navbar from "../../../features/home/components/Home/Navbar";
+import Navbar from "../../../features/home/components/Navbar";
 
 export default function Header() {
   return (

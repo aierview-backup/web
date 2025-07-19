@@ -24,7 +24,7 @@ export default function TypeCard(props: TypeCardProps) {
           props.icons.map((icon) => (
             <Image
               key={icon.icon}
-              src={`/logos/${icon.type}/${icon.icon}.svg`}
+              src={`/logos/${props.type}/${icon.icon}.svg`}
               alt={icon.altText}
               width={24}
               height={24}

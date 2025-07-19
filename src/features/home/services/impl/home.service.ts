@@ -45,32 +45,26 @@ export default class HomeService implements IHome {
     const backedendIcons: TypeCardIcon[] = [
       {
         icon: "java",
-        type: "backend",
         altText: "Java icon",
       },
       {
         icon: "nestjs",
-        type: "backend",
         altText: "Nestjs icon",
       },
       {
         icon: "php",
-        type: "backend",
         altText: "Php icon",
       },
       {
         icon: "postgresql",
-        type: "backend",
         altText: "Postgresql icon",
       },
       {
         icon: "python",
-        type: "backend",
         altText: "Python icon",
       },
       {
         icon: "typescript",
-        type: "backend",
         altText: "Typescript icon",
       },
     ];
@@ -78,32 +72,26 @@ export default class HomeService implements IHome {
     const mobileIcons: TypeCardIcon[] = [
       {
         icon: "android",
-        type: "mobile",
         altText: "Android icon",
       },
       {
         icon: "dart",
-        type: "mobile",
         altText: "Dart icon",
       },
       {
         icon: "firebase",
-        type: "mobile",
         altText: "Firebase icon",
       },
       {
         icon: "flutter",
-        type: "mobile",
         altText: "Fluter icon",
       },
       {
         icon: "kotlin",
-        type: "mobile",
         altText: "Kotlin icon",
       },
       {
         icon: "react",
-        type: "mobile",
         altText: "React native icon",
       },
     ];
@@ -111,33 +99,27 @@ export default class HomeService implements IHome {
     const fullstackIcons: TypeCardIcon[] = [
       {
         icon: "dotnetcore",
-        type: "fullstack",
         altText: "Dotnet core icon",
       },
       {
         icon: "express",
-        type: "fullstack",
         altText: "Express icon",
       },
       {
         icon: "fastapi",
-        type: "fullstack",
         altText: "Fast api icon",
       },
       {
         icon: "firebase",
-        type: "fullstack",
         altText: "Farebase  icon",
       },
       {
         icon: "nextjs",
-        type: "fullstack",
         altText: "Nextjs icon",
       },
 
       {
         icon: "spring",
-        type: "fullstack",
         altText: "Spring icon",
       },
     ];
@@ -147,6 +129,7 @@ export default class HomeService implements IHome {
         title: "Frontend",
         mainIcon: "frontend-icon",
         altText: "Fontend card icon",
+        type: "frontend",
         desc: ` Lorem ipsum dolor sit amet consectetur. Tortor tellus 
             consectetur et dictum pharetra. Sed turpis ipsum risus eu et. 
             Imperdiet et donec vel posuere dictum mi tortor lectus. is adipiscing ultrices turpis.`,
@@ -156,6 +139,7 @@ export default class HomeService implements IHome {
         title: "Backend",
         mainIcon: "backend-icon",
         altText: "Backend card icon",
+        type: "backend",
         desc: ` Lorem ipsum dolor sit amet consectetur. Tortor tellus 
             consectetur et dictum pharetra. Sed turpis ipsum risus eu et. 
             Imperdiet et donec vel posuere dictum mi tortor lectus. is adipiscing ultrices turpis.`,
@@ -165,6 +149,7 @@ export default class HomeService implements IHome {
         title: "Mobile",
         mainIcon: "mobile-icon",
         altText: "Mobile card icon",
+        type: "mobile",
         desc: ` Lorem ipsum dolor sit amet consectetur. Tortor tellus 
             consectetur et dictum pharetra. Sed turpis ipsum risus eu et. 
             Imperdiet et donec vel posuere dictum mi tortor lectus. is adipiscing ultrices turpis.`,
@@ -174,6 +159,7 @@ export default class HomeService implements IHome {
         title: "Fullstack",
         mainIcon: "fullstack-icon",
         altText: "Fullstack card icon",
+        type: "fullstack",
         desc: ` Lorem ipsum dolor sit amet consectetur. Tortor tellus 
             consectetur et dictum pharetra. Sed turpis ipsum risus eu et. 
             Imperdiet et donec vel posuere dictum mi tortor lectus. is adipiscing ultrices turpis.`,

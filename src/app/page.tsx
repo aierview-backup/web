@@ -6,7 +6,7 @@ import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import { useInterviewTypes } from "@/features/home/hooks/useInterviewTypes";
-import TypeCard from "@/features/home/components/Home/TypeCard";
+import TypeCard from "@/features/home/components/TypeCard";
 import Spinner from "@/shared/components/Spinner/Spinner";
 
 export default function Home() {
