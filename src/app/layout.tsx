@@ -13,6 +13,9 @@ const robotoMono = Roboto_Mono({
 export const metadata: Metadata = {
   title: "Aierview - Tech Interview Simulator for Devs.",
   description: "Tech Interview Simulator for Devs",
+  icons: {
+    icon: "/logos/aierview/favicon.svg",
+  },
 };
 
 export default function RootLayout({
