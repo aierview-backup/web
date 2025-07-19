@@ -1,0 +1,52 @@
+.menuContainer {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-right: 32px;
+  gap: 84px;
+}
+
+.menuContainer nav {
+  display: flex;
+  gap: 40px;
+}
+
+.menuContainer nav span {
+  display: block;
+  height: 32px;
+}
+
+.menuContainer nav a {
+  display: block;
+  height: 100%;
+  font-weight: bold;
+  font-size: 16px;
+  color: var(--primary-500);
+  text-decoration: none;
+}
+
+.menuContainer nav a:hover,
+.menuContainer nav .clicked {
+  border-bottom: 2px solid var(--white-500);
+}
+
+.menuContainer .loginBtn {
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 74px;
+  height: 45px;
+  background: var(--danger-500);
+  color: var(--white-500);
+  padding: 12px;
+  border-radius: 8px;
+  transition: all 0.3s linear;
+}
+
+.menuContainer .loginBtn:hover {
+  background: var(--danger-400);
+}
