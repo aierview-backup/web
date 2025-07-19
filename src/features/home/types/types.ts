@@ -1,13 +1,15 @@
-export type TypeCardIcon = {
+export type Technology = {
+  id: number;
   icon: string;
   altText: string;
 };
 
-export type TypeCardProps = {
+export type InterviewType = {
+  id: number;
   title: string;
   mainIcon: string;
   altText: string;
   type: string;
-  desc: string;
-  icons: TypeCardIcon[];
+  description: string;
+  technologies: Technology[];
 };

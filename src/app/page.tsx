@@ -49,12 +49,14 @@ export default function Home() {
             ) : (
               interviewTypes.map((type) => (
                 <TypeCard
-                  key={type.title}
+                  key={type.id}
+                  id={type.id}
                   title={type.title}
                   mainIcon={type.mainIcon}
                   altText={type.altText}
-                  icons={type.icons}
-                  desc={type.desc}
+                  type={type.type}
+                  description={type.description}
+                  technologies={type.technologies}
                 />
               ))
             )}

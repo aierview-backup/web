@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import HomeService from "@/features/home/services/impl/home.service";
-import { TypeCardProps } from "@/features/home/types/types";
+import { InterviewType } from "@/features/home/types/types";
 
 export function useInterviewTypes() {
-  const [interviewTypes, setInterviewTypes] = useState<TypeCardProps[]>([]);
+  const [interviewTypes, setInterviewTypes] = useState<InterviewType[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
