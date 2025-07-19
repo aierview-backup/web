@@ -4,7 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-export const robotoMono = Roboto_Mono({
+const robotoMono = Roboto_Mono({
   weight: ["400", "500", "700"],
   subsets: ["latin"],
   display: "swap",
@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${robotoMono.className}`}>
+      <body className={robotoMono.className}>
         <Header />
         {children}
         <Footer />
