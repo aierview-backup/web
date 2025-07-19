@@ -1,5 +1,5 @@
-import { TypeCardProps } from "@/features/home/types/types";
+import { InterviewType } from "@/features/home/types/types";
 
 export default interface IHome {
-  getInterviewTypes(): Promise<TypeCardProps[]>;
+  getInterviewTypes(): Promise<InterviewType[]>;
 }
