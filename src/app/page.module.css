@@ -103,6 +103,7 @@
   flex-wrap: wrap;
   gap: 32px;
   width: 100%;
+  align-items: center;
 }
 
 /* TOP ARROW */

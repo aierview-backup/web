@@ -2,20 +2,7 @@ import Image from "next/image";
 import React from "react";
 
 import styles from "./TypeCard.module.css";
-
-export type TypeCardIcon = {
-  icon: string;
-  type: string;
-  altText: string;
-};
-
-export type TypeCardProps = {
-  title: string;
-  mainIcon: string;
-  altText: string;
-  desc: string;
-  icons: TypeCardIcon[];
-};
+import { TypeCardProps } from "@/features/home/types/types";
 
 export default function TypeCard(props: TypeCardProps) {
   return (
