@@ -27,14 +27,14 @@
   gap: 18px;
 }
 
-.getstarted {
+.singup {
   padding: 12px 19px;
   color: var(--white-500);
   background: var(--primary-500);
   border-radius: var(--base-border-radius);
 }
 
-.getstarted:hover {
+.singup:hover {
   color: var(--white-500) !important;
   background: var(--primary-800);
 }

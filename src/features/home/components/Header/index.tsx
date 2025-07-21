@@ -14,7 +14,7 @@ export default function HeaderHome() {
 
       <div className={styles.auth}>
         <Link href="/sing-in">Sing-in</Link>
-        <Link className={styles.getstarted} href="/sing-up">
+        <Link className={styles.singup} href="/sing-up">
           Get Started
         </Link>
       </div>
