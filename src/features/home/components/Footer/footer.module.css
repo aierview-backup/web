@@ -92,4 +92,8 @@
   .singup h1 {
     font-size: var(--heading-32);
   }
+
+  .socilaMedia {
+    gap: 24;
+  }
 }
