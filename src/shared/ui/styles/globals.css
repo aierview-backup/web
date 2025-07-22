@@ -1,0 +1,15 @@
+@import "tailwindcss";
+@import "./variables.css";
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--white-500);
+  font-family: "Inter", sans-serif;
+}
+
+a {
+  text-decoration: none;
+}

@@ -1,13 +1,11 @@
+import "@/shared/ui/styles/globals.css";
 import type { Metadata } from "next";
-import { Roboto_Mono } from "next/font/google";
-import "@/shared/styles/globals.css";
-import Header from "@/shared/components/Header";
-import Footer from "@/shared/components/Footer";
 
-const robotoMono = Roboto_Mono({
-  weight: ["400", "500", "700"],
+import { Inter } from "next/font/google";
+
+const inter = Inter({
   subsets: ["latin"],
-  display: "swap",
+  weight: ["400", "500", "700"],
 });
 
 export const metadata: Metadata = {
@@ -25,11 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={robotoMono.className}>
-        <Header />
-        {children}
-        <Footer />
-      </body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }

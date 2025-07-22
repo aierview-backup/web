@@ -1,0 +1,23 @@
+/* CARD */
+
+.card {
+  height: 260px;
+  padding: 10px 16px 0 16px;
+  border-radius: var(--base-border-radius);
+  border: 1px solid var(--dark-gray-100);
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 16px;
+}
+
+.card h2 {
+  font-size: var(--heading-20);
+  font-weight: var(--semibold);
+}
+
+.card div {
+  color: var(--dark-gray-400);
+  font-size: var(--heading-14);
+  text-align: left;
+}
