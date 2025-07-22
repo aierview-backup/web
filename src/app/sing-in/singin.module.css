@@ -32,95 +32,10 @@
   gap: 16px;
 }
 
-.form input:hover {
-  border: 1px solid var(--primary-500);
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-}
-
-.field label {
-  font-weight: bold;
-  font-size: var(--heading-14);
-}
-
-.field input {
-  width: 392px;
-  height: 52px;
-
-  padding-left: 8px;
-  font-size: var(--heading-14);
-
-  border-radius: var(--base-border-radius);
-  background: var(--primary-100);
-  color: var(--dark-gray-500);
-}
-
-.field input::placeholder {
-  color: var(--dark-gray-200);
-}
-
-.field input:focus {
-  outline: none;
-  border: 1px solid var(--primary-500);
-}
-
-.errorMessage {
-  height: 18px;
-  font-weight: bold;
-  font-size: var(--heading-12);
-  margin-left: 8px;
-  color: var(--red-500);
-}
-
-.inputIcon {
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-
-.icon {
-  position: absolute;
-  right: 16px;
-  cursor: pointer;
-}
-
 .remeberme {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.remeberme label {
-  display: flex;
-  gap: 4px;
-  align-items: center;
-  font-size: var(--heading-12);
-}
-
-.remeberme label input {
-  display: none;
-}
-
-.remeberme label span {
-  font-weight: bold;
-  height: 24px;
-  width: 24px;
-  background: var(--primary-100);
-  display: inline-block;
-  position: relative;
-  border-radius: var(--base-border-radius);
-}
-
-.remeberme label input[type="checkbox"]:checked + span:before {
-  content: "\2714";
-  position: absolute;
-  top: 1px;
-  left: 6px;
-  font-size: var(--heading-16);
-  color: var(--primary-500);
 }
 
 .remeberme a {
@@ -131,33 +46,10 @@
   color: var(--primary-800);
 }
 
-.singinBtn {
-  cursor: pointer;
-  padding: 12px 0;
-  border-radius: var(--base-border-radius);
-  color: var(--white-500);
-  background: var(--primary-500);
-}
-
-.singinBtn:hover {
-  background: var(--primary-800);
-}
-
 .auth {
   display: flex;
   gap: 8px;
   justify-content: center;
-}
-
-.auth button {
-  outline: none;
-  cursor: pointer;
-  border-radius: var(--base-border-radius);
-}
-
-.auth button:hover {
-  color: var(--white-500);
-  background: var(--primary-800);
 }
 
 .singup {
