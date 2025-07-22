@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export type Technology = {
   id: number;
   icon: string;
@@ -15,7 +17,7 @@ export type InterviewType = {
 };
 
 export type CardProps = {
-  icon: any;
+  icon: ReactNode;
   title: string;
   desc: string;
 };
