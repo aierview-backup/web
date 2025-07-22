@@ -106,7 +106,8 @@
   --base-border-radius: 8px;
 
   /* FONT WEIGHT */
-  --font-wieght-medium: 500;
+  --medium: 500;
+  --semibold: 600;
 
   /* GRADINTE */
   --base-gradient: linear-gradient(to bottom right, #564fcc 100%, #413b99 100%);

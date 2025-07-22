@@ -13,3 +13,9 @@ export type InterviewType = {
   description: string;
   technologies: Technology[];
 };
+
+export type CardProps = {
+  icon: any;
+  title: string;
+  desc: string;
+};

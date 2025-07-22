@@ -1,4 +1,4 @@
-import ArrowRightIcon from "@/shared/icons/arrow-right.svg";
+import ArrowRightIcon from "@/shared/ui/icons/arrow-right.svg";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./banner.module.css";

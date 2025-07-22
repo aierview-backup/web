@@ -23,7 +23,7 @@
 
 .textContent span {
   width: 449px;
-  font-weight: var(--font-wieght-medium);
+  font-weight: var(--medium);
   font-size: var(--heading-20);
 }
 
