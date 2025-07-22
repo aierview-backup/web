@@ -114,7 +114,7 @@
   border-radius: var(--base-border-radius);
 }
 
-[type="checkbox"]:checked + span:before {
+.remeberme label input[type="checkbox"]:checked + span:before {
   content: "\2714";
   position: absolute;
   top: 1px;
