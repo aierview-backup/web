@@ -1,5 +1,8 @@
 import Card from "@/shared/ui/components/card";
+import CodeReview from "@/shared/ui/icons/code-review.svg";
+import CodeChallenge from "@/shared/ui/icons/codechallenge.svg";
 import WhiteboardIcon from "@/shared/ui/icons/whiteboard.svg";
+
 import styles from "./InterviewTypes.module.css";
 
 export default function InterviewTypes() {
@@ -22,21 +25,22 @@ export default function InterviewTypes() {
           `}
         />
         <Card
-          icon={<WhiteboardIcon />}
-          title="Whiteboard"
+          icon={<CodeReview />}
+          title="Code Review"
           desc={`
-            Challenges focused on logic, code structure, and problem-solving.
-            Respond by explaining your reasoning and demonstrate your technical
-            skills no actual coding required.
+            Analyze code snippets, identify issues, 
+            and suggest improvements. Show your mastery 
+            of best practices, readability, and software quality.
           `}
         />
         <Card
-          icon={<WhiteboardIcon />}
-          title="Whiteboard"
+          icon={<CodeChallenge />}
+          title="Code Challenge"
           desc={`
-            Challenges focused on logic, code structure, and problem-solving.
-            Respond by explaining your reasoning and demonstrate your technical
-            skills no actual coding required.
+              Solve real programming challenges based 
+              on your chosen language and skill level.
+              Get instant analysis of your solution with 
+              technical feedback and improvement suggestions.
           `}
         />
       </div>

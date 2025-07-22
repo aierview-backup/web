@@ -1,6 +1,7 @@
 import Banner from "@/features/home/components/Banner";
 import HeaderHome from "@/features/home/components/Header";
 import InterviewTypes from "@/features/home/components/InterviewTypes";
+import Review from "@/features/home/components/Review";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -9,6 +10,7 @@ export default function Home() {
       <HeaderHome />
       <Banner />
       <InterviewTypes />
+      <Review />
     </main>
   );
 }
