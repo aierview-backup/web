@@ -64,3 +64,9 @@
   font-size: var(--heading-16);
   color: var(--dark-gray-500);
 }
+
+@media screen and (max-width: 390px) {
+  .review h1 {
+    font-size: var(--heading-32);
+  }
+}

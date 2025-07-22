@@ -25,3 +25,9 @@
   gap: 52px;
   padding: 10px 16px 0 16px;
 }
+
+@media screen and (max-width: 390px) {
+  .interviewTypes h1 {
+    font-size: var(--heading-32);
+  }
+}

@@ -7,6 +7,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 128px;
+  border: 1px solid green;
 }
 
 .header a:hover {
@@ -37,4 +38,23 @@
 .singup:hover {
   color: var(--white-500) !important;
   background: var(--primary-800);
+}
+
+/* MEDIA QUERIES */
+@media screen and (max-width: 750px) {
+  .nav {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .singup {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .header img {
+    display: none;
+  }
 }

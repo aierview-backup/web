@@ -16,13 +16,13 @@
 }
 
 .textContent h1 {
-  width: 495px;
+  max-width: 495px;
   font-weight: bold;
   font-size: var(--heading-48);
 }
 
 .textContent span {
-  width: 449px;
+  max-width: 449px;
   font-weight: var(--medium);
   font-size: var(--heading-20);
 }
@@ -49,4 +49,24 @@
 .banner img {
   margin-top: 16px;
   margin-right: 128px;
+}
+
+/* MEDIA QUERIES */
+@media screen and (max-width: 950px) {
+  .textContent {
+    margin-left: unset;
+  }
+  .banner {
+    justify-content: center;
+  }
+
+  .banner img {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .textContent h1 {
+    font-size: var(--heading-32);
+  }
 }
