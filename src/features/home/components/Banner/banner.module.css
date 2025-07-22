@@ -25,9 +25,6 @@
   max-width: 449px;
   font-weight: var(--medium);
   font-size: var(--heading-20);
-}
-
-.textContent span {
   display: flex;
   align-items: center;
 }
@@ -68,5 +65,10 @@
 @media screen and (max-width: 550px) {
   .textContent h1 {
     font-size: var(--heading-32);
+  }
+
+  .textContent {
+    align-items: center;
+    text-align: center;
   }
 }

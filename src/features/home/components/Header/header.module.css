@@ -57,4 +57,12 @@
   .header img {
     display: none;
   }
+
+  .header {
+    justify-content: center;
+  }
+
+  .auth {
+    font-size: var(--heading-14);
+  }
 }
