@@ -62,7 +62,7 @@
 
 .socilaMedia {
   display: flex;
-  gap: 8;
+  gap: 8px;
   margin-bottom: 19px;
 }
 
@@ -94,6 +94,6 @@
   }
 
   .socilaMedia {
-    gap: 24;
+    gap: 24px;
   }
 }

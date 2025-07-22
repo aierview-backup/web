@@ -83,7 +83,7 @@
 
 .icon {
   position: absolute;
-  right: 16;
+  right: 16px;
   cursor: pointer;
 }
 
@@ -95,7 +95,7 @@
 
 .remeberme label {
   display: flex;
-  gap: 4;
+  gap: 4px;
   align-items: center;
   font-size: var(--heading-12);
 }
@@ -145,14 +145,14 @@
 
 .auth {
   display: flex;
-  gap: 8;
+  gap: 8px;
   justify-content: center;
 }
 
 .auth button {
   outline: none;
   cursor: pointer;
-  border-radius: 8;
+  border-radius: var(--base-border-radius);
 }
 
 .auth button:hover {
