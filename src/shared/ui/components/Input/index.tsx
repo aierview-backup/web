@@ -31,7 +31,7 @@ export default function Input(props: InputProps) {
     case "password":
       return (
         <div className={styles.field}>
-          <label>Password</label>
+          <label>{props.label}</label>
           <span className={styles.inputIcon}>
             <input
               type={props.type}
