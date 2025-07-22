@@ -1,0 +1,22 @@
+.button {
+  cursor: pointer;
+  padding: 12px 0;
+  border-radius: var(--base-border-radius);
+  color: var(--white-500);
+  background: var(--primary-500);
+}
+
+.button:hover {
+  background: var(--primary-800);
+}
+
+.iconBtn {
+  outline: none;
+  cursor: pointer;
+  border-radius: var(--base-border-radius);
+}
+
+.iconBtn:hover {
+  color: var(--white-500);
+  background: var(--primary-800);
+}

@@ -46,33 +46,10 @@
   color: var(--primary-800);
 }
 
-.singinBtn {
-  cursor: pointer;
-  padding: 12px 0;
-  border-radius: var(--base-border-radius);
-  color: var(--white-500);
-  background: var(--primary-500);
-}
-
-.singinBtn:hover {
-  background: var(--primary-800);
-}
-
 .auth {
   display: flex;
   gap: 8px;
   justify-content: center;
-}
-
-.auth button {
-  outline: none;
-  cursor: pointer;
-  border-radius: var(--base-border-radius);
-}
-
-.auth button:hover {
-  color: var(--white-500);
-  background: var(--primary-800);
 }
 
 .singup {
