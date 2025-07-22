@@ -1,10 +1,10 @@
 import StarsIcon from "@/shared/ui/icons/stars.svg";
 import Image from "next/image";
-import styles from "./review.module.css";
+import styles from "./reviews.module.css";
 
-export default function Review() {
+export default function Reviews() {
   return (
-    <section className={styles.review}>
+    <section id="reviews" className={styles.review}>
       <h1>⭐ Success Stories</h1>
       <p>
         Get inspired by real stories from people who practiced with our AI and

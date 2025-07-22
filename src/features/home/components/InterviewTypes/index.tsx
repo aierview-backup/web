@@ -7,7 +7,7 @@ import styles from "./InterviewTypes.module.css";
 
 export default function InterviewTypes() {
   return (
-    <section id="InterviewTypes" className={styles.interviewTypes}>
+    <section id="interviewTypes" className={styles.interviewTypes}>
       <h1>Interview Types</h1>
       <p>
         Explore different formats of technical interviews used in the industry.
