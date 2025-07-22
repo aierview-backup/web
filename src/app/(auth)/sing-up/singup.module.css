@@ -12,16 +12,3 @@
 .singup a:hover {
   color: var(--primary-800);
 }
-
-@media screen and (max-width: 550px) {
-  .singinContent {
-    width: 360px;
-    gap: 8px;
-    padding: 16px 32px;
-    align-items: center;
-  }
-
-  .form {
-    gap: 8px;
-  }
-}
