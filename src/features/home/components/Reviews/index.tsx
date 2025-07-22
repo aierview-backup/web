@@ -21,9 +21,9 @@ export default function Reviews() {
             <StarsIcon />
           </div>
           <span>
-            "AIERVIEW helped me gain confidence in technical interviews. I
+            &quot;AIERVIEW helped me gain confidence in technical interviews. I
             practiced with real challenges and received feedback that made all
-            the difference. I landed the job I always wanted!"
+            the difference. I landed the job I always wanted!&quot;
           </span>
           <div className={styles.profile}>
             <Image
@@ -44,9 +44,9 @@ export default function Reviews() {
             <StarsIcon />
           </div>
           <span>
-            "AIERVIEW helped me gain confidence in technical interviews. I
+            &quot;AIERVIEW helped me gain confidence in technical interviews. I
             practiced with real challenges and received feedback that made all
-            the difference. I landed the job I always wanted!"
+            the difference. I landed the job I always wanted!&quot;
           </span>
           <div className={styles.profile}>
             <Image
@@ -67,9 +67,9 @@ export default function Reviews() {
             <StarsIcon />
           </div>
           <span>
-            "AIERVIEW helped me gain confidence in technical interviews. I
+            &quot;AIERVIEW helped me gain confidence in technical interviews. I
             practiced with real challenges and received feedback that made all
-            the difference. I landed the job I always wanted!"
+            the difference. I landed the job I always wanted!&quot;
           </span>
           <div className={styles.profile}>
             <Image
