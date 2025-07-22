@@ -3,11 +3,10 @@ import FooterHome from "@/features/home/components/Footer";
 import HeaderHome from "@/features/home/components/Header";
 import InterviewTypes from "@/features/home/components/InterviewTypes";
 import Review from "@/features/home/components/Review";
-import styles from "./page.module.css";
 
 export default function Home() {
   return (
-    <main className={styles.main}>
+    <main>
       <HeaderHome />
       <Banner />
       <InterviewTypes />
