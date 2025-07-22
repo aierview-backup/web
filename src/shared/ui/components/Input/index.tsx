@@ -37,7 +37,7 @@ export default function Input(props: InputProps) {
               type={props.type}
               placeholder={props.placeholder}
               onChange={(e) => setPassword(e.target.value)}
-              value={props.value}
+              value={password}
             />
             <span onClick={handleToggle} className={styles.icon}>
               {icon}
