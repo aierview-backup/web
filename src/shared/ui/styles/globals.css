@@ -13,3 +13,15 @@ body {
 a {
   text-decoration: none;
 }
+
+::picker(select) {
+  appearance: base-select;
+}
+
+::picker(select) {
+  border: none;
+}
+
+/* ::picker(select) {
+  top: calc(anchor(bottom) + 1px);
+} */
