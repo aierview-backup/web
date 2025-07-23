@@ -3,15 +3,22 @@ import Button from "@/shared/ui/components/Button";
 import Input from "@/shared/ui/components/Input";
 
 import { usePageTitle } from "@/shared/hooks/usePageTitle";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import styles from "./accountdetails.module.css";
 
 export default function AccountDetails() {
+  const router = useRouter();
   const { setTitle } = usePageTitle();
 
   useEffect(() => {
     setTitle("Name and role");
   }, [setTitle]);
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    router.push("/dashboard");
+  };
 
   return (
     <>
@@ -21,7 +28,7 @@ export default function AccountDetails() {
       </p>
       <Input label="Name" type="text" placeholder="Enter your name" />
       <Input type="select" />
-      <Button value="Next" />
+      <Button handleClick={handleClick} value="Next" />
     </>
   );
 }
