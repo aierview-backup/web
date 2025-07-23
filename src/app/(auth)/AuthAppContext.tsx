@@ -1,14 +1,14 @@
 "use client";
 
-import { useDashboardContext } from "@/shared/hooks/useDashboardContext";
+import { useAppContext } from "@/shared/hooks/useAppContext";
 import styles from "./layout.module.css";
 
-export default function AuthPageTitleContent({
+export default function AuthAppContext({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const { title } = useDashboardContext();
+  const { title } = useAppContext();
 
   return (
     <main className={styles.main}>

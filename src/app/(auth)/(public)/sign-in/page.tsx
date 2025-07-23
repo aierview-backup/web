@@ -1,18 +1,17 @@
 "use client";
+import { useAppContext } from "@/shared/hooks/useAppContext";
 import Button from "@/shared/ui/components/Button";
 import Input from "@/shared/ui/components/Input";
 import Github from "@/shared/ui/icons/github.svg";
 import Google from "@/shared/ui/icons/google.svg";
 import Link from "next/link";
-import styles from "./signin.module.css";
-
-import { useDashboardContext } from "@/shared/hooks/useDashboardContext";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import styles from "./signin.module.css";
 
 export default function SigninPage() {
   const router = useRouter();
-  const { setTitle } = useDashboardContext();
+  const { setTitle } = useAppContext();
 
   useEffect(() => {
     setTitle("Sign-in");
