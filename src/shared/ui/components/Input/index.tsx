@@ -20,6 +20,19 @@ export default function Input(props: InputProps) {
   };
 
   switch (props.type) {
+    case "select":
+      return (
+        <div className={styles.selectField}>
+          <label>Role</label>
+          <select className={styles.select}>
+            <option disabled>Chose a role</option>
+            <option value="">Frontend</option>
+            <option value="">Mobile</option>
+            <option value="">Fullstack</option>
+          </select>
+          <span className={styles.errorMessage}>{props.message}</span>
+        </div>
+      );
     case "checkbox":
       return (
         <label className={styles.checkbox}>

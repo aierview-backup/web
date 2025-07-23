@@ -6,6 +6,10 @@ export default function Button(props: ButtonProps) {
     case "iconBtn":
       return <button className={styles.iconBtn}>{props.value}</button>;
     default:
-      return <button className={styles.button}>{props.value}</button>;
+      return (
+        <button onClick={props.handleClick} className={styles.button}>
+          {props.value}
+        </button>
+      );
   }
 }

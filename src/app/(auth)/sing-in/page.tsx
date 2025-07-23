@@ -7,14 +7,21 @@ import Link from "next/link";
 import styles from "./singin.module.css";
 
 import { usePageTitle } from "@/shared/hooks/usePageTitle";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function SigninPage() {
+  const router = useRouter();
   const { setTitle } = usePageTitle();
 
   useEffect(() => {
     setTitle("Sign-in");
   }, [setTitle]);
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    router.push("/account-details");
+  };
 
   return (
     <>
@@ -28,7 +35,7 @@ export default function SigninPage() {
         <Input label="Remember-me" type="checkbox" />
         <Link href="reset-password">Reset password</Link>
       </div>
-      <Button value="Sing-in" />
+      <Button handleClick={handleClick} value="Sing-in" />
       <div className={styles.auth}>
         <Button type="iconBtn" value={<Google />} />
         <Button type="iconBtn" value={<Github />} />
