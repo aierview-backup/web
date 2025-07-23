@@ -27,14 +27,14 @@
   gap: 18px;
 }
 
-.singup {
+.signup {
   padding: 12px 19px;
   color: var(--white-500);
   background: var(--primary-500);
   border-radius: var(--base-border-radius);
 }
 
-.singup:hover {
+.signup:hover {
   color: var(--white-500) !important;
   background: var(--primary-800);
 }
@@ -47,7 +47,7 @@
 }
 
 @media screen and (max-width: 550px) {
-  .singup {
+  .signup {
     display: none;
   }
 }

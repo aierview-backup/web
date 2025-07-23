@@ -7,7 +7,7 @@
   background: var(--light-gray-800);
 }
 
-.singinContent {
+.signinContent {
   max-width: 520px;
   background: var(--white-500);
   border-radius: var(--base-border-radius);
@@ -20,7 +20,7 @@
   align-items: center;
 }
 
-.singinContent h1 {
+.signinContent h1 {
   font-weight: bold;
   font-size: var(--heading-48);
 }
@@ -32,7 +32,7 @@
 }
 
 @media screen and (max-width: 550px) {
-  .singinContent {
+  .signinContent {
     width: 360px;
     gap: 8px;
     padding: 16px 32px;

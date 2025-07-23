@@ -1,5 +1,5 @@
 // layout.tsx
-import PageTitleProvider from "@/shared/provider/PageTitleProvider";
+import PageTitleProvider from "@/shared/provider/DashboardProvider";
 import AuthPageTitleContent from "./DashPageTitleContent";
 
 export default function AuthLayout({

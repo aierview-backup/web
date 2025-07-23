@@ -6,13 +6,13 @@ import styles from "./footer.module.css";
 export default function FooterHome() {
   return (
     <footer className={styles.footer}>
-      <section className={styles.singup}>
+      <section className={styles.signup}>
         <h1>Are you ready to land your dream job?</h1>
         <p>
           Start training today with AIERVIEW and take the next step in your
           career.
         </p>
-        <Link href="/sing-up">
+        <Link href="/sign-up">
           Get Started <ArrowRightIcon className={styles.icon} />
         </Link>
       </section>

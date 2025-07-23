@@ -3,14 +3,20 @@
   margin: 0px;
   padding: 0px;
   height: 100vh;
-
+  height: 100vh;
   display: grid;
-  grid-template-columns: 200px 1fr;
-  grid-template-rows: 64px 1fr;
   grid-template-areas:
     "sidebar header"
     "sidebar content";
-  height: 100vh;
+  grid-template-rows: 64px 1fr;
+}
+
+.open {
+  grid-template-columns: 200px 1fr;
+}
+
+.closed {
+  grid-template-columns: 89px 1fr;
 }
 
 .main {

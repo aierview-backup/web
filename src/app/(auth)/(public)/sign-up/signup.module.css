@@ -4,11 +4,11 @@
   justify-content: center;
 }
 
-.singup {
+.signup {
   text-align: center;
   color: var(--primary-500);
 }
 
-.singup a:hover {
+.signup a:hover {
   color: var(--primary-800);
 }

@@ -1,47 +1,64 @@
-import { usePageTitle } from "@/shared/hooks/usePageTitle";
+"use client";
+
+import { useDashboardContext } from "@/shared/hooks/useDashboardContext";
 import DashboardIcon from "@/shared/ui/icons/dashboard.svg";
 import InterviewIcon from "@/shared/ui/icons/interview.svg";
 import Image from "next/image";
 import Link from "next/link";
-import { MouseEvent, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { MouseEvent, useCallback, useEffect } from "react";
 import styles from "./aside.module.css";
 
-export default function Aside() {
-  const [clicked, setClicked] = useState("");
-  const { setTitle } = usePageTitle();
+const links = [
+  {
+    title: "Dashboard",
+    href: "/dashboard",
+    icon: <DashboardIcon />,
+  },
+  {
+    title: "Interview",
+    href: "/dashboard/interview",
+    icon: <InterviewIcon />,
+  },
+];
 
-  const handleClick = (title: string) => (e: MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    setTitle(title);
-    setClicked(title);
-  };
+export default function Aside() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const { setTitle, isAsideOpen } = useDashboardContext();
+  const isActive = useCallback((href: string) => pathname === href, [pathname]);
+
+  useEffect(() => {
+    const activeLink = links.find((link) => isActive(link.href));
+    if (activeLink) setTitle(activeLink.title);
+  }, [pathname, setTitle, isActive]);
+
+  const handleClick =
+    (title: string, href: string) => (e: MouseEvent<HTMLAnchorElement>) => {
+      e.preventDefault();
+      setTitle(title);
+      router.push(href);
+    };
 
   return (
     <aside className={styles.aside}>
       <div className={styles.profile}>
         <Image src="/img/profile.jpeg" width={70} height={79} alt="profile" />
-        <h2>Gervásio Dombo</h2>
+        <h2 className={`${isAsideOpen ? styles.open : styles.closed}`}>
+          Gervásio Dombo
+        </h2>
       </div>
       <nav className={styles.nav}>
-        <Link
-          className={`${styles.link} ${
-            clicked === "Dashboard" ? styles.clicked : ""
-          }`}
-          onClick={handleClick("Dashboard")}
-          href="/dashboard"
-        >
-          <DashboardIcon /> Dashboard
-        </Link>
-
-        <Link
-          className={`${styles.link} ${
-            clicked === "Interview" ? styles.clicked : ""
-          }`}
-          onClick={handleClick("Interview")}
-          href="/interview"
-        >
-          <InterviewIcon /> Interview
-        </Link>
+        {links.map(({ title, href, icon }) => (
+          <Link
+            key={title}
+            className={`${styles.link} ${isActive(href) ? styles.clicked : ""}`}
+            onClick={handleClick(title, href)}
+            href={href}
+          >
+            {icon} {isAsideOpen ? title : ""}
+          </Link>
+        ))}
       </nav>
     </aside>
   );

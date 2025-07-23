@@ -5,7 +5,10 @@ export default function Button(props: ButtonProps) {
   switch (props.type) {
     case "iconBtn":
       return (
-        <button className={`${styles.iconBtn} ${props.className}`}>
+        <button
+          onClick={props.handleClick}
+          className={`${styles.iconBtn} ${props.className}`}
+        >
           {props.value}
         </button>
       );

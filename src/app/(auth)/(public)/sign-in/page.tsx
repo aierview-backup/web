@@ -4,15 +4,15 @@ import Input from "@/shared/ui/components/Input";
 import Github from "@/shared/ui/icons/github.svg";
 import Google from "@/shared/ui/icons/google.svg";
 import Link from "next/link";
-import styles from "./singin.module.css";
+import styles from "./signin.module.css";
 
-import { usePageTitle } from "@/shared/hooks/usePageTitle";
+import { useDashboardContext } from "@/shared/hooks/useDashboardContext";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function SigninPage() {
   const router = useRouter();
-  const { setTitle } = usePageTitle();
+  const { setTitle } = useDashboardContext();
 
   useEffect(() => {
     setTitle("Sign-in");
@@ -35,13 +35,13 @@ export default function SigninPage() {
         <Input label="Remember-me" type="checkbox" />
         <Link href="reset-password">Reset password</Link>
       </div>
-      <Button handleClick={handleClick} value="Sing-in" />
+      <Button handleClick={handleClick} value="Sign-in" />
       <div className={styles.auth}>
         <Button type="iconBtn" value={<Google />} />
         <Button type="iconBtn" value={<Github />} />
       </div>
-      <span className={styles.singup}>
-        <Link href="/sing-up">or sing up</Link>
+      <span className={styles.signup}>
+        <Link href="/sign-up">or sign up</Link>
       </span>
     </>
   );

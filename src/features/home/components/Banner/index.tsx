@@ -13,7 +13,7 @@ export default function Banner() {
           feedback to improve in a practical and effective way.
         </span>
         <span>
-          <Link href="/sing-up">
+          <Link href="/sign-in">
             Get Started <ArrowRightIcon className={styles.icon} />
           </Link>
         </span>

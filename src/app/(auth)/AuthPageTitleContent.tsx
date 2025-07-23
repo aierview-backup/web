@@ -1,6 +1,6 @@
 "use client";
 
-import { usePageTitle } from "@/shared/hooks/usePageTitle";
+import { useDashboardContext } from "@/shared/hooks/useDashboardContext";
 import styles from "./layout.module.css";
 
 export default function AuthPageTitleContent({
@@ -8,11 +8,11 @@ export default function AuthPageTitleContent({
 }: {
   children: React.ReactNode;
 }) {
-  const { title } = usePageTitle();
+  const { title } = useDashboardContext();
 
   return (
     <main className={styles.main}>
-      <div className={styles.singinContent}>
+      <div className={styles.signinContent}>
         <h1>{title}</h1>
         <form className={styles.form}>{children}</form>
       </div>

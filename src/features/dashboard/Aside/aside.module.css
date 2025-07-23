@@ -23,11 +23,15 @@
   border: 1px solid var(--white-100);
 }
 
-.profile h2 {
+.open {
   font-weight: bold;
   text-align: center;
   font-size: var(--heading-14);
   color: var(--neutral-500);
+}
+
+.closed {
+  display: none;
 }
 
 .nav {

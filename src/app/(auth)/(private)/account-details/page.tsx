@@ -2,14 +2,14 @@
 import Button from "@/shared/ui/components/Button";
 import Input from "@/shared/ui/components/Input";
 
-import { usePageTitle } from "@/shared/hooks/usePageTitle";
+import { useDashboardContext } from "@/shared/hooks/useDashboardContext";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import styles from "./accountdetails.module.css";
 
 export default function AccountDetails() {
   const router = useRouter();
-  const { setTitle } = usePageTitle();
+  const { setTitle } = useDashboardContext();
 
   useEffect(() => {
     setTitle("Name and role");

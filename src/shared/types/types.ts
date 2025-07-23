@@ -1,4 +1,6 @@
-export type TitleContextType = {
+export type DashboardContextType = {
   title: string;
   setTitle: (value: string) => void;
+  isAsideOpen?: boolean;
+  toggleAside?: () => void;
 };

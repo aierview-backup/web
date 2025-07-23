@@ -27,10 +27,10 @@
   color: var(--primary-800);
 }
 
-.singout {
+.signout {
   color: var(--red-500);
 }
 
-.singout:hover {
+.signout:hover {
   color: var(--red-800);
 }
