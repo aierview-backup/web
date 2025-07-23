@@ -1,6 +1,6 @@
 "use client";
 
-import { DashboardContext } from "@/shared/context/DashboardContext";
+import { AppContext } from "@/shared/context/AppContext";
 import { ReactNode, useState } from "react";
 
 export default function DashboardProvider({
@@ -13,10 +13,8 @@ export default function DashboardProvider({
   const toggleAside = () => setIsAsideOpen((prev) => !prev);
 
   return (
-    <DashboardContext.Provider
-      value={{ title, setTitle, isAsideOpen, toggleAside }}
-    >
+    <AppContext.Provider value={{ title, setTitle, isAsideOpen, toggleAside }}>
       {children}
-    </DashboardContext.Provider>
+    </AppContext.Provider>
   );
 }

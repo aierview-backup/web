@@ -1,6 +1,6 @@
 "use client";
 
-import { useDashboardContext } from "@/shared/hooks/useDashboardContext";
+import { useAppContext } from "@/shared/hooks/useAppContext";
 import DashboardIcon from "@/shared/ui/icons/dashboard.svg";
 import InterviewIcon from "@/shared/ui/icons/interview.svg";
 import Image from "next/image";
@@ -25,7 +25,7 @@ const links = [
 export default function Aside() {
   const router = useRouter();
   const pathname = usePathname();
-  const { setTitle, isAsideOpen } = useDashboardContext();
+  const { setTitle, isAsideOpen } = useAppContext();
   const isActive = useCallback((href: string) => pathname === href, [pathname]);
 
   useEffect(() => {

@@ -2,15 +2,15 @@
 
 import Aside from "@/features/dashboard/Aside";
 import HeaderDash from "@/features/dashboard/Header";
-import { useDashboardContext } from "@/shared/hooks/useDashboardContext";
+import { useAppContext } from "@/shared/hooks/useAppContext";
 import styles from "./layout.module.css";
 
-export default function DashPageTitleContent({
+export default function DashAppContext({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const { title, isAsideOpen } = useDashboardContext();
+  const { title, isAsideOpen } = useAppContext();
 
   return (
     <div

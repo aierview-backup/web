@@ -1,6 +1,5 @@
-// layout.tsx
-import PageTitleProvider from "@/shared/provider/DashboardProvider";
-import AuthPageTitleContent from "./DashPageTitleContent";
+import AppProvider from "@/shared/provider/AppProvider";
+import DashAppContext from "./DashAppContext";
 
 export default function AuthLayout({
   children,
@@ -8,8 +7,8 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <PageTitleProvider>
-      <AuthPageTitleContent>{children}</AuthPageTitleContent>
-    </PageTitleProvider>
+    <AppProvider>
+      <DashAppContext>{children}</DashAppContext>
+    </AppProvider>
   );
 }

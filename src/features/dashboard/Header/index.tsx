@@ -1,6 +1,6 @@
 "use client";
 
-import { useDashboardContext } from "@/shared/hooks/useDashboardContext";
+import { useAppContext } from "@/shared/hooks/useAppContext";
 import Button from "@/shared/ui/components/Button";
 import MenuIcon from "@/shared/ui/icons/menu.svg";
 import SignoutIcon from "@/shared/ui/icons/singout.svg";
@@ -12,7 +12,7 @@ type HeaderDashProps = {
 };
 
 export default function HeaderDash(props: HeaderDashProps) {
-  const { toggleAside } = useDashboardContext();
+  const { toggleAside } = useAppContext();
   const router = useRouter();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {

@@ -17,6 +17,5 @@
 }
 
 .iconBtn:hover {
-  color: var(--white-500);
   background: var(--primary-800);
 }

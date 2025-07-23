@@ -1,16 +1,15 @@
 "use client";
+import { useAppContext } from "@/shared/hooks/useAppContext";
 import Button from "@/shared/ui/components/Button";
 import Input from "@/shared/ui/components/Input";
 import Github from "@/shared/ui/icons/github.svg";
 import Google from "@/shared/ui/icons/google.svg";
 import Link from "next/link";
+import { useEffect } from "react";
 import styles from "./signup.module.css";
 
-import { useDashboardContext } from "@/shared/hooks/useDashboardContext";
-import { useEffect } from "react";
-
 export default function SignupPage() {
-  const { setTitle } = useDashboardContext();
+  const { setTitle } = useAppContext();
 
   useEffect(() => {
     setTitle("Sign-up");
