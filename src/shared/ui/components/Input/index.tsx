@@ -1,5 +1,8 @@
-import Eye from "@/shared/ui/icons/visibility.svg";
-import EyeOff from "@/shared/ui/icons/visibility_off.svg";
+"use client";
+import Search from "@/shared/ui/icons/search.svg";
+import EyeIcon from "@/shared/ui/icons/visibility.svg";
+import EyeOffIcon from "@/shared/ui/icons/visibility_off.svg";
+
 import { useState } from "react";
 import styles from "./input.module.css";
 import { InputProps } from "./types/types";
@@ -7,19 +10,35 @@ import { InputProps } from "./types/types";
 export default function Input(props: InputProps) {
   const [password, setPassword] = useState("");
   const [type, setType] = useState("password");
-  const [icon, setIcon] = useState(<EyeOff />);
+  const [icon, setIcon] = useState(<EyeOffIcon />);
 
   const handleToggle = () => {
     if (type === "password") {
-      setIcon(<Eye />);
+      setIcon(<EyeIcon />);
       setType("text");
     } else {
-      setIcon(<EyeOff />);
+      setIcon(<EyeOffIcon />);
       setType("password");
     }
   };
 
   switch (props.type) {
+    case "search":
+      return (
+        <div className={styles.field}>
+          <span className={styles.inputIcon}>
+            <input
+              type="text"
+              placeholder={props.placeholder}
+              value={props.value}
+            />
+            <span className={styles.icon}>
+              <Search />
+            </span>
+          </span>
+          <span className={styles.errorMessage}>{props.message}</span>
+        </div>
+      );
     case "select":
       return (
         <div className={styles.selectField}>

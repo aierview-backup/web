@@ -10,6 +10,17 @@ body {
   font-family: "Inter", sans-serif;
 }
 
+body *:not(input):not(textarea):not([contenteditable="true"]) {
+  caret-color: transparent;
+}
+
+input,
+textarea,
+[contenteditable="true"] {
+  caret-color: auto;
+  user-select: text;
+}
+
 a {
   text-decoration: none;
 }
@@ -21,7 +32,3 @@ a {
 ::picker(select) {
   border: none;
 }
-
-/* ::picker(select) {
-  top: calc(anchor(bottom) + 1px);
-} */
