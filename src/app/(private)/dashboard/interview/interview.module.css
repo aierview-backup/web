@@ -29,7 +29,6 @@
 }
 
 .add {
-  margin-bottom: 0.9375rem; /* 15px */
   color: var(--primary-500);
   transition: color 0.2s ease;
 }
@@ -59,8 +58,8 @@
 }
 
 .modal {
-  width: 958px;
-  height: 555px;
+  width: 59.875rem;
+  height: 34.6875rem;
   border-radius: 0.5rem;
   box-shadow: var(--base-shadow);
 }
@@ -80,9 +79,9 @@
 
 .cards {
   display: grid;
-  gap: 52px;
-  padding: 10px 16px 0 16px;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 3.25rem;
+  padding: 0.625rem 1rem 0 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr));
 }
 
 .card {

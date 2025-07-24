@@ -9,10 +9,10 @@
 }
 
 .field input {
-  width: 392px;
-  height: 56px;
+  width: 24.5rem;
+  height: 3.5rem;
 
-  padding-left: 8px;
+  padding-left: 0.5rem;
   font-size: var(--heading-14);
 
   border-radius: var(--base-border-radius);
@@ -34,16 +34,16 @@
 }
 
 .errorMessage {
-  height: 18px;
+  height: 1.125rem;
   font-weight: bold;
   font-size: var(--heading-12);
-  margin-left: 8px;
+  margin-left: 0.5rem;
   color: var(--red-500);
 }
 
 .inputIcon {
   display: flex;
-  width: 392px;
+  width: 24.5rem;
 
   align-items: center;
   position: relative;
@@ -51,13 +51,13 @@
 
 .icon {
   position: absolute;
-  right: 16px;
+  right: 1rem;
   cursor: pointer;
 }
 
 .checkbox {
   display: flex;
-  gap: 4px;
+  gap: 0.25rem;
   align-items: center;
   font-size: var(--heading-12);
 }
@@ -68,8 +68,8 @@
 
 .checkbox span {
   font-weight: bold;
-  height: 24px;
-  width: 24px;
+  height: 1.5rem;
+  width: 1.5rem;
   background: var(--primary-100);
   display: inline-block;
   position: relative;
@@ -80,7 +80,7 @@
   content: "\2714";
   position: absolute;
   top: 1px;
-  left: 6px;
+  left: 0.375rem;
   font-size: var(--heading-16);
   color: var(--primary-500);
 }
@@ -106,10 +106,10 @@
 .selectField select {
   display: flex;
   align-items: center;
-  width: 392px;
-  height: 56px;
+  width: 24.5rem;
+  height: 3.5rem;
   font-size: var(--heading-14);
-  padding: 0px 8px;
+  padding: 0px 0.5rem;
   border-radius: var(--base-border-radius);
   background: var(--primary-100);
   color: var(--dark-gray-500);
@@ -126,7 +126,7 @@
 .selectField option {
   display: flex;
   justify-content: flex-start;
-  gap: 20px;
+  gap: 1.25rem;
   background: var(--primary-200);
   padding: 8px;
   transition: 0.4s;
@@ -157,15 +157,15 @@
 
 @media screen and (max-width: 550px) {
   .field input {
-    width: 260px;
-    padding-left: 4px;
+    width: 16.25rem;
+    padding-left: 0.25rem;
   }
 
   .inputIcon {
-    width: 260px;
+    width: 16.25rem;
   }
 
   .selectField select {
-    width: 260px;
+    width: 16.25rem;
   }
 }

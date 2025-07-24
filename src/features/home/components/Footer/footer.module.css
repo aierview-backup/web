@@ -7,14 +7,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
+  gap: 1.5rem;
   color: var(--white-500);
   background: var(--base-gradient);
 }
 
 .signup h1 {
   text-align: center;
-  max-width: 528px;
+  max-width: 33rem;
   font-weight: bold;
   font-size: var(--heading-48);
 }
@@ -28,7 +28,7 @@
 .signup a {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 1rem;
   padding: 11.985px 34.15px;
   border-radius: var(--base-border-radius);
   border: 1px solid var(--white-500);
@@ -44,26 +44,26 @@
   gap: 24px;
   display: flex;
   align-items: center;
-  padding: 0 128px;
+  padding: 0 8rem;
   background: var(--neutral-500);
 }
 
 .logo {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0.75rem;
 }
 
 .logo p {
-  max-width: 223px;
+  max-width: 13.9375rem;
   font-size: var(--heading-14);
   color: var(--dark-gray-100);
 }
 
-.socilaMedia {
+.socialMedia {
   display: flex;
-  gap: 8px;
-  margin-bottom: 19px;
+  gap: 0.5rem;
+  margin-bottom: 1.1875rem;
 }
 
 .rights {
@@ -94,6 +94,6 @@
   }
 
   .socilaMedia {
-    gap: 24px;
+    gap: 1.5rem;
   }
 }
