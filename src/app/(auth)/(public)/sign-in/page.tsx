@@ -31,22 +31,24 @@ export default function SigninPage() {
 
   return (
     <>
-      {" "}
       <Input label="Email" type="email" placeholder="Enter your email" />
       <Input
         label="Password"
         type="password"
         placeholder="Enter your password"
       />
-      <div className={styles.remeberme}>
+      <div className={styles.rememberme}>
         <Input label="Remember-me" type="checkbox" />
         <Link href="/reset-password">Reset password</Link>
       </div>
+
       <Button value="Sign-in" handleClick={handleSignIn} />
+
       <div className={styles.auth}>
         <Button type="iconBtn" value={<GoogleIcon />} />
         <Button type="iconBtn" value={<GithubIcon />} />
       </div>
+
       <span className={styles.signup}>
         <Link href="/sign-up">or sign up</Link>
       </span>

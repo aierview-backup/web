@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 2rem; /* 32px */
+  position: relative;
 }
 
 .cards {
@@ -55,4 +56,39 @@
 
 .trash:hover {
   color: var(--red-800);
+}
+
+.modal {
+  width: 958px;
+  height: 555px;
+  border-radius: 0.5rem;
+  box-shadow: var(--base-shadow);
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modalContent h1 {
+  width: 50%;
+  text-align: center;
+  font-weight: bold;
+  font-size: var(--heading-32);
+}
+
+.cards {
+  display: grid;
+  gap: 52px;
+  padding: 10px 16px 0 16px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.card {
+  cursor: pointer;
+}
+
+.card:hover {
+  border: 1px solid var(--primary-500);
 }

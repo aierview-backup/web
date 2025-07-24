@@ -11,6 +11,9 @@ export type HomeCardType = {
   icon: ReactNode;
   title: string;
   desc: string;
+  className?: string;
+  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+  value?: string;
 };
 
 export type ButtonType = {
