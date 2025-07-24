@@ -36,57 +36,6 @@
   color: var(--primary-800);
 }
 
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: center;
-}
-
-.table thead {
-  font-weight: bold;
-  font-size: var(--heading-14);
-}
-
-.table th {
-  font-weight: bold;
-}
-
-.table th,
-.table td {
-  text-align: left;
-  padding: 16px 16px;
-  white-space: nowrap;
-}
-
-.table th:nth-child(1),
-.table td:nth-child(1) {
-  background-color: var(--white-500);
-}
-
-.table tbody {
-  cursor: pointer;
-  font-size: var(--heading-14);
-}
-
-.table tbody tr {
-  background-color: var(--primary-100);
-  border-bottom: 2px solid var(--white-500);
-}
-
-.table tbody tr:hover {
-  background-color: var(--primary-300);
-}
-
-.table td:nth-child(2) {
-  font-weight: bold;
-}
-
-.table td:nth-child(9) {
-  display: flex;
-  gap: 4px;
-  align-items: flex-end;
-}
-
 .view,
 .play {
   color: var(--green-500);
