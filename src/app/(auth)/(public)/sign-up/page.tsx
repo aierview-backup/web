@@ -1,11 +1,15 @@
 "use client";
+
+import Link from "next/link";
+import { useEffect } from "react";
+
 import { useAppContext } from "@/shared/hooks/useAppContext";
 import Button from "@/shared/ui/components/Button";
 import Input from "@/shared/ui/components/Input";
-import Github from "@/shared/ui/icons/github.svg";
-import Google from "@/shared/ui/icons/google.svg";
-import Link from "next/link";
-import { useEffect } from "react";
+
+import GithubIcon from "@/shared/ui/icons/github.svg";
+import GoogleIcon from "@/shared/ui/icons/google.svg";
+
 import styles from "./signup.module.css";
 
 export default function SignupPage() {
@@ -26,14 +30,16 @@ export default function SignupPage() {
       <Input
         label="Confirm password"
         type="password"
-        placeholder="Enter your password"
+        placeholder="Confirm your password"
       />
 
       <Button value="Sign-up" />
+
       <div className={styles.auth}>
-        <Button type="iconBtn" value={<Google />} />
-        <Button type="iconBtn" value={<Github />} />
+        <Button type="iconBtn" value={<GoogleIcon />} />
+        <Button type="iconBtn" value={<GithubIcon />} />
       </div>
+
       <span className={styles.signup}>
         <Link href="/sign-in">or sign in</Link>
       </span>

@@ -1,27 +1,34 @@
-.remeberme {
+.rememberme {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.remeberme a {
+.rememberme a {
   color: var(--primary-500);
   font-size: var(--heading-12);
+  transition: color 0.2s ease;
 }
 
-.remeberme a:hover {
+.rememberme a:hover {
   color: var(--primary-800);
 }
 
 .auth {
   display: flex;
-  gap: 8px;
   justify-content: center;
+  gap: 0.5rem; /* equivalente a 8px */
 }
 
 .signup {
   text-align: center;
   color: var(--primary-500);
+}
+
+.signup a {
+  color: inherit;
+  text-decoration: underline;
+  transition: color 0.2s ease;
 }
 
 .signup a:hover {

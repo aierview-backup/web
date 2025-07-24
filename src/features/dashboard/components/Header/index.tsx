@@ -1,5 +1,6 @@
 "use client";
 
+import { HeaderDashType } from "@/features/dashboard/types";
 import { useAppContext } from "@/shared/hooks/useAppContext";
 import Button from "@/shared/ui/components/Button";
 import MenuIcon from "@/shared/ui/icons/menu.svg";
@@ -7,22 +8,18 @@ import SignoutIcon from "@/shared/ui/icons/singout.svg";
 import { useRouter } from "next/navigation";
 import styles from "./header.module.css";
 
-type HeaderDashProps = {
-  title: string;
-};
-
-export default function HeaderDash(props: HeaderDashProps) {
+export default function HeaderDash({ title }: HeaderDashType) {
   const { toggleAside } = useAppContext();
   const router = useRouter();
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSignOutClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     router.push("/");
   };
 
   return (
     <header className={styles.header}>
-      <h1>{props.title}</h1>
+      <h1>{title}</h1>
       <div className={styles.actions}>
         <Button
           handleClick={toggleAside}
@@ -31,7 +28,7 @@ export default function HeaderDash(props: HeaderDashProps) {
           value={<MenuIcon />}
         />
         <Button
-          handleClick={handleClick}
+          handleClick={handleSignOutClick}
           className={styles.signout}
           type="iconBtn"
           value={<SignoutIcon />}

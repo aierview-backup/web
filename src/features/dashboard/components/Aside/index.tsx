@@ -6,10 +6,10 @@ import InterviewIcon from "@/shared/ui/icons/interview.svg";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { MouseEvent, useCallback, useEffect } from "react";
+import { MouseEvent, useCallback, useEffect, useMemo } from "react";
 import styles from "./aside.module.css";
 
-const links = [
+const NAV_LINKS = [
   {
     title: "Dashboard",
     href: "/dashboard",
@@ -26,39 +26,52 @@ export default function Aside() {
   const router = useRouter();
   const pathname = usePathname();
   const { setTitle, isAsideOpen } = useAppContext();
-  const isActive = useCallback((href: string) => pathname === href, [pathname]);
+
+  const activeLink = useMemo(
+    () => NAV_LINKS.find((link) => pathname === link.href),
+    [pathname]
+  );
 
   useEffect(() => {
-    const activeLink = links.find((link) => isActive(link.href));
-    if (activeLink) setTitle(activeLink.title);
-  }, [pathname, setTitle, isActive]);
+    if (activeLink) {
+      setTitle(activeLink.title);
+    }
+  }, [activeLink, setTitle]);
 
-  const handleClick =
+  const handleClick = useCallback(
     (title: string, href: string) => (e: MouseEvent<HTMLAnchorElement>) => {
       e.preventDefault();
       setTitle(title);
       router.push(href);
-    };
+    },
+    [router, setTitle]
+  );
 
   return (
     <aside className={styles.aside}>
       <div className={styles.profile}>
         <Image src="/img/profile.jpeg" width={70} height={79} alt="profile" />
-        <h2 className={`${isAsideOpen ? styles.open : styles.closed}`}>
+        <h2 className={isAsideOpen ? styles.open : styles.closed}>
           Gervásio Dombo
         </h2>
       </div>
+
       <nav className={styles.nav}>
-        {links.map(({ title, href, icon }) => (
-          <Link
-            key={title}
-            className={`${styles.link} ${isActive(href) ? styles.clicked : ""}`}
-            onClick={handleClick(title, href)}
-            href={href}
-          >
-            {icon} {isAsideOpen ? title : ""}
-          </Link>
-        ))}
+        {NAV_LINKS.map(({ title, href, icon }) => {
+          const isCurrent = pathname === href;
+          const linkClass = `${styles.link} ${isCurrent ? styles.clicked : ""}`;
+
+          return (
+            <Link
+              key={title}
+              href={href}
+              className={linkClass}
+              onClick={handleClick(title, href)}
+            >
+              {icon} {isAsideOpen && title}
+            </Link>
+          );
+        })}
       </nav>
     </aside>
   );

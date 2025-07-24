@@ -1,95 +1,126 @@
 "use client";
+
+import { InputType } from "@/shared/types";
 import Search from "@/shared/ui/icons/search.svg";
 import EyeIcon from "@/shared/ui/icons/visibility.svg";
 import EyeOffIcon from "@/shared/ui/icons/visibility_off.svg";
-
 import { useState } from "react";
 import styles from "./input.module.css";
-import { InputProps } from "./types/types";
 
-export default function Input(props: InputProps) {
-  const [password, setPassword] = useState("");
-  const [type, setType] = useState("password");
-  const [icon, setIcon] = useState(<EyeOffIcon />);
+export default function Input(props: InputType) {
+  const {
+    type,
+    placeholder,
+    value,
+    onChange,
+    onSelectChange,
+    label,
+    name,
+    message,
+    checked,
+  } = props;
 
-  const handleToggle = () => {
-    if (type === "password") {
-      setIcon(<EyeIcon />);
-      setType("text");
-    } else {
-      setIcon(<EyeOffIcon />);
-      setType("password");
-    }
-  };
+  const [showPassword, setShowPassword] = useState(false);
 
-  switch (props.type) {
+  const togglePassword = () => setShowPassword((prev) => !prev);
+
+  const renderSearch = () => (
+    <div className={styles.field}>
+      <span className={styles.inputIcon}>
+        <input
+          type="text"
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          name={name}
+        />
+        <span className={styles.icon}>
+          <Search />
+        </span>
+      </span>
+      {message && <span className={styles.errorMessage}>{message}</span>}
+    </div>
+  );
+
+  const renderSelect = () => (
+    <div className={styles.selectField}>
+      {label && <label htmlFor={name}>{label}</label>}
+      <select
+        className={styles.select}
+        name={name}
+        value={value}
+        onChange={onSelectChange}
+      >
+        <option disabled value="">
+          Choose an option
+        </option>
+        {props.options?.map((opt) => (
+          <option key={opt.value} value={opt.value}>
+            {opt.label}
+          </option>
+        ))}
+      </select>
+      {message && <span className={styles.errorMessage}>{message}</span>}
+    </div>
+  );
+
+  const renderCheckbox = () => (
+    <label className={styles.checkbox}>
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={onChange}
+        name={name}
+        value={value}
+      />
+      <span></span>
+      {label}
+    </label>
+  );
+
+  const renderPassword = () => (
+    <div className={styles.field}>
+      {label && <label htmlFor={name}>{label}</label>}
+      <span className={styles.inputIcon}>
+        <input
+          type={showPassword ? "text" : "password"}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          name={name}
+        />
+        <span onClick={togglePassword} className={styles.icon}>
+          {showPassword ? <EyeIcon /> : <EyeOffIcon />}
+        </span>
+      </span>
+      {message && <span className={styles.errorMessage}>{message}</span>}
+    </div>
+  );
+
+  const renderDefault = () => (
+    <div className={styles.field}>
+      {label && <label htmlFor={name}>{label}</label>}
+      <input
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        name={name}
+      />
+      {message && <span className={styles.errorMessage}>{message}</span>}
+    </div>
+  );
+
+  switch (type) {
     case "search":
-      return (
-        <div className={styles.field}>
-          <span className={styles.inputIcon}>
-            <input
-              type="text"
-              placeholder={props.placeholder}
-              value={props.value}
-            />
-            <span className={styles.icon}>
-              <Search />
-            </span>
-          </span>
-          <span className={styles.errorMessage}>{props.message}</span>
-        </div>
-      );
+      return renderSearch();
     case "select":
-      return (
-        <div className={styles.selectField}>
-          <label>Role</label>
-          <select className={styles.select}>
-            <option disabled>Chose a role</option>
-            <option value="">Frontend</option>
-            <option value="">Mobile</option>
-            <option value="">Fullstack</option>
-          </select>
-          <span className={styles.errorMessage}>{props.message}</span>
-        </div>
-      );
+      return renderSelect();
     case "checkbox":
-      return (
-        <label className={styles.checkbox}>
-          <input type={props.type} />
-          <span></span>
-          {props.label}
-        </label>
-      );
+      return renderCheckbox();
     case "password":
-      return (
-        <div className={styles.field}>
-          <label>{props.label}</label>
-          <span className={styles.inputIcon}>
-            <input
-              type={props.type}
-              placeholder={props.placeholder}
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-            />
-            <span onClick={handleToggle} className={styles.icon}>
-              {icon}
-            </span>
-          </span>
-          <span className={styles.errorMessage}>{props.message}</span>
-        </div>
-      );
-
+      return renderPassword();
     default:
-      return (
-        <div className={styles.field}>
-          <label>{props.label}</label>
-          <input
-            type={props.type}
-            placeholder={props.placeholder}
-            value={props.value}
-          />
-          <span className={styles.errorMessage}>{props.message}</span>
-        </div>
-      );
+      return renderDefault();
   }
 }
