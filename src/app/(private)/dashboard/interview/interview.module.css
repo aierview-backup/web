@@ -59,18 +59,20 @@
 
 .modal {
   width: 59.875rem;
-  height: 34.6875rem;
+  height: 35.3125rem;
   border-radius: 0.5rem;
   box-shadow: var(--base-shadow);
 }
 
-.modalContent {
+.form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100%;
+  gap: 0.5rem;
 }
 
-.modalContent h1 {
+.form h1 {
   width: 50%;
   text-align: center;
   font-weight: bold;
@@ -90,4 +92,28 @@
 
 .card:hover {
   border: 1px solid var(--primary-500);
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 1rem;
+}
+
+.form span {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  width: 100%;
+  height: 100%;
+}
+
+.form span button {
+  width: 8rem;
+  background: var(--green-500);
+}
+
+.form span button:hover {
+  background: var(--green-800);
 }

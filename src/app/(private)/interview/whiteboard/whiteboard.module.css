@@ -1,0 +1,19 @@
+.container {
+  width: 90.25rem;
+  height: 43.6875rem;
+  background: var(--white-500);
+  border-radius: var(--base-border-radius);
+  box-shadow: var(--base-shadow);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 10.75rem 1.3125rem 10.75rem;
+}
+
+.container h2 {
+  flex: 1;
+  text-align: center;
+  font-weight: var(--medium);
+  font-size: var(--heading-20);
+}

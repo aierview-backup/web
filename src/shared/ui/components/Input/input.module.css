@@ -18,6 +18,7 @@
   border-radius: var(--base-border-radius);
   background: var(--primary-100);
   color: var(--dark-gray-500);
+  outline: none;
 }
 
 .field input:hover {
@@ -29,7 +30,6 @@
 }
 
 .field input:focus {
-  outline: none;
   border: 1px solid var(--primary-500);
 }
 

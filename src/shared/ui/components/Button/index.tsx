@@ -19,7 +19,10 @@ export default function Button({
   }
 
   return (
-    <button onClick={handleClick} className={styles.button}>
+    <button
+      onClick={handleClick}
+      className={`${styles.button} ${styles.className}`}
+    >
       {value}
     </button>
   );
