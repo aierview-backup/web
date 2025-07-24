@@ -1,7 +1,7 @@
 import { HomeCardType } from "@/shared/types";
-import styles from "./card.module.css";
+import styles from "./homecard.module.css";
 
-export default function Card(props: HomeCardType) {
+export default function HomeCard(props: HomeCardType) {
   return (
     <div className={styles.card}>
       {props.icon}

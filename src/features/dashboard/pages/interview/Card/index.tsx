@@ -2,9 +2,9 @@
 
 import { InterviewCardType } from "@/features/dashboard/types";
 import { useState } from "react";
-import styles from "./card.module.css";
+import styles from "./interviewcard.module.css";
 
-export default function Card(props: InterviewCardType) {
+export default function InterviewCard(props: InterviewCardType) {
   const [isHovered, setIsHovered] = useState(false);
   const handleMouseEnter = () => setIsHovered(true);
   const handleMouseLeave = () => setIsHovered(false);
