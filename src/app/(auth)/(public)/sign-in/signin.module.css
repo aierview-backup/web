@@ -7,7 +7,6 @@
 .rememberme a {
   color: var(--primary-500);
   font-size: var(--heading-12);
-  transition: color 0.2s ease;
 }
 
 .rememberme a:hover {
@@ -16,19 +15,13 @@
 
 .auth {
   display: flex;
+  gap: 0.5rem;
   justify-content: center;
-  gap: 0.5rem; /* equivalente a 8px */
 }
 
 .signup {
   text-align: center;
   color: var(--primary-500);
-}
-
-.signup a {
-  color: inherit;
-  text-decoration: underline;
-  transition: color 0.2s ease;
 }
 
 .signup a:hover {

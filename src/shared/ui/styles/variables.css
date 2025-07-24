@@ -103,7 +103,7 @@
     rgba(0, 0, 0, 0.25);
 
   /* BORDER RADIUS */
-  --base-border-radius: 8px;
+  --base-border-radius: 0.5rem;
 
   /* FONT WEIGHT */
   --medium: 500;
