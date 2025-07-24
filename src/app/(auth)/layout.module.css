@@ -1,23 +1,24 @@
 .main {
   display: flex;
   align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100vh;
-  justify-content: center;
   background: var(--light-gray-800);
 }
 
 .signinContent {
-  max-width: 520px;
+  max-width: 32.5rem; /* 520px */
+  width: 100%;
   background: var(--white-500);
   border-radius: var(--base-border-radius);
   box-shadow: var(--base-shadow);
 
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 32px 78px;
   align-items: center;
+  gap: 1rem; /* 16px */
+  padding: 2rem 4.875rem; /* 32px 78px */
 }
 
 .signinContent h1 {
@@ -28,18 +29,18 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 1rem; /* 16px */
 }
 
+/* Responsive */
 @media screen and (max-width: 550px) {
   .signinContent {
-    width: 360px;
-    gap: 8px;
-    padding: 16px 32px;
-    align-items: center;
+    width: 22.5rem; /* 360px */
+    gap: 0.5rem; /* 8px */
+    padding: 1rem 2rem; /* 16px 32px */
   }
 
   .form {
-    gap: 8px;
+    gap: 0.5rem; /* 8px */
   }
 }

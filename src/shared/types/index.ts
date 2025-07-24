@@ -26,4 +26,9 @@ export type InputType = {
   message?: string;
   placeholder?: string;
   value?: string;
+  checked?: boolean;
+  options?: { label: string; value: string }[];
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onSelectChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  name?: string;
 };

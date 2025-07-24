@@ -1,12 +1,16 @@
 "use client";
+
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect } from "react";
+
 import { useAppContext } from "@/shared/hooks/useAppContext";
 import Button from "@/shared/ui/components/Button";
 import Input from "@/shared/ui/components/Input";
-import Github from "@/shared/ui/icons/github.svg";
-import Google from "@/shared/ui/icons/google.svg";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+
+import GithubIcon from "@/shared/ui/icons/github.svg";
+import GoogleIcon from "@/shared/ui/icons/google.svg";
+
 import styles from "./signin.module.css";
 
 export default function SigninPage() {
@@ -17,13 +21,17 @@ export default function SigninPage() {
     setTitle("Sign-in");
   }, [setTitle]);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    router.push("/account-details");
-  };
+  const handleSignIn = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+      router.push("/account-details");
+    },
+    [router]
+  );
 
   return (
     <>
+      {" "}
       <Input label="Email" type="email" placeholder="Enter your email" />
       <Input
         label="Password"
@@ -32,12 +40,12 @@ export default function SigninPage() {
       />
       <div className={styles.remeberme}>
         <Input label="Remember-me" type="checkbox" />
-        <Link href="reset-password">Reset password</Link>
+        <Link href="/reset-password">Reset password</Link>
       </div>
-      <Button handleClick={handleClick} value="Sign-in" />
+      <Button value="Sign-in" handleClick={handleSignIn} />
       <div className={styles.auth}>
-        <Button type="iconBtn" value={<Google />} />
-        <Button type="iconBtn" value={<Github />} />
+        <Button type="iconBtn" value={<GoogleIcon />} />
+        <Button type="iconBtn" value={<GithubIcon />} />
       </div>
       <span className={styles.signup}>
         <Link href="/sign-up">or sign up</Link>

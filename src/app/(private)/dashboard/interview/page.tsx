@@ -1,3 +1,5 @@
+"use client";
+
 import Card from "@/features/dashboard/pages/interview/Card";
 import Table from "@/features/dashboard/pages/interview/table";
 import { TableHeader, TableRow } from "@/features/dashboard/types";
@@ -5,13 +7,16 @@ import Button from "@/shared/ui/components/Button";
 import Input from "@/shared/ui/components/Input";
 import AddIcon from "@/shared/ui/icons/addLarge.svg";
 import CodeReviewIcon from "@/shared/ui/icons/code-review.svg";
-import Codechallenge from "@/shared/ui/icons/codechallenge.svg";
+import CodechallengeIcon from "@/shared/ui/icons/codechallenge.svg";
 import PlayIcon from "@/shared/ui/icons/paly.svg";
-import TrsahIcon from "@/shared/ui/icons/trash.svg";
+import TrashIcon from "@/shared/ui/icons/trash.svg";
 import ViewIcon from "@/shared/ui/icons/view.svg";
 import WhiteboardIcon from "@/shared/ui/icons/whiteboard.svg";
 import styles from "./interview.module.css";
 
+// ----------------------
+// Table headers
+// ----------------------
 const headers: TableHeader[] = [
   { key: "select", label: "", isCheckbox: true },
   { key: "type", label: "Type" },
@@ -24,6 +29,9 @@ const headers: TableHeader[] = [
   { key: "actions", label: "Actions" },
 ];
 
+// ----------------------
+// Table rows
+// ----------------------
 const rows: TableRow[] = [
   {
     select: false,
@@ -37,7 +45,7 @@ const rows: TableRow[] = [
     actions: (
       <>
         <Button className={styles.view} type="iconBtn" value={<ViewIcon />} />
-        <Button className={styles.trash} type="iconBtn" value={<TrsahIcon />} />
+        <Button className={styles.trash} type="iconBtn" value={<TrashIcon />} />
       </>
     ),
   },
@@ -53,7 +61,7 @@ const rows: TableRow[] = [
     actions: (
       <>
         <Button className={styles.view} type="iconBtn" value={<PlayIcon />} />
-        <Button className={styles.trash} type="iconBtn" value={<TrsahIcon />} />
+        <Button className={styles.trash} type="iconBtn" value={<TrashIcon />} />
       </>
     ),
   },
@@ -69,7 +77,7 @@ const rows: TableRow[] = [
     actions: (
       <>
         <Button className={styles.view} type="iconBtn" value={<ViewIcon />} />
-        <Button className={styles.trash} type="iconBtn" value={<TrsahIcon />} />
+        <Button className={styles.trash} type="iconBtn" value={<TrashIcon />} />
       </>
     ),
   },
@@ -85,7 +93,7 @@ const rows: TableRow[] = [
     actions: (
       <>
         <Button className={styles.view} type="iconBtn" value={<ViewIcon />} />
-        <Button className={styles.trash} type="iconBtn" value={<TrsahIcon />} />
+        <Button className={styles.trash} type="iconBtn" value={<TrashIcon />} />
       </>
     ),
   },
@@ -101,7 +109,7 @@ const rows: TableRow[] = [
     actions: (
       <>
         <Button className={styles.view} type="iconBtn" value={<ViewIcon />} />
-        <Button className={styles.trash} type="iconBtn" value={<TrsahIcon />} />
+        <Button className={styles.trash} type="iconBtn" value={<TrashIcon />} />
       </>
     ),
   },
@@ -117,48 +125,59 @@ const rows: TableRow[] = [
     actions: (
       <>
         <Button className={styles.view} type="iconBtn" value={<ViewIcon />} />
-        <Button className={styles.trash} type="iconBtn" value={<TrsahIcon />} />
+        <Button className={styles.trash} type="iconBtn" value={<TrashIcon />} />
       </>
     ),
   },
 ];
 
+// ----------------------
+// Component
+// ----------------------
 export default function Interview() {
+  const renderCards = () => (
+    <div className={styles.cards}>
+      <Card
+        icon={<WhiteboardIcon />}
+        title="Whiteboard"
+        percent={50}
+        pending={100}
+        complete={50}
+        total={100}
+      />
+      <Card
+        icon={<CodeReviewIcon />}
+        title="Code Review"
+        percent={70}
+        pending={30}
+        complete={70}
+        total={100}
+      />
+      <Card
+        icon={<CodechallengeIcon />}
+        title="Code Challenge"
+        percent={30}
+        pending={70}
+        complete={30}
+        total={100}
+      />
+    </div>
+  );
+
+  const renderTable = () => (
+    <div className={styles.tableContainer}>
+      <div className={styles.searchAndAdd}>
+        <Input type="search" placeholder="Search ..." />
+        <Button className={styles.add} type="iconBtn" value={<AddIcon />} />
+      </div>
+      <Table headers={headers} rows={rows} />
+    </div>
+  );
+
   return (
     <div className={styles.content}>
-      <div className={styles.cards}>
-        <Card
-          icon={<WhiteboardIcon />}
-          title="Whiteboard"
-          percent={50}
-          pendig={100}
-          complete={50}
-          total={100}
-        />
-        <Card
-          icon={<CodeReviewIcon />}
-          title="Code Review"
-          percent={70}
-          pendig={30}
-          complete={70}
-          total={100}
-        />
-        <Card
-          icon={<Codechallenge />}
-          title="Code Challenge"
-          percent={30}
-          pendig={70}
-          complete={30}
-          total={100}
-        />
-      </div>
-      <div className={styles.tableContainer}>
-        <div className={styles.searchAndAdd}>
-          <Input type="search" placeholder="Search ..." />
-          <Button className={styles.add} type="iconBtn" value={<AddIcon />} />
-        </div>
-        <Table headers={headers} rows={rows} />;
-      </div>
+      {renderCards()}
+      {renderTable()}
     </div>
   );
 }

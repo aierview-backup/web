@@ -8,7 +8,7 @@ export type InterviewCardType = {
   icon: ReactNode;
   title: string;
   percent: number;
-  pendig: number;
+  pending: number;
   complete: number;
   total: number;
 };

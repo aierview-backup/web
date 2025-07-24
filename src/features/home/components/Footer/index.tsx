@@ -16,6 +16,7 @@ export default function FooterHome() {
           Get Started <ArrowRightIcon className={styles.icon} />
         </Link>
       </section>
+
       <div className={styles.copyright}>
         <div className={styles.logo}>
           <Image
@@ -28,21 +29,22 @@ export default function FooterHome() {
             Empowering developers with intelligent AI-driven interview training
             for career success.
           </p>
-          <span className={styles.socilaMedia}>
+          <span className={styles.socialMedia}>
             <Image
               src="/logos/facebook.svg"
               width={29}
               height={29}
-              alt="logo composed"
+              alt="facebook logo"
             />
             <Image
               src="/logos/linkedn.svg"
               width={29}
               height={29}
-              alt="logo composed"
+              alt="linkedin logo"
             />
           </span>
         </div>
+
         <span className={styles.rights}>
           © 2025 AIERVIEW. All rights reserved.
         </span>

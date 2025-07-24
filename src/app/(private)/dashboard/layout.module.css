@@ -1,26 +1,25 @@
 .dashboard {
   box-sizing: border-box;
-  margin: 0px;
-  padding: 0px;
-  height: 100vh;
+  margin: 0;
+  padding: 0;
   height: 100vh;
   display: grid;
   grid-template-areas:
     "sidebar header"
     "sidebar content";
-  grid-template-rows: 64px 1fr;
+  grid-template-rows: 4rem 1fr; /* 64px */
 }
 
 .open {
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 12.5rem 1fr; /* 200px */
 }
 
 .closed {
-  grid-template-columns: 89px 1fr;
+  grid-template-columns: 5.5625rem 1fr; /* 89px */
 }
 
 .main {
   grid-area: content;
   background-color: var(--white-600);
-  padding: 32px 60px;
+  padding: 2rem 3.75rem; /* 32px 60px */
 }
