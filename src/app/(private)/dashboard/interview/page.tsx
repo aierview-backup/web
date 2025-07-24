@@ -1,4 +1,4 @@
-import Card from "@/features/dashboard/interview/Card";
+import Card from "@/features/dashboard/pages/interview/Card";
 import Button from "@/shared/ui/components/Button";
 import Input from "@/shared/ui/components/Input";
 import AddIcon from "@/shared/ui/icons/addLarge.svg";

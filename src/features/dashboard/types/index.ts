@@ -1,6 +1,10 @@
 import { ReactNode } from "react";
 
-export type CardType = {
+export type HeaderDashType = {
+  title: string;
+};
+
+export type InterviewCardType = {
   icon: ReactNode;
   title: string;
   percent: number;

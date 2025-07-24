@@ -1,7 +1,7 @@
+import { ButtonType } from "@/shared/types";
 import styles from "./button.module.css";
-import { ButtonProps } from "./types/types";
 
-export default function Button(props: ButtonProps) {
+export default function Button(props: ButtonType) {
   switch (props.type) {
     case "iconBtn":
       return (

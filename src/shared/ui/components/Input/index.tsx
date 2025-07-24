@@ -1,13 +1,12 @@
 "use client";
+import { InputType } from "@/shared/types";
 import Search from "@/shared/ui/icons/search.svg";
 import EyeIcon from "@/shared/ui/icons/visibility.svg";
 import EyeOffIcon from "@/shared/ui/icons/visibility_off.svg";
-
 import { useState } from "react";
 import styles from "./input.module.css";
-import { InputProps } from "./types/types";
 
-export default function Input(props: InputProps) {
+export default function Input(props: InputType) {
   const [password, setPassword] = useState("");
   const [type, setType] = useState("password");
   const [icon, setIcon] = useState(<EyeOffIcon />);

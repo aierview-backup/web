@@ -1,10 +1,10 @@
 "use client";
 
+import { InterviewCardType } from "@/features/dashboard/types";
 import { useState } from "react";
 import styles from "./card.module.css";
-import { CardType } from "./types";
 
-export default function Card(props: CardType) {
+export default function Card(props: InterviewCardType) {
   const [isHovered, setIsHovered] = useState(false);
   const handleMouseEnter = () => setIsHovered(true);
   const handleMouseLeave = () => setIsHovered(false);

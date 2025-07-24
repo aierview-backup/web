@@ -1,5 +1,6 @@
 "use client";
 
+import { HeaderDashType } from "@/features/dashboard/types";
 import { useAppContext } from "@/shared/hooks/useAppContext";
 import Button from "@/shared/ui/components/Button";
 import MenuIcon from "@/shared/ui/icons/menu.svg";
@@ -7,11 +8,7 @@ import SignoutIcon from "@/shared/ui/icons/singout.svg";
 import { useRouter } from "next/navigation";
 import styles from "./header.module.css";
 
-type HeaderDashProps = {
-  title: string;
-};
-
-export default function HeaderDash(props: HeaderDashProps) {
+export default function HeaderDash(props: HeaderDashType) {
   const { toggleAside } = useAppContext();
   const router = useRouter();
 

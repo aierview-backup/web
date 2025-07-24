@@ -2,7 +2,6 @@ import Card from "@/shared/ui/components/card";
 import CodeReview from "@/shared/ui/icons/code-review.svg";
 import CodeChallenge from "@/shared/ui/icons/codechallenge.svg";
 import WhiteboardIcon from "@/shared/ui/icons/whiteboard.svg";
-
 import styles from "./InterviewTypes.module.css";
 
 export default function InterviewTypes() {
