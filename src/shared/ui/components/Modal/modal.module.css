@@ -1,33 +1,33 @@
 .overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
 }
 
 .modal {
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  padding: 1.5rem;
-  overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 1.5rem;
+    overflow-y: auto;
 }
 
 .close {
-  display: flex;
-  justify-content: flex-end;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .close button {
-  background: var(--red-500);
+    background: var(--red-500);
 }
 
 .close button:hover {
-  background: var(--red-800);
+    background: var(--red-800);
 }

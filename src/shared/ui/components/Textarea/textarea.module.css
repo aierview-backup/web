@@ -1,45 +1,45 @@
 .field {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .field textarea {
-  width: 100%;
-  resize: none;
-  overflow-y: auto;
-  font-size: var(--heading-16);
-  border-radius: 1.5rem;
-  background: var(--primary-100);
-  color: var(--dark-gray-500);
-  padding: 0.7rem 2.5rem 0.7rem 1rem;
-  outline: none;
+    width: 100%;
+    resize: none;
+    overflow-y: auto;
+    font-size: var(--heading-16);
+    border-radius: 1.5rem;
+    background: var(--primary-100);
+    color: var(--dark-gray-500);
+    padding: 0.7rem 2.5rem 0.7rem 1rem;
+    outline: none;
 }
 
 .field textarea:focus,
 .field textarea:hover {
-  border: 1px solid var(--primary-500);
+    border: 1px solid var(--primary-500);
 }
 
 .field textarea::placeholder {
-  color: var(--dark-gray-200);
+    color: var(--dark-gray-200);
 }
 
 .inputIcon {
-  display: flex;
-  width: 100%;
+    display: flex;
+    width: 100%;
 
-  align-items: center;
-  position: relative;
+    align-items: center;
+    position: relative;
 }
 
 .icon {
-  position: absolute;
-  right: 1rem;
-  cursor: pointer;
-  color: var(--primary-500);
-  border-radius: 50%;
+    position: absolute;
+    right: 1rem;
+    cursor: pointer;
+    color: var(--primary-500);
+    border-radius: 50%;
 }
 
 .icon:hover {
-  color: var(--primary-800);
+    color: var(--primary-800);
 }

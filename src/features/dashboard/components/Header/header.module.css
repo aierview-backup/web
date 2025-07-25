@@ -1,36 +1,36 @@
 .header {
-  grid-area: header;
-  color: #000;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 3.75rem;
-  background: var(--white-600);
+    grid-area: header;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3.75rem;
+    background: var(--white-600);
 }
 
 .header h1 {
-  font-weight: bold;
-  font-size: var(--heading-20);
+    font-weight: bold;
+    font-size: var(--heading-20);
 }
 
 .actions {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .menu {
-  color: var(--primary-500);
+    color: var(--primary-500);
 }
 
 .menu:hover {
-  color: var(--primary-800);
+    color: var(--primary-800);
 }
 
 .signout {
-  color: var(--red-500);
+    color: var(--red-500);
 }
 
 .signout:hover {
-  color: var(--red-800);
+    color: var(--red-800);
 }

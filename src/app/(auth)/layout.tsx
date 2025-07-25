@@ -3,13 +3,13 @@ import AppProvider from "@/shared/provider/AppProvider";
 import AuthAppContext from "./AuthAppContext";
 
 export default function AuthLayout({
-  children,
-}: {
-  children: React.ReactNode;
+                                       children,
+                                   }: {
+    children: React.ReactNode;
 }) {
-  return (
-    <AppProvider>
-      <AuthAppContext>{children}</AuthAppContext>
-    </AppProvider>
-  );
+    return (
+        <AppProvider>
+            <AuthAppContext>{children}</AuthAppContext>
+        </AppProvider>
+    );
 }
