@@ -26,12 +26,6 @@ export default function SignupPage() {
         setTitle("Sign-up");
     }, [setTitle]);
 
-    useEffect(() => {
-        if (user) {
-            router.push("/dashboard");
-        }
-    }, [user, router]);
-
     const {
         register,
         handleSubmit,
@@ -40,10 +34,9 @@ export default function SignupPage() {
         resolver: zodResolver(signupSchema),
     });
 
-    if (user) return null;
-
     const onSubmit = async (data: SignupFormData) => {
         await signup({email: data.email, password: data.password});
+        router.push("/signin");
     };
 
     return (

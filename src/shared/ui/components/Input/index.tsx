@@ -60,7 +60,7 @@ const Input = forwardRef<HTMLInputElement, InputType>((props, ref) => {
                     <span className={styles.inputIcon}>
                         <input
                             id={props.id}
-                            type={props.type}
+                            type={showPassword ? "text" : "password"}
                             placeholder={props.placeholder}
                             {...props.register}
                         />

@@ -8,6 +8,7 @@ import Link from "next/link";
 import {usePathname, useRouter} from "next/navigation";
 import {MouseEvent, useCallback, useEffect, useMemo} from "react";
 import styles from "./aside.module.css";
+import {useAuth} from "@/shared/hooks/useAuth";
 
 const NAV_LINKS = [
     {
@@ -23,6 +24,7 @@ const NAV_LINKS = [
 ];
 
 export default function Aside() {
+    const {user} = useAuth();
     const router = useRouter();
     const pathname = usePathname();
     const {setTitle, isAsideOpen} = useAppContext();
@@ -51,9 +53,7 @@ export default function Aside() {
         <aside className={styles.aside}>
             <div className={styles.profile}>
                 <Image src="/img/profile.jpeg" width={70} height={79} alt="profile"/>
-                <h2 className={isAsideOpen ? styles.open : styles.closed}>
-                    Gervásio Dombo
-                </h2>
+                <h2 className={isAsideOpen ? styles.open : styles.closed}>{user?.name}</h2>
             </div>
 
             <nav className={styles.nav}>

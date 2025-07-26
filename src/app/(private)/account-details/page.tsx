@@ -20,12 +20,6 @@ export default function AccountDetails() {
     const {updateUserDetails,error} = useUser();
     const router = useRouter();
 
-    useEffect(() => {
-        if (!user) {
-            router.push("/signin");
-        }
-    }, [user, router]);
-
     const roleOptions = [
         { label: "Frontend", value: "frontend" },
         { label: "Mobile", value: "mobile" },
@@ -40,9 +34,8 @@ export default function AccountDetails() {
         resolver: zodResolver(accountDetailsSchema),
     });
 
-    if (!user) return null;
-
     const onSubmit = async (data: AccountDetailsFormData) => {
+        if(!user) return;
         await updateUserDetails({email: user.email, name: data.name, role: data.role});
         if(error) return;
         router.push("/dashboard");

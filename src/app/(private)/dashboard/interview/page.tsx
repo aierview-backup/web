@@ -26,13 +26,6 @@ import Select from "@/shared/ui/components/Select";
 export default function Interview() {
     const {user} = useAuth();
     const router = useRouter();
-
-    useEffect(() => {
-        if (!user) {
-            router.push("/signin");
-        }
-    }, [user, router]);
-
     // ============================
     // Estados e Refs
     // ============================
@@ -70,7 +63,6 @@ export default function Interview() {
         {label: "Senior", value: "senior"},
     ], []);
 
-    if (!user) return null;
 
     // ============================
     // Handlers

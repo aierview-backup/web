@@ -1,50 +1,27 @@
 // src/core/api/HttpClient.ts
-import axios, {AxiosInstance} from "axios";
+import axios, { AxiosInstance } from "axios";
 
 export default class HttpClient {
-    private static instance: AxiosInstance | null;
+    private static instances: Map<string, AxiosInstance> = new Map();
 
-    public static getInstance(): AxiosInstance {
-        if (!HttpClient.instance) {
-            HttpClient.instance = axios.create({
-                baseURL: "http://localhost:8080/api",
-                // baseURL: "https://api-aierview-dev.fly.dev/api",
+    public static getInstance(baseUrl: string = ""): AxiosInstance {
+        if (!HttpClient.instances.has(baseUrl)) {
+            const instance = axios.create({
+                baseURL: baseUrl,
                 timeout: 20000,
                 headers: {
                     "Content-Type": "application/json",
                 },
             });
 
-            HttpClient.instance.interceptors.response.use(
+            instance.interceptors.response.use(
                 (response) => response,
-                (error) => {
-                    return Promise.reject(error);
-                }
+                (error) => Promise.reject(error)
             );
+
+            HttpClient.instances.set(baseUrl, instance);
         }
 
-        return HttpClient.instance;
-    }
-
-    public static getInstanceAppRouter(): AxiosInstance {
-        HttpClient.instance = null;
-        if (!HttpClient.instance) {
-            HttpClient.instance = axios.create({
-                baseURL: "api",
-                timeout: 20000,
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-
-            HttpClient.instance.interceptors.response.use(
-                (response) => response,
-                (error) => {
-                    return Promise.reject(error);
-                }
-            );
-        }
-
-        return HttpClient.instance;
+        return HttpClient.instances.get(baseUrl)!;
     }
 }

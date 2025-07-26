@@ -1,38 +1,69 @@
-import {NextRequest, NextResponse} from "next/server";
-import {serialize} from "cookie";
 import HttpClient from "@/shared/utils/HttpClient";
-import {AxiosError} from "axios";
+import { AxiosError } from "axios";
+import { serialize } from "cookie";
+import { NextRequest, NextResponse } from "next/server";
 
-const http = HttpClient.getInstance();
+const externalHttp = HttpClient.getInstance(process.env.NEXT_PUBLIC_API_URL);
 
 export async function POST(req: NextRequest) {
+  try {
+    const body = await req.json();
+    const { email, password } = body;
 
-    try {
-        const body = await req.json();
-        const {email, password} = body;
+    let response = await externalHttp.post(
+      "/auth/local/signin",
+      { email, password },
+      { withCredentials: true }
+    );
 
-        const response = await http.post("/auth/local/signin",
-            {email, password}, {withCredentials: true});
+    // GETTING TOKEN
+    const token = response.data.data;
+    if (!token)
+      return NextResponse.json(
+        { message: "Token not provided by backend" },
+        { status: 401 }
+      );
 
-        const token = response.data.data;
-        if (!token) return NextResponse.json({message: "Token not provided by backend"}, {status: 401});
+    //GETTING USER DETAILS
+    response = await externalHttp.post("/users/details", null, {
+      headers: {
+        Cookie: `token=${token}`,
+      },
+      withCredentials: true,
+    });
 
-        const cookie = serialize("token", token, {
-            httpOnly: true,
-            secure: true,
-            // secure: process.env.NODE_ENV === "production",
-            sameSite: "strict",
-            path: "/",
-            // maxAge: 60 * 60 * 24,
-        });
-        console.log(cookie);
-        const res = NextResponse.json({success: true});
-        res.headers.set("Set-Cookie", cookie);
-        return res;
+    const user = response.data.data;
+    if (!user)
+      return NextResponse.json(
+        { message: "Error fetching user details" },
+        { status: 401 }
+      );
 
-    } catch (err: unknown) {
-        let message = "Login failed";
-        if (err instanceof AxiosError) message = err?.response?.data?.data;
-        return NextResponse.json({message}, {status: 401});
-    }
+    const tokenCookie = serialize("token", token, {
+      httpOnly: true,
+      secure: true,
+      // secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      path: "/",
+      // maxAge: 60 * 60 * 24 * 7, // 7 dias
+    });
+
+    const userCookie = serialize("user", JSON.stringify(user), {
+      httpOnly: true,
+      secure: true,
+      // secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      path: "/",
+      // maxAge: 60 * 60 * 24 * 7,
+    });
+
+    const res = NextResponse.json({ success: true });
+    res.headers.append("Set-Cookie", userCookie);
+    res.headers.append("Set-Cookie", tokenCookie);
+    return res;
+  } catch (err: unknown) {
+    let message = "Login failed";
+    if (err instanceof AxiosError) message = err?.response?.data?.data;
+    return NextResponse.json({ message }, { status: 401 });
+  }
 }
