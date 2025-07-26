@@ -3,7 +3,7 @@
 import Search from "@/shared/ui/icons/search.svg";
 import EyeIcon from "@/shared/ui/icons/visibility.svg";
 import EyeOffIcon from "@/shared/ui/icons/visibility_off.svg";
-import { forwardRef, useState } from "react";
+import { useState } from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
 import styles from "./input.module.css";
 
@@ -16,7 +16,7 @@ type InputType = {
   message?: string;
 };
 
-const Input = forwardRef<HTMLInputElement, InputType>((props) => {
+export default function Input(props: InputType) {
   const [showPassword, setShowPassword] = useState(false);
   const togglePassword = () => setShowPassword((prev) => !prev);
 
@@ -91,7 +91,4 @@ const Input = forwardRef<HTMLInputElement, InputType>((props) => {
         </div>
       );
   }
-});
-
-Input.displayName = "Input";
-export default Input;
+}
