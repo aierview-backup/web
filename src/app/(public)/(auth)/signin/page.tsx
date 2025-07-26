@@ -23,7 +23,7 @@ import styles from "./signin.module.css";
 export default function SigninPage() {
   const { setTitle } = useAppContext();
   const router = useRouter();
-  const { user, signin, error } = useAuth();
+  const { signin, error } = useAuth();
 
   useEffect(() => {
     setTitle("Sign-in");
