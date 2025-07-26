@@ -1,5 +1,15 @@
 import {MouseEventHandler, ReactNode} from "react";
 
+export type SignupType = {
+    email: string;
+    password: string;
+};
+
+export type SigninType = {
+    email: string;
+    password: string;
+};
+
 export type AppContextType = {
     title: string;
     setTitle: (value: string) => void;
@@ -7,32 +17,21 @@ export type AppContextType = {
     toggleAside?: () => void;
 };
 
-export type HomeCardType = {
-    icon: ReactNode;
-    title: string;
-    desc: string;
-    className?: string;
-    onClick?: (event: React.MouseEvent<HTMLElement>) => void;
-    value?: string;
+export type User = {
+    email: string
+    name?: string
+    role?: string;
 };
 
-export type ButtonType = {
-    type?: string;
-    value?: string | ReactNode;
-    className?: string;
-    disabled?: boolean;
-    handleClick?: MouseEventHandler<HTMLButtonElement>;
+export type AuthContextType = {
+    user: User | null;
+    updateUser: (user: User) => void;
+    error: string | null;
+    isLoading: boolean;
+    signin: (params: SigninType) => Promise<void>;
+    signup: (params: SignupType) => Promise<void>;
+    signout: () => Promise<void>;
 };
 
-export type InputType = {
-    label?: string;
-    type: string;
-    message?: string;
-    placeholder?: string;
-    value?: string;
-    checked?: boolean;
-    options?: { label: string; value: string }[];
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    onSelectChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-    name?: string;
-};
+
+

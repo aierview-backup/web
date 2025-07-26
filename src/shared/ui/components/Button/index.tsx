@@ -1,5 +1,14 @@
-import {ButtonType} from "@/shared/types";
+
 import styles from "./button.module.css";
+import {MouseEventHandler, ReactNode} from "react";
+
+type ButtonType = {
+    type?: string;
+    value?: string | ReactNode;
+    className?: string;
+    disabled?: boolean;
+    handleClick?: MouseEventHandler<HTMLButtonElement>;
+};
 
 export default function Button(props: ButtonType) {
     if (props.type === "iconBtn") {

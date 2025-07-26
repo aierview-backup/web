@@ -7,14 +7,17 @@ import MenuIcon from "@/shared/ui/icons/menu.svg";
 import SignoutIcon from "@/shared/ui/icons/singout.svg";
 import {useRouter} from "next/navigation";
 import styles from "./header.module.css";
+import {useAuth} from "@/shared/hooks/useAuth";
 
 export default function HeaderDash({title}: HeaderDashType) {
     const {toggleAside} = useAppContext();
     const router = useRouter();
+    const {signout} = useAuth();
 
-    const handleSignOutClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleSignout = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        router.push("/");
+        await signout();
+        router.push("/signin");
     };
 
     return (
@@ -28,7 +31,7 @@ export default function HeaderDash({title}: HeaderDashType) {
                     value={<MenuIcon/>}
                 />
                 <Button
-                    handleClick={handleSignOutClick}
+                    handleClick={handleSignout}
                     className={styles.signout}
                     type="iconBtn"
                     value={<SignoutIcon/>}

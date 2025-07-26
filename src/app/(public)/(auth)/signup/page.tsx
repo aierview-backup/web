@@ -14,15 +14,23 @@ import styles from "./signup.module.css";
 import {useForm} from "react-hook-form";
 import {SignupFormData, signupSchema} from "@/features/auth/validations/signup/signup.validation";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {useSignup} from "@/features/auth/hooks/useAuth";
+import {useAuth} from "@/shared/hooks/useAuth";
+import {useRouter} from "next/navigation";
 
 export default function SignupPage() {
     const {setTitle} = useAppContext();
-    const {signup, isLoading, error}   = useSignup();
+    const router = useRouter();
+    const {user, signup, error} = useAuth();
 
     useEffect(() => {
         setTitle("Sign-up");
     }, [setTitle]);
+
+    useEffect(() => {
+        if (user) {
+            router.push("/dashboard");
+        }
+    }, [user, router]);
 
     const {
         register,
@@ -32,6 +40,8 @@ export default function SignupPage() {
         resolver: zodResolver(signupSchema),
     });
 
+    if (user) return null;
+
     const onSubmit = async (data: SignupFormData) => {
         await signup({email: data.email, password: data.password});
     };
@@ -39,36 +49,39 @@ export default function SignupPage() {
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             <Input
+                id="email"
                 label="Email"
                 type="email"
-                placeholder="Enter your email"
-                {...register("email")}
+                placeholder="Enter your Email"
+                register={register("email")}
                 message={errors.email?.message}
             />
 
             <Input
+                id="password"
                 label="Password"
                 type="password"
                 placeholder="Enter your password"
-                {...register("password")}
+                register={register("password")}
                 message={errors.password?.message}
             />
 
             <Input
-                label="Confirm password"
+                id="confirmPassword"
+                label="Confirm Password"
                 type="password"
-                placeholder="Confirm your password"
-                {...register("confirmPassword")}
+                placeholder="Enter your password"
+                register={register("confirmPassword")}
                 message={errors.confirmPassword?.message}
             />
 
             <Button value="Sign-up" disabled={isSubmitting}/>
 
-            <span  className={`${styles.error} ${!error && styles.hidden}`}>{error}</span>
+            <span className={`${styles.error} ${!error && styles.hidden}`}>{error}</span>
 
             <div className={styles.auth}>
-                <Button type="iconBtn" value={<GoogleIcon/>}/>
-                <Button type="iconBtn" value={<GithubIcon/>}/>
+                <Button type="iconBtn" value={<GoogleIcon/>} disabled={isSubmitting}/>
+                <Button type="iconBtn" value={<GithubIcon/>} disabled={isSubmitting}/>
             </div>
 
             <span className={styles.signup}>
