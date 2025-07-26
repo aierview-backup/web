@@ -2,33 +2,33 @@
 @import "./variables.css";
 
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 body {
-  background: var(--white-500);
-  font-family: "Inter", sans-serif;
+    background: var(--white-500);
+    font-family: "Inter", sans-serif;
 }
 
 body *:not(input):not(textarea):not([contenteditable="true"]) {
-  caret-color: transparent;
+    caret-color: transparent;
 }
 
 input,
 textarea,
 [contenteditable="true"] {
-  caret-color: auto;
-  user-select: text;
+    caret-color: auto;
+    user-select: text;
 }
 
 a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 ::picker(select) {
-  appearance: base-select;
+    appearance: base-select;
 }
 
 ::picker(select) {
-  border: none;
+    border: none;
 }

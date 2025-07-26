@@ -1,0 +1,83 @@
+.errorMessage {
+    height: 1.125rem;
+    font-weight: bold;
+    font-size: var(--heading-12);
+    margin-left: 0.5rem;
+    color: var(--red-500);
+}
+
+.selectField label {
+    font-weight: bold;
+    font-size: var(--heading-14);
+}
+
+.selectField select {
+    appearance: base-select;
+}
+
+.selectField select::picker-icon {
+    color: var(--primary-500);
+    transition: 0.4s rotate;
+}
+
+.selectField select:open::picker-icon {
+    rotate: 180deg;
+}
+
+.selectField select {
+    display: flex;
+    align-items: center;
+    width: 24.5rem;
+    height: 3.5rem;
+    font-size: var(--heading-14);
+    padding: 0px 0.5rem;
+    border-radius: var(--base-border-radius);
+    background: var(--primary-100);
+    color: var(--dark-gray-500);
+}
+
+.selectField select:hover {
+    border: 1px solid var(--primary-500);
+}
+
+.selectField select:focus {
+    outline: none;
+}
+
+.selectField option {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1.25rem;
+    background: var(--primary-200);
+    padding: 8px;
+    transition: 0.4s;
+}
+
+.selectField option:last-of-type {
+    border-radius: 0 0 var(--base-border-radius) var(--base-border-radius);
+}
+
+.selectField option:not(option:last-of-type) {
+    border-bottom: none;
+}
+
+.selectField option:first-of-type {
+    border-radius: var(--base-border-radius) var(--base-border-radius) 0 0;
+}
+
+.selectField option:first-of-type:hover {
+    cursor: unset;
+    background: var(--primary-200);
+}
+
+.selectField option:hover,
+.selectField option:focus {
+    cursor: pointer;
+    background: var(--primary-500);
+}
+
+@media screen and (max-width: 550px) {
+    .selectField select {
+        width: 16.25rem;
+    }
+}

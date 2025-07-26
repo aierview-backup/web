@@ -1,31 +1,32 @@
 import "@/shared/ui/styles/globals.css";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import type {Metadata} from "next";
+import {Inter} from "next/font/google";
+import {AuthProvider} from "@/shared/provider/AuthProvider";
 
 const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
+    subsets: ["latin"],
+    weight: ["400", "500", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Aierview - Tech Interview Simulator for Devs.",
-  description: "Tech Interview Simulator for Devs",
-  icons: {
-    icon: "/logos/aierview/logo.svg",
-  },
+    title: "Aierview - Tech Interview Simulator for Devs.",
+    description: "Tech Interview Simulator for Devs",
+    icons: {
+        icon: "/logos/aierview/logo.svg",
+    },
 };
 
 export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
+                                       children,
+                                   }: Readonly<{
+    children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>
+    return (
+        <html lang="en">
+        <body className={inter.className}>
         <div id="modal"></div>
-        {children}
-      </body>
-    </html>
-  );
+        <AuthProvider>{children}</AuthProvider>
+        </body>
+        </html>
+    );
 }

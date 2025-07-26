@@ -1,99 +1,100 @@
 .footer {
-  width: 100%;
+    width: 100%;
 }
 
 .signup {
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-  color: var(--white-500);
-  background: var(--base-gradient);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    color: var(--white-500);
+    background: var(--base-gradient);
 }
 
 .signup h1 {
-  text-align: center;
-  max-width: 33rem;
-  font-weight: bold;
-  font-size: var(--heading-48);
+    text-align: center;
+    max-width: 33rem;
+    font-weight: bold;
+    font-size: var(--heading-48);
 }
 
 .signup p {
-  font-size: var(--heading-26);
-  text-align: center;
-  font-weight: var(--medium);
+    font-size: var(--heading-26);
+    text-align: center;
+    font-weight: var(--medium);
 }
 
 .signup a {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 11.985px 34.15px;
-  border-radius: var(--base-border-radius);
-  border: 1px solid var(--white-500);
-  margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 11.985px 34.15px;
+    border-radius: var(--base-border-radius);
+    border: 1px solid var(--white-500);
+    margin-bottom: 32px;
 }
 
 .signup a:hover {
-  color: var(--primary-500);
-  background-color: var(--white-500);
+    color: var(--primary-500);
+    background-color: var(--white-500);
 }
 
 .copyright {
-  gap: 24px;
-  display: flex;
-  align-items: center;
-  padding: 0 8rem;
-  background: var(--neutral-500);
+    gap: 24px;
+    display: flex;
+    align-items: center;
+    padding: 0 8rem;
+    background: var(--neutral-500);
 }
 
 .logo {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
 }
 
 .logo p {
-  max-width: 13.9375rem;
-  font-size: var(--heading-14);
-  color: var(--dark-gray-100);
+    max-width: 13.9375rem;
+    font-size: var(--heading-14);
+    color: var(--dark-gray-100);
 }
 
 .socialMedia {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1.1875rem;
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.1875rem;
 }
 
 .rights {
-  border-top: 1px solid var(--dark-gray-400);
-  width: 100%;
-  color: var(--white-500);
-  text-align: center;
+    border-top: 1px solid var(--dark-gray-400);
+    width: 100%;
+    color: var(--white-500);
+    text-align: center;
 }
 
 /* MEDIA QUERIES */
 @media screen and (max-width: 750px) {
-  .copyright {
-    flex-direction: column;
-  }
-  .logo {
-    align-items: center;
-  }
+    .copyright {
+        flex-direction: column;
+    }
 
-  .logo p {
-    max-width: 100%;
-    text-align: center;
-  }
+    .logo {
+        align-items: center;
+    }
+
+    .logo p {
+        max-width: 100%;
+        text-align: center;
+    }
 }
 
 @media screen and (max-width: 390px) {
-  .signup h1 {
-    font-size: var(--heading-32);
-  }
+    .signup h1 {
+        font-size: var(--heading-32);
+    }
 
-  .socilaMedia {
-    gap: 1.5rem;
-  }
+    .socilaMedia {
+        gap: 1.5rem;
+    }
 }

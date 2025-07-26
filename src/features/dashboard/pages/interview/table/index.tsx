@@ -35,16 +35,7 @@ export default function Table({ headers, rows }: TableType) {
         <tr>
           {headers.map(({ key, label, isCheckbox }) => (
             <th key={key}>
-              {isCheckbox ? (
-                <Input
-                  type="checkbox"
-                  checked={selectAll}
-                  onChange={handleToggleAll}
-                  // label="Selecionar Todos"
-                />
-              ) : (
-                label
-              )}
+              {isCheckbox ? <Input type="checkbox" id="selectAll" /> : label}
             </th>
           ))}
         </tr>
@@ -90,11 +81,7 @@ export default function Table({ headers, rows }: TableType) {
       if (isCheckbox) {
         return (
           <td key={key}>
-            <Input
-              type="checkbox"
-              checked={selectedRows[rowIdx]}
-              onChange={() => handleToggleRow(rowIdx)}
-            />
+            <Input type="checkbox" id="selectAll" />
           </td>
         );
       }

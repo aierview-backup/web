@@ -1,0 +1,50 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* 16px */
+}
+
+.rememberme {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.rememberme a {
+    color: var(--primary-500);
+    font-size: var(--heading-12);
+}
+
+.rememberme a:hover {
+    color: var(--primary-800);
+}
+
+.auth {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.signup {
+    text-align: center;
+    color: var(--primary-500);
+}
+
+.signup a:hover {
+    color: var(--primary-800);
+}
+
+.error {
+    text-align: center;
+    height: 1.125rem;
+    font-weight: bold;
+    font-size: var(--heading-12);
+    color: var(--red-500);
+}
+
+/* Responsive */
+@media screen and (max-width: 550px) {
+    .form {
+        gap: 0.5rem; /* 8px */
+    }
+}

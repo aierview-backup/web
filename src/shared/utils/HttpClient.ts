@@ -2,28 +2,26 @@
 import axios, { AxiosInstance } from "axios";
 
 export default class HttpClient {
-  private static instance: AxiosInstance;
+    private static instances: Map<string, AxiosInstance> = new Map();
 
-  public static getInstance(): AxiosInstance {
-    if (!HttpClient.instance) {
-      HttpClient.instance = axios.create({
-        // baseURL: "http://localhost:8080/api",
-        baseURL: "https://api-aierview-dev.fly.dev/api",
-        timeout: 20000,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+    public static getInstance(baseUrl: string = ""): AxiosInstance {
+        if (!HttpClient.instances.has(baseUrl)) {
+            const instance = axios.create({
+                baseURL: baseUrl,
+                timeout: 20000,
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
 
-      HttpClient.instance.interceptors.response.use(
-        (response) => response,
-        (error) => {
-          console.error("API Error:", error.response || error.message);
-          return Promise.reject(error);
+            instance.interceptors.response.use(
+                (response) => response,
+                (error) => Promise.reject(error)
+            );
+
+            HttpClient.instances.set(baseUrl, instance);
         }
-      );
-    }
 
-    return HttpClient.instance;
-  }
+        return HttpClient.instances.get(baseUrl)!;
+    }
 }

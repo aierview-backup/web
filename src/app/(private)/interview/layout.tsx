@@ -2,13 +2,13 @@ import AppProvider from "@/shared/provider/AppProvider";
 import InterviewAppContext from "./InterviewAppContext";
 
 export default function AuthLayout({
-  children,
-}: {
-  children: React.ReactNode;
+                                       children,
+                                   }: {
+    children: React.ReactNode;
 }) {
-  return (
-    <AppProvider>
-      <InterviewAppContext>{children}</InterviewAppContext>
-    </AppProvider>
-  );
+    return (
+        <AppProvider>
+            <InterviewAppContext>{children}</InterviewAppContext>
+        </AppProvider>
+    );
 }

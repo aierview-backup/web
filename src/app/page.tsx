@@ -5,13 +5,13 @@ import InterviewTypes from "@/features/home/components/InterviewTypes";
 import Reviews from "@/features/home/components/Reviews";
 
 export default function Home() {
-  return (
-    <main>
-      <HeaderHome />
-      <Banner />
-      <InterviewTypes />
-      <Reviews />
-      <FooterHome />
-    </main>
-  );
+    return (
+        <main>
+            <HeaderHome/>
+            <Banner/>
+            <InterviewTypes/>
+            <Reviews/>
+            <FooterHome/>
+        </main>
+    );
 }

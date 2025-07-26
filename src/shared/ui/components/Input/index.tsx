@@ -1,126 +1,97 @@
 "use client";
 
-import { InputType } from "@/shared/types";
 import Search from "@/shared/ui/icons/search.svg";
 import EyeIcon from "@/shared/ui/icons/visibility.svg";
 import EyeOffIcon from "@/shared/ui/icons/visibility_off.svg";
-import { useState } from "react";
+import { forwardRef, useState } from "react";
+import { UseFormRegisterReturn } from "react-hook-form";
 import styles from "./input.module.css";
 
-export default function Input(props: InputType) {
-  const {
-    type,
-    placeholder,
-    value,
-    onChange,
-    onSelectChange,
-    label,
-    name,
-    message,
-    checked,
-  } = props;
+type InputType = {
+  id: string;
+  label?: string;
+  type?: string;
+  register?: UseFormRegisterReturn;
+  placeholder?: string;
+  message?: string;
+};
 
+const Input = forwardRef<HTMLInputElement, InputType>((props) => {
   const [showPassword, setShowPassword] = useState(false);
-
   const togglePassword = () => setShowPassword((prev) => !prev);
 
-  const renderSearch = () => (
-    <div className={styles.field}>
-      <span className={styles.inputIcon}>
-        <input
-          type="text"
-          placeholder={placeholder}
-          value={value}
-          onChange={onChange}
-          name={name}
-        />
-        <span className={styles.icon}>
-          <Search />
-        </span>
-      </span>
-      {message && <span className={styles.errorMessage}>{message}</span>}
-    </div>
-  );
-
-  const renderSelect = () => (
-    <div className={styles.selectField}>
-      {label && <label htmlFor={name}>{label}</label>}
-      <select
-        className={styles.select}
-        name={name}
-        value={value}
-        onChange={onSelectChange}
-      >
-        <option disabled value="">
-          Choose an option
-        </option>
-        {props.options?.map((opt) => (
-          <option key={opt.value} value={opt.value}>
-            {opt.label}
-          </option>
-        ))}
-      </select>
-      {message && <span className={styles.errorMessage}>{message}</span>}
-    </div>
-  );
-
-  const renderCheckbox = () => (
-    <label className={styles.checkbox}>
-      <input
-        type="checkbox"
-        checked={checked}
-        onChange={onChange}
-        name={name}
-        value={value}
-      />
-      <span></span>
-      {label}
-    </label>
-  );
-
-  const renderPassword = () => (
-    <div className={styles.field}>
-      {label && <label htmlFor={name}>{label}</label>}
-      <span className={styles.inputIcon}>
-        <input
-          type={showPassword ? "text" : "password"}
-          placeholder={placeholder}
-          value={value}
-          onChange={onChange}
-          name={name}
-        />
-        <span onClick={togglePassword} className={styles.icon}>
-          {showPassword ? <EyeIcon /> : <EyeOffIcon />}
-        </span>
-      </span>
-      {message && <span className={styles.errorMessage}>{message}</span>}
-    </div>
-  );
-
-  const renderDefault = () => (
-    <div className={styles.field}>
-      {label && <label htmlFor={name}>{label}</label>}
-      <input
-        type={type}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        name={name}
-      />
-      {message && <span className={styles.errorMessage}>{message}</span>}
-    </div>
-  );
-
-  switch (type) {
+  switch (props.type) {
     case "search":
-      return renderSearch();
-    case "select":
-      return renderSelect();
+      return (
+        <div className={styles.field}>
+          <span className={styles.inputIcon}>
+            <input
+              id={props.id}
+              type={props.type}
+              placeholder={props.placeholder}
+              {...props.register}
+            />
+            <span className={styles.icon}>
+              <Search />
+            </span>
+          </span>
+          {props.message && (
+            <span className={styles.errorMessage}>{props.message}</span>
+          )}
+        </div>
+      );
     case "checkbox":
-      return renderCheckbox();
+      return (
+        <label className={styles.checkbox}>
+          <input
+            id={props.id}
+            type={props.type}
+            placeholder={props.placeholder}
+            {...props.register}
+          />
+          <span></span>
+          {props.label}
+        </label>
+      );
+
     case "password":
-      return renderPassword();
+      return (
+        <div className={styles.field}>
+          {props.label && <label htmlFor={props.id}>{props.label}</label>}
+          <span className={styles.inputIcon}>
+            <input
+              id={props.id}
+              type={showPassword ? "text" : "password"}
+              placeholder={props.placeholder}
+              {...props.register}
+            />
+            <span onClick={togglePassword} className={styles.icon}>
+              {showPassword ? <EyeIcon /> : <EyeOffIcon />}
+            </span>
+          </span>
+          {props.message && (
+            <span className={styles.errorMessage}>{props.message}</span>
+          )}
+        </div>
+      );
+
     default:
-      return renderDefault();
+      return (
+        <div className={styles.field}>
+          {props.label && <label htmlFor={props.id}>{props.label}</label>}
+          <input
+            id={props.id}
+            type={props.type}
+            placeholder={props.placeholder}
+            {...props.register}
+          />
+          {props.message && (
+            <span className={styles.errorMessage}>{props.message}</span>
+          )}
+        </div>
+      );
   }
-}
+});
+
+Input.displayName = "Input";
+export default Input;
