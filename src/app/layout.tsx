@@ -1,7 +1,9 @@
+import {AppProvider} from "@/shared/provider/AppProvider";
 import "@/shared/ui/styles/globals.css";
+import {GOOGLE_CLIENT_ID} from "@/shared/utils/lib.";
+import {GoogleOAuthProvider} from "@react-oauth/google";
 import type {Metadata} from "next";
 import {Inter} from "next/font/google";
-import {AuthProvider} from "@/shared/provider/AuthProvider";
 
 const inter = Inter({
     subsets: ["latin"],
@@ -24,8 +26,12 @@ export default function RootLayout({
     return (
         <html lang="en">
         <body className={inter.className}>
-        <div id="modal"></div>
-        <AuthProvider>{children}</AuthProvider>
+        <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+            <AppProvider>
+                <div id="modal"></div>
+                {children}
+            </AppProvider>
+        </GoogleOAuthProvider>
         </body>
         </html>
     );

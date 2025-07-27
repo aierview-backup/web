@@ -4,7 +4,7 @@ import {
   AccountDetailsFormData,
   accountDetailsSchema,
 } from "@/features/account-details/validations/account-details.validation";
-import { useAuth } from "@/shared/hooks/useAuth";
+import { useApp } from "@/shared/hooks/useApp";
 import { useUser } from "@/shared/hooks/useUser";
 import Button from "@/shared/ui/components/Button";
 import Input from "@/shared/ui/components/Input";
@@ -15,7 +15,7 @@ import { useForm } from "react-hook-form";
 import styles from "./accountdetails.module.css";
 
 export default function AccountDetails() {
-  const { user } = useAuth();
+  const { user } = useApp();
   const { updateUserDetails, error } = useUser();
   const router = useRouter();
 
@@ -59,6 +59,7 @@ export default function AccountDetails() {
             label="Name"
             placeholder="Enter your name"
             register={register("name")}
+            value={user?.name}
             message={errors.name?.message}
           />
 

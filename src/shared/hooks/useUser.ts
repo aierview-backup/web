@@ -1,12 +1,12 @@
-import {useState} from "react";
+import UserService from "@/shared/services/impl/user.service";
 import {User} from "@/shared/types";
 import {AxiosError} from "axios";
-import UserService from "@/shared/services/impl/user.service";
-import {useAuth} from "@/shared/hooks/useAuth";
+import {useState} from "react";
+import {useApp} from "./useApp";
 
 export function useUser() {
     const service = new UserService();
-    const {updateUser} = useAuth();
+    const {updateUser} = useApp();
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 

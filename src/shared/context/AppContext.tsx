@@ -1,8 +1,5 @@
-"use client";
-
-import {AppContextType} from "@/shared/types";
 import {createContext} from "react";
+import {AppContextType} from "../types";
 
-const AppContext = createContext<AppContextType | undefined>(undefined);
-
-export {AppContext};
+const AppContext = createContext<AppContextType>({} as AppContextType);
+export default AppContext;

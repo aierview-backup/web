@@ -4,26 +4,22 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-import { useAppContext } from "@/shared/hooks/useAppContext";
 import Button from "@/shared/ui/components/Button";
 import Input from "@/shared/ui/components/Input";
-
-import GithubIcon from "@/shared/ui/icons/github.svg";
-import GoogleIcon from "@/shared/ui/icons/google.svg";
 
 import {
   SigninFormData,
   signinSchema,
 } from "@/features/auth/validations/signin/signin.validation";
-import { useAuth } from "@/shared/hooks/useAuth";
+import { useApp } from "@/shared/hooks/useApp";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import { useForm } from "react-hook-form";
 import styles from "./signin.module.css";
 
 export default function SigninPage() {
-  const { setTitle } = useAppContext();
   const router = useRouter();
-  const { signin, error } = useAuth();
+  const { signin, googleSignin, error, setError, title, setTitle } = useApp();
 
   useEffect(() => {
     setTitle("Sign-in");
@@ -39,7 +35,15 @@ export default function SigninPage() {
 
   const onSubmit = async (data: SigninFormData) => {
     await signin({ email: data.email, password: data.password });
-    router.push("/account-details");
+  };
+
+  const google = async (credentialResponse: CredentialResponse) => {
+    const idToken = credentialResponse.credential as string;
+    await googleSignin({ idToken });
+  };
+
+  const onError = () => {
+    setError("Login failed");
   };
 
   return (
@@ -73,8 +77,8 @@ export default function SigninPage() {
       </span>
 
       <div className={styles.auth}>
-        <Button type="iconBtn" value={<GoogleIcon />} disabled={isSubmitting} />
-        <Button type="iconBtn" value={<GithubIcon />} disabled={isSubmitting} />
+        <GoogleLogin onSuccess={google} onError={onError} />
+        {/* <Button type="iconBtn" value={<GithubIcon />} disabled={isSubmitting} /> */}
       </div>
 
       <span className={styles.signup}>

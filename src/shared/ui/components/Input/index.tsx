@@ -9,11 +9,12 @@ import styles from "./input.module.css";
 
 type InputType = {
   id: string;
-  label?: string;
   type?: string;
-  register?: UseFormRegisterReturn;
-  placeholder?: string;
+  value?: string;
+  label?: string;
   message?: string;
+  placeholder?: string;
+  register?: UseFormRegisterReturn;
 };
 
 export default function Input(props: InputType) {
@@ -83,6 +84,7 @@ export default function Input(props: InputType) {
             id={props.id}
             type={props.type}
             placeholder={props.placeholder}
+            value={props.value}
             {...props.register}
           />
           {props.message && (

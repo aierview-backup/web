@@ -1,13 +1,13 @@
 "use client";
 
-import { useAppContext } from "@/shared/hooks/useAppContext";
-import { useAuth } from "@/shared/hooks/useAuth";
+import { useApp } from "@/shared/hooks/useApp";
+import { User } from "@/shared/types";
 import DashboardIcon from "@/shared/ui/icons/dashboard.svg";
 import InterviewIcon from "@/shared/ui/icons/interview.svg";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { MouseEvent, useCallback, useEffect, useMemo } from "react";
+import { MouseEvent, use, useCallback, useEffect, useMemo } from "react";
 import styles from "./aside.module.css";
 
 const NAV_LINKS = [
@@ -23,12 +23,16 @@ const NAV_LINKS = [
   },
 ];
 
-export default function Aside() {
-  const { user } = useAuth();
+type AsideType = {
+  user: User | null;
+};
+
+export default function Aside({ user }: AsideType) {
   const router = useRouter();
   const pathname = usePathname();
-  const { setTitle, isAsideOpen } = useAppContext();
+  const { setTitle, isAsideOpen } = useApp();
 
+  console.log(use);
   const activeLink = useMemo(
     () => NAV_LINKS.find((link) => pathname === link.href),
     [pathname]
@@ -54,7 +58,7 @@ export default function Aside() {
       <div className={styles.profile}>
         <Image src="/img/profile.jpeg" width={70} height={79} alt="profile" />
         <h2 className={isAsideOpen ? styles.open : styles.closed}>
-          {`${user?.name?.split(" ")[0]} ${user?.name?.split(" ")[1]}`}
+          {user?.name}
         </h2>
       </div>
 

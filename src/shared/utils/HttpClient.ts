@@ -1,5 +1,5 @@
 // src/core/api/HttpClient.ts
-import axios, { AxiosInstance } from "axios";
+import axios, {AxiosInstance} from "axios";
 
 export default class HttpClient {
     private static instances: Map<string, AxiosInstance> = new Map();

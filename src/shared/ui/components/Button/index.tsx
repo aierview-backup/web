@@ -1,4 +1,3 @@
-
 import styles from "./button.module.css";
 import {MouseEventHandler, ReactNode} from "react";
 
