@@ -34,7 +34,6 @@ export async function POST(req: NextRequest) {
     });
 
     const user = response.data.data;
-    console.log(user);
     if (!user)
       return NextResponse.json(
         { message: "Error fetching user details" },
@@ -65,7 +64,6 @@ export async function POST(req: NextRequest) {
     return res;
   } catch (err: unknown) {
     let message = "Login failed";
-    console.log("Hello => ", err);
     if (err instanceof AxiosError) message = err?.response?.data?.data;
     return NextResponse.json({ message }, { status: 401 });
   }

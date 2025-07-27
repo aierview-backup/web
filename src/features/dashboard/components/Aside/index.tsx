@@ -7,7 +7,7 @@ import InterviewIcon from "@/shared/ui/icons/interview.svg";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { MouseEvent, use, useCallback, useEffect, useMemo } from "react";
+import { MouseEvent, useCallback, useEffect, useMemo } from "react";
 import styles from "./aside.module.css";
 
 const NAV_LINKS = [
@@ -32,7 +32,6 @@ export default function Aside({ user }: AsideType) {
   const pathname = usePathname();
   const { setTitle, isAsideOpen } = useApp();
 
-  console.log(use);
   const activeLink = useMemo(
     () => NAV_LINKS.find((link) => pathname === link.href),
     [pathname]
