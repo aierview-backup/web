@@ -34,6 +34,7 @@ export async function POST(req: NextRequest) {
     });
 
     const user = response.data.data;
+    console.log(user);
     if (!user)
       return NextResponse.json(
         { message: "Error fetching user details" },

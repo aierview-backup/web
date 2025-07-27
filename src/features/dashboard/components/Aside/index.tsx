@@ -56,7 +56,12 @@ export default function Aside({ user }: AsideType) {
   return (
     <aside className={styles.aside}>
       <div className={styles.profile}>
-        <Image src="/img/profile.jpeg" width={70} height={79} alt="profile" />
+        <Image
+          src={user?.picture || "/img/profile.svg"}
+          width={70}
+          height={79}
+          alt="profile"
+        />
         <h2 className={isAsideOpen ? styles.open : styles.closed}>
           {user?.name}
         </h2>
