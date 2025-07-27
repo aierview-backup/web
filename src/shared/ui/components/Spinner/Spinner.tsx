@@ -1,5 +1,5 @@
 import styles from "./Spinner.module.css";
 
 export default function Spinner() {
-    return <span className={styles.loader}></span>;
+  return <span className={styles.loader}></span>;
 }
