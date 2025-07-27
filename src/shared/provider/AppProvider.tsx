@@ -4,9 +4,10 @@ import AuthContext from "@/shared/context/AppContext";
 import AuthService from "@/shared/services/impl/auth.service";
 import UserService from "@/shared/services/impl/user.service";
 import { GoogleSinginType, SigninType, SignupType, User } from "@/shared/types";
+import { logger } from "@/shared/utils/logger";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const [title, setTitle] = useState("");
@@ -19,7 +20,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   const router = useRouter();
   const service = new AuthService();
-  const userService = new UserService();
+  const userService = useMemo(() => {
+    return new UserService();
+  }, []);
 
   useEffect(() => {
     const loadUser = async () => {
@@ -27,11 +30,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         const user = await userService.getUserDetails();
         setUser(user);
       } catch (err) {
+        if (err instanceof Error) logger.error(err.message);
         setUser(null);
       }
     };
     loadUser();
-  }, []);
+  }, [userService]);
 
   const googleSignin = async (params: GoogleSinginType): Promise<void> => {
     setIsLoading(true);

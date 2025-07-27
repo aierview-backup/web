@@ -3,19 +3,15 @@
 import Search from "@/shared/ui/icons/search.svg";
 import EyeIcon from "@/shared/ui/icons/visibility.svg";
 import EyeOffIcon from "@/shared/ui/icons/visibility_off.svg";
-import { useState } from "react";
+import { InputHTMLAttributes, useState } from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
 import styles from "./input.module.css";
 
-type InputType = {
-  id: string;
-  type?: string;
-  value?: string;
+export type InputType = {
   label?: string;
   message?: string;
-  placeholder?: string;
   register?: UseFormRegisterReturn;
-};
+} & InputHTMLAttributes<HTMLInputElement>;
 
 export default function Input(props: InputType) {
   const [showPassword, setShowPassword] = useState(false);

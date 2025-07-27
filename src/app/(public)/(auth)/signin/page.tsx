@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 import Button from "@/shared/ui/components/Button";
@@ -18,8 +17,7 @@ import { useForm } from "react-hook-form";
 import styles from "./signin.module.css";
 
 export default function SigninPage() {
-  const router = useRouter();
-  const { signin, googleSignin, error, setError, title, setTitle } = useApp();
+  const { signin, googleSignin, error, setError, setTitle } = useApp();
 
   useEffect(() => {
     setTitle("Sign-in");
