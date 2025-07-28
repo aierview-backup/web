@@ -43,3 +43,12 @@
 .icon:hover {
   color: var(--primary-800);
 }
+
+.error {
+  text-align: center;
+  margin-top: 4px;
+  color: var(--red-500);
+  height: 12px;
+  font-size: var(--heading-12);
+  font-weight: bold;
+}

@@ -1,11 +1,12 @@
-import styles from "./button.module.css";
 import { MouseEventHandler, ReactNode } from "react";
+import styles from "./button.module.css";
 
 type ButtonType = {
   type?: string;
-  value?: string | ReactNode;
+  action?: "button" | "submit" | "reset" | undefined;
   className?: string;
   disabled?: boolean;
+  value?: string | ReactNode;
   handleClick?: MouseEventHandler<HTMLButtonElement>;
 };
 
@@ -13,6 +14,7 @@ export default function Button(props: ButtonType) {
   if (props.type === "iconBtn") {
     return (
       <button
+        type={props.action}
         disabled={props.disabled}
         onClick={props.handleClick}
         className={`${styles.iconBtn} ${props.className}`}
@@ -24,6 +26,7 @@ export default function Button(props: ButtonType) {
 
   return (
     <button
+      type={props.action}
       disabled={props.disabled}
       onClick={props.handleClick}
       className={`${styles.button} ${styles.className}`}

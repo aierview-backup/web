@@ -1,18 +1,20 @@
 "use client";
 
-import { HeaderDashType } from "@/features/dashboard/types";
-import { useApp } from "@/shared/hooks/useApp";
+import { useAuthStore } from "@/shared/store/authStore";
 import Button from "@/shared/ui/components/Button";
 import MenuIcon from "@/shared/ui/icons/menu.svg";
 import SignoutIcon from "@/shared/ui/icons/singout.svg";
+import { useRouter } from "next/navigation";
 import styles from "./header.module.css";
 
-export default function HeaderDash({ title }: HeaderDashType) {
-  const { signout, toggleAside } = useApp();
+export default function HeaderDash() {
+  const router = useRouter();
+  const { signout, toggleAside, title } = useAuthStore();
 
   const handleSignout = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    await signout();
+    const result = await signout();
+    if (result) router.push("/signin");
   };
 
   return (

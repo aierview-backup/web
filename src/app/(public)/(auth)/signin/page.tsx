@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect } from "react";
 
 import Button from "@/shared/ui/components/Button";
 import Input from "@/shared/ui/components/Input";
@@ -10,18 +9,22 @@ import {
   SigninFormData,
   signinSchema,
 } from "@/features/auth/validations/signin/signin.validation";
-import { useApp } from "@/shared/hooks/useApp";
+import { useAuthStore } from "@/shared/store/authStore";
+import { logger } from "@/shared/utils/logger";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styles from "./signin.module.css";
 
 export default function SigninPage() {
-  const { signin, googleSignin, error, setError, setTitle } = useApp();
+  const router = useRouter();
+  const { signin, googleSignin, error, setTitle } = useAuthStore();
 
   useEffect(() => {
     setTitle("Sign-in");
-  }, [setTitle]);
+  }, []);
 
   const {
     register,
@@ -32,16 +35,18 @@ export default function SigninPage() {
   });
 
   const onSubmit = async (data: SigninFormData) => {
-    await signin({ email: data.email, password: data.password });
+    const sucess = await signin({ email: data.email, password: data.password });
+    if (sucess) router.push("/account-details");
   };
 
   const google = async (credentialResponse: CredentialResponse) => {
     const idToken = credentialResponse.credential as string;
-    await googleSignin({ idToken });
+    const result = await googleSignin({ idToken });
+    if (result) router.push("/account-details");
   };
 
   const onError = () => {
-    setError("Login failed");
+    logger.info("Google login failed");
   };
 
   return (
@@ -76,7 +81,6 @@ export default function SigninPage() {
 
       <div className={styles.auth}>
         <GoogleLogin onSuccess={google} onError={onError} />
-        {/* <Button type="iconBtn" value={<GithubIcon />} disabled={isSubmitting} /> */}
       </div>
 
       <span className={styles.signup}>

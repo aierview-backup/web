@@ -1,12 +1,11 @@
 import IAuthService from "@/shared/services/contract/IAuthService";
 import { GoogleSinginType, SigninType, SignupType } from "@/shared/types";
 import HttpClient from "@/shared/utils/HttpClient";
+import { NEXT_PUBLIC_API_URL } from "@/shared/utils/lib.";
 
 export default class AuthService implements IAuthService {
   private readonly localHttp = HttpClient.getInstance();
-  private readonly externalHttp = HttpClient.getInstance(
-    process.env.NEXT_PUBLIC_API_URL
-  );
+  private readonly externalHttp = HttpClient.getInstance(NEXT_PUBLIC_API_URL);
 
   async googleSingin(params: GoogleSinginType): Promise<void> {
     await this.localHttp.post(`/api/auth/google`, params);

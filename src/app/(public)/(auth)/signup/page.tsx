@@ -1,9 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect } from "react";
 
-import { useApp } from "@/shared/hooks/useApp";
 import Button from "@/shared/ui/components/Button";
 import Input from "@/shared/ui/components/Input";
 
@@ -14,16 +12,20 @@ import {
   SignupFormData,
   signupSchema,
 } from "@/features/auth/validations/signup/signup.validation";
+import { useAuthStore } from "@/shared/store/authStore";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styles from "./signup.module.css";
 
 export default function SignupPage() {
-  const { signup, error, setTitle } = useApp();
+  const router = useRouter();
+  const { signup, error, setTitle } = useAuthStore();
 
   useEffect(() => {
     setTitle("Sign-up");
-  }, [setTitle]);
+  }, []);
 
   const {
     register,
@@ -34,7 +36,8 @@ export default function SignupPage() {
   });
 
   const onSubmit = async (data: SignupFormData) => {
-    await signup({ email: data.email, password: data.password });
+    const sucess = await signup({ email: data.email, password: data.password });
+    if (sucess) router.push("/signin");
   };
 
   return (

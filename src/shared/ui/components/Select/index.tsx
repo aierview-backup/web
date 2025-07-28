@@ -36,7 +36,7 @@ const Select: React.FC<SelectProps> = ({
           </option>
         ))}
       </select>
-      {message && <span className={styles.errorMessage}>{message}</span>}
+      <p className={styles.errorMessage}>{message}</p>
     </div>
   );
 };

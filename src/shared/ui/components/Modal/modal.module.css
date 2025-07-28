@@ -25,9 +25,9 @@
 }
 
 .close button {
-  background: var(--red-500);
+  color: var(--red-500);
 }
 
 .close button:hover {
-  background: var(--red-800);
+  color: var(--red-800);
 }

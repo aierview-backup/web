@@ -1,7 +1,6 @@
 "use client";
 
-import { useApp } from "@/shared/hooks/useApp";
-import { User } from "@/shared/types";
+import { useAuthStore } from "@/shared/store/authStore";
 import DashboardIcon from "@/shared/ui/icons/dashboard.svg";
 import InterviewIcon from "@/shared/ui/icons/interview.svg";
 import Image from "next/image";
@@ -23,14 +22,10 @@ const NAV_LINKS = [
   },
 ];
 
-type AsideType = {
-  user: User | null;
-};
-
-export default function Aside({ user }: AsideType) {
+export default function Aside() {
   const router = useRouter();
   const pathname = usePathname();
-  const { setTitle, isAsideOpen } = useApp();
+  const { user, isAsideOpen, setTitle } = useAuthStore();
 
   const activeLink = useMemo(
     () => NAV_LINKS.find((link) => pathname === link.href),

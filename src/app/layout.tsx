@@ -1,4 +1,3 @@
-import { AppProvider } from "@/shared/provider/AppProvider";
 import "@/shared/ui/styles/globals.css";
 import { GOOGLE_CLIENT_ID } from "@/shared/utils/lib.";
 import { GoogleOAuthProvider } from "@react-oauth/google";
@@ -27,10 +26,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-          <AppProvider>
-            <div id="modal"></div>
-            {children}
-          </AppProvider>
+          <div id="modal"></div>
+          {children}
         </GoogleOAuthProvider>
       </body>
     </html>

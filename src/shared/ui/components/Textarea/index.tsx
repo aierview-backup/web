@@ -1,12 +1,15 @@
-"use client";
+// Textarea.tsx
 import SendIcon from "@/shared/ui/icons/send.svg";
-import { useEffect, useRef, useState } from "react";
+import { TextareaHTMLAttributes, useEffect, useRef } from "react";
 import Button from "../Button";
 import styles from "./textarea.module.css";
 
-export default function Textarea() {
-  const [value, setValue] = useState("");
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+type TextareaType = {
+  error?: string;
+} & TextareaHTMLAttributes<HTMLTextAreaElement>;
+
+export default function Textarea({ error, ...rest }: TextareaType) {
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   useEffect(() => {
     const textarea = textareaRef.current;
@@ -14,20 +17,15 @@ export default function Textarea() {
       textarea.style.height = "auto";
       textarea.style.height = `${Math.min(textarea.scrollHeight, 200)}px`;
     }
-  }, [value]);
+  }, [rest.value]);
 
   return (
     <div className={styles.field}>
       <span className={styles.inputIcon}>
-        <textarea
-          ref={textareaRef}
-          className={styles.textarea}
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          placeholder="Write here ..."
-        />
+        <textarea className={styles.textarea} {...rest} ref={textareaRef} />
         <Button type="iconBtn" className={styles.icon} value={<SendIcon />} />
       </span>
+      <p className={styles.error}>{error}</p>
     </div>
   );
 }
