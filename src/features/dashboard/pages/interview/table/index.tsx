@@ -1,120 +1,143 @@
 "use client";
 
-import { TableType } from "@/features/dashboard/types";
 import Input from "@/shared/ui/components/Input";
-import { useCallback, useMemo, useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useMemo } from "react";
+import { useForm } from "react-hook-form";
+import { tableSelectionSchema } from "./table-validation";
 import styles from "./table.module.css";
 
-export default function Table({ headers, rows }: TableType) {
-  const [selectAll, setSelectAll] = useState(false);
-  const [selectedRows, setSelectedRows] = useState<boolean[]>(() =>
-    rows.map(() => false)
-  );
+export type TableHeader = {
+  key: string;
+  label: string;
+  isCheckbox?: boolean;
+};
 
-  const handleToggleAll = useCallback(() => {
-    const newSelectAll = !selectAll;
-    setSelectAll(newSelectAll);
-    setSelectedRows(rows.map(() => newSelectAll));
-  }, [selectAll, rows]);
+export type TableRow = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
+};
 
-  const handleToggleRow = useCallback(
-    (index: number) => {
-      setSelectedRows((prev) => {
-        const updated = [...prev];
-        updated[index] = !updated[index];
-        setSelectAll(updated.every(Boolean));
-        return updated;
-      });
+export type TableType = {
+  headers: TableHeader[];
+  rows: TableRow[];
+};
+
+type TableProps = TableType & {
+  onDeleteRow: (id: number) => void;
+  onSelectionChange?: (selectedIds: (string | number)[]) => void;
+};
+
+export default function Table({
+  headers,
+  rows,
+  onSelectionChange,
+}: TableProps) {
+  const {
+    watch,
+    setValue,
+    getValues,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(tableSelectionSchema),
+    defaultValues: {
+      selectedIds: [],
     },
-    [setSelectedRows]
+  });
+
+  const watchedSelectedIds = watch("selectedIds");
+  const selectedIds = useMemo(
+    () => watchedSelectedIds || [],
+    [watchedSelectedIds]
   );
 
-  const renderHeader = useCallback(
-    () => (
-      <thead>
-        <tr>
-          {headers.map(({ key, label, isCheckbox }) => (
-            <th key={key}>
-              {isCheckbox ? <Input type="checkbox" id="selectAll" /> : label}
-            </th>
-          ))}
-        </tr>
-      </thead>
-    ),
-    [headers, selectAll, handleToggleAll]
-  );
+  useEffect(() => {
+    if (onSelectionChange) onSelectionChange(selectedIds);
+  }, [selectedIds, onSelectionChange]);
 
-  const getCellStyle = useCallback(
-    (
-      key: string,
-      colIdx: number,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      row: any
-    ): React.CSSProperties | undefined => {
-      const score =
-        typeof row.score === "number" ? row.score : Number(row.score);
-      const status = String(row.status).toLowerCase();
+  const handleToggleAll = () => {
+    const allIds = rows.map((row) => row.id);
+    const isAllSelected = selectedIds.length === allIds.length;
+    setValue("selectedIds", isAllSelected ? [] : allIds);
+  };
 
-      let color: string | undefined;
-      if (status === "pending" || score < 50) color = "#ff383c";
-      else if (status === "done" && score >= 50) color = "#34c759";
-
-      const isStyledText = colIdx === 6 || colIdx === 7;
-
-      return {
-        ...(colIdx === 1 && color ? { borderLeft: `2px solid ${color}` } : {}),
-        ...(isStyledText && color ? { color, fontWeight: "bold" } : {}),
-      };
-    },
-    []
-  );
-
-  const renderCell = useCallback(
-    (
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      row: any,
-      rowIdx: number,
-      colIdx: number,
-      key: string,
-      isCheckbox?: boolean
-    ) => {
-      if (isCheckbox) {
-        return (
-          <td key={key}>
-            <Input type="checkbox" id="selectAll" />
-          </td>
-        );
-      }
-
-      return (
-        <td key={key} style={getCellStyle(key, colIdx, row)}>
-          {row[key]}
-        </td>
+  const handleToggleRow = (id: string | number) => {
+    const current = getValues("selectedIds") || [];
+    if (current.includes(id)) {
+      setValue(
+        "selectedIds",
+        current.filter((item) => item !== id)
       );
-    },
-    [selectedRows, handleToggleRow, getCellStyle]
-  );
+    } else {
+      setValue("selectedIds", [...current, id]);
+    }
+  };
 
-  const renderRow = useCallback(
+  const getCellStyle = (
+    key: string,
+    colIdx: number,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (row: any, rowIdx: number) => (
-      <tr key={rowIdx}>
-        {headers.map(({ key, isCheckbox }, colIdx) =>
-          renderCell(row, rowIdx, colIdx, key, isCheckbox)
-        )}
-      </tr>
-    ),
-    [headers, renderCell]
-  );
+    row: any
+  ): React.CSSProperties | undefined => {
+    const score = typeof row.score === "number" ? row.score : Number(row.score);
+    const status = String(row.status).toLowerCase();
 
-  const tableBody = useMemo(() => {
-    return rows.map((row, idx) => renderRow(row, idx));
-  }, [rows, renderRow]);
+    let color: string | undefined;
+    if (status === "pending" || score < 50) color = "#ff383c";
+    else if (status === "done" && score >= 50) color = "#34c759";
+
+    const isStyledText = colIdx === 6 || colIdx === 7;
+
+    return {
+      ...(colIdx === 1 && color ? { borderLeft: `2px solid ${color}` } : {}),
+      ...(isStyledText && color ? { color, fontWeight: "bold" } : {}),
+    };
+  };
 
   return (
-    <table className={styles.table}>
-      {renderHeader()}
-      <tbody>{tableBody}</tbody>
-    </table>
+    <div className={styles.tableWrapper}>
+      <table className={styles.table}>
+        <thead>
+          <tr>
+            {headers.map(({ key, label, isCheckbox }) => (
+              <th key={key}>
+                {isCheckbox ? (
+                  <Input
+                    type="checkbox"
+                    id="selectAll"
+                    checked={selectedIds.length === rows.length}
+                    onChange={handleToggleAll}
+                  />
+                ) : (
+                  label
+                )}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr key={row.id}>
+              {headers.map(({ key, isCheckbox }, colIdx) => (
+                <td key={key} style={getCellStyle(key, colIdx, row)}>
+                  {isCheckbox ? (
+                    <Input
+                      type="checkbox"
+                      checked={selectedIds.includes(row.id)}
+                      onChange={() => handleToggleRow(row.id)}
+                    />
+                  ) : (
+                    row[key]
+                  )}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {errors.selectedIds && (
+        <p className="text-red">{errors.selectedIds.message}</p>
+      )}
+    </div>
   );
 }

@@ -1,57 +1,57 @@
 .card {
-    position: relative;
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border: 1px solid var(--dark-gray-100);
-    border-radius: var(--base-border-radius);
-    background: var(--white-500);
-    padding: 0px 1rem;
-    font-weight: var(--semibold);
-    font-size: var(--heading-20);
-    cursor: pointer;
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--dark-gray-100);
+  border-radius: var(--base-border-radius);
+  background: var(--white-500);
+  padding: 0px 1rem;
+  font-weight: var(--semibold);
+  font-size: var(--heading-20);
+  cursor: pointer;
 }
 
 .card:hover {
-    border: 1px solid var(--primary-500);
+  border: 1px solid var(--primary-500);
 }
 
 .card span {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .tooltip {
-    visibility: hidden;
-    z-index: 1;
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.25rem;
-    padding: 0.25rem 1rem;
-    background: var(--primary-100);
-    border-radius: var(--base-border-radius);
-    font-weight: normal;
-    font-size: var(--heading-14);
-    top: 100%;
-    left: 50%;
-    margin-top: 0.5rem;
-    opacity: 0;
-    transition: opacity 0.2s ease-in-out;
+  visibility: hidden;
+  z-index: 1;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 1rem;
+  background: var(--primary-100);
+  border-radius: var(--base-border-radius);
+  font-weight: normal;
+  font-size: var(--heading-14);
+  top: 100%;
+  left: 50%;
+  margin-top: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
 }
 
 .visible {
-    opacity: 1;
-    visibility: visible;
+  opacity: 1;
+  visibility: visible;
 }
 
 .red {
-    color: var(--red-500);
+  color: var(--red-500);
 }
 
 .green {
-    color: var(--green-500);
+  color: var(--green-500);
 }

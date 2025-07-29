@@ -1,23 +1,23 @@
 /* CARD */
 
 .card {
-    height: 16.25rem;
-    padding: 0.625rem 1rem 0 1rem;
-    border-radius: var(--base-border-radius);
-    border: 1px solid var(--dark-gray-100);
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 1rem;
+  height: 16.25rem;
+  padding: 0.625rem 1rem 0 1rem;
+  border-radius: var(--base-border-radius);
+  border: 1px solid var(--dark-gray-100);
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 1rem;
 }
 
 .card h2 {
-    font-size: var(--heading-20);
-    font-weight: var(--semibold);
+  font-size: var(--heading-20);
+  font-weight: var(--semibold);
 }
 
 .card div {
-    color: var(--dark-gray-400);
-    font-size: var(--heading-14);
-    text-align: left;
+  color: var(--dark-gray-400);
+  font-size: var(--heading-14);
+  text-align: left;
 }

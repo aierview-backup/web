@@ -1,29 +1,27 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
-import { useAppContext } from "@/shared/hooks/useAppContext";
 import Button from "@/shared/ui/components/Button";
 import Input from "@/shared/ui/components/Input";
-
-import GithubIcon from "@/shared/ui/icons/github.svg";
-import GoogleIcon from "@/shared/ui/icons/google.svg";
 
 import {
   SigninFormData,
   signinSchema,
 } from "@/features/auth/validations/signin/signin.validation";
-import { useAuth } from "@/shared/hooks/useAuth";
+import { useAuthStore } from "@/shared/store/authStore";
+import Spinner from "@/shared/ui/components/Spinner/Spinner";
+import { logger } from "@/shared/utils/logger";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styles from "./signin.module.css";
 
 export default function SigninPage() {
-  const { setTitle } = useAppContext();
   const router = useRouter();
-  const { signin, error } = useAuth();
+  const { signin, googleSignin, error, setTitle } = useAuthStore();
 
   useEffect(() => {
     setTitle("Sign-in");
@@ -38,8 +36,18 @@ export default function SigninPage() {
   });
 
   const onSubmit = async (data: SigninFormData) => {
-    await signin({ email: data.email, password: data.password });
-    router.push("/account-details");
+    const sucess = await signin({ email: data.email, password: data.password });
+    if (sucess) router.push("/account-details");
+  };
+
+  const google = async (credentialResponse: CredentialResponse) => {
+    const idToken = credentialResponse.credential as string;
+    const result = await googleSignin({ idToken });
+    if (result) router.push("/account-details");
+  };
+
+  const onError = () => {
+    logger.info("Google login failed");
   };
 
   return (
@@ -71,10 +79,10 @@ export default function SigninPage() {
       <span className={`${styles.error} ${!error && styles.hidden}`}>
         {error}
       </span>
+      <Spinner hidden={!isSubmitting} />
 
       <div className={styles.auth}>
-        <Button type="iconBtn" value={<GoogleIcon />} disabled={isSubmitting} />
-        <Button type="iconBtn" value={<GithubIcon />} disabled={isSubmitting} />
+        <GoogleLogin onSuccess={google} onError={onError} />
       </div>
 
       <span className={styles.signup}>

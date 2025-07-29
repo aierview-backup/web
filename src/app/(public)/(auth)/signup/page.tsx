@@ -1,29 +1,27 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect } from "react";
 
-import { useAppContext } from "@/shared/hooks/useAppContext";
 import Button from "@/shared/ui/components/Button";
 import Input from "@/shared/ui/components/Input";
-
-import GithubIcon from "@/shared/ui/icons/github.svg";
-import GoogleIcon from "@/shared/ui/icons/google.svg";
 
 import {
   SignupFormData,
   signupSchema,
 } from "@/features/auth/validations/signup/signup.validation";
-import { useAuth } from "@/shared/hooks/useAuth";
+import { useAuthStore } from "@/shared/store/authStore";
+import Spinner from "@/shared/ui/components/Spinner/Spinner";
+import { logger } from "@/shared/utils/logger";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styles from "./signup.module.css";
 
 export default function SignupPage() {
-  const { setTitle } = useAppContext();
   const router = useRouter();
-  const { signup, error } = useAuth();
+  const { signup, googleSignin, error, setTitle } = useAuthStore();
 
   useEffect(() => {
     setTitle("Sign-up");
@@ -38,8 +36,18 @@ export default function SignupPage() {
   });
 
   const onSubmit = async (data: SignupFormData) => {
-    await signup({ email: data.email, password: data.password });
-    router.push("/signin");
+    const sucess = await signup({ email: data.email, password: data.password });
+    if (sucess) router.push("/signin");
+  };
+
+  const google = async (credentialResponse: CredentialResponse) => {
+    const idToken = credentialResponse.credential as string;
+    const result = await googleSignin({ idToken });
+    if (result) router.push("/account-details");
+  };
+
+  const onError = () => {
+    logger.info("Google login failed");
   };
 
   return (
@@ -71,15 +79,14 @@ export default function SignupPage() {
         message={errors.confirmPassword?.message}
       />
 
-      <Button value="Sign-up" disabled={isSubmitting} />
-
+      <Button className={isSubmitting ? "disabled" : ""} value="Sign-up" />
       <span className={`${styles.error} ${!error && styles.hidden}`}>
         {error}
       </span>
+      <Spinner hidden={!isSubmitting} />
 
       <div className={styles.auth}>
-        <Button type="iconBtn" value={<GoogleIcon />} disabled={isSubmitting} />
-        <Button type="iconBtn" value={<GithubIcon />} disabled={isSubmitting} />
+        <GoogleLogin onSuccess={google} onError={onError} />
       </div>
 
       <span className={styles.signup}>

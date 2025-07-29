@@ -3,20 +3,19 @@
 import Search from "@/shared/ui/icons/search.svg";
 import EyeIcon from "@/shared/ui/icons/visibility.svg";
 import EyeOffIcon from "@/shared/ui/icons/visibility_off.svg";
-import { forwardRef, useState } from "react";
+import { InputHTMLAttributes, useState } from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
 import styles from "./input.module.css";
 
-type InputType = {
-  id: string;
+export type InputType = {
   label?: string;
-  type?: string;
-  register?: UseFormRegisterReturn;
-  placeholder?: string;
   message?: string;
-};
+  register?: UseFormRegisterReturn;
+  checked?: boolean;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+} & InputHTMLAttributes<HTMLInputElement>;
 
-const Input = forwardRef<HTMLInputElement, InputType>((props) => {
+export default function Input(props: InputType) {
   const [showPassword, setShowPassword] = useState(false);
   const togglePassword = () => setShowPassword((prev) => !prev);
 
@@ -27,7 +26,7 @@ const Input = forwardRef<HTMLInputElement, InputType>((props) => {
           <span className={styles.inputIcon}>
             <input
               id={props.id}
-              type={props.type}
+              // type={props.type}
               placeholder={props.placeholder}
               {...props.register}
             />
@@ -35,19 +34,20 @@ const Input = forwardRef<HTMLInputElement, InputType>((props) => {
               <Search />
             </span>
           </span>
-          {props.message && (
-            <span className={styles.errorMessage}>{props.message}</span>
-          )}
+          <span className={styles.errorMessage}>{props.message}</span>
         </div>
       );
     case "checkbox":
       return (
-        <label className={styles.checkbox}>
+        <label className={styles.checkbox} htmlFor={props.id}>
           <input
             id={props.id}
-            type={props.type}
-            placeholder={props.placeholder}
+            type="checkbox"
             {...props.register}
+            checked={props.checked}
+            onChange={props.onChange}
+            placeholder={props.placeholder}
+            {...props}
           />
           <span></span>
           {props.label}
@@ -69,9 +69,7 @@ const Input = forwardRef<HTMLInputElement, InputType>((props) => {
               {showPassword ? <EyeIcon /> : <EyeOffIcon />}
             </span>
           </span>
-          {props.message && (
-            <span className={styles.errorMessage}>{props.message}</span>
-          )}
+          <span className={styles.errorMessage}>{props.message}</span>
         </div>
       );
 
@@ -83,15 +81,11 @@ const Input = forwardRef<HTMLInputElement, InputType>((props) => {
             id={props.id}
             type={props.type}
             placeholder={props.placeholder}
+            value={props.value}
             {...props.register}
           />
-          {props.message && (
-            <span className={styles.errorMessage}>{props.message}</span>
-          )}
+          <span className={styles.errorMessage}>{props.message}</span>
         </div>
       );
   }
-});
-
-Input.displayName = "Input";
-export default Input;
+}

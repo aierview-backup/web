@@ -8,6 +8,14 @@ const publicRoutes = [
 
 const REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE = "/signin";
 
+// Helper para adicionar os headers de política de segurança
+function withSecurityHeaders(response: NextResponse) {
+  response.headers.set("Cross-Origin-Opener-Policy", "unsafe-none");
+  response.headers.set("Cross-Origin-Embedder-Policy", "unsafe-none");
+  response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+  return response;
+}
+
 export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
   const publicRoute = publicRoutes.find((route) => route.path === path);
@@ -16,43 +24,36 @@ export function middleware(request: NextRequest) {
 
   let user = null;
   if (rawUser?.value) user = JSON.parse(rawUser.value);
-  if (token && path === "/account-details" && user.role && user.name) {
+
+  if (token && path === "/account-details" && user?.name) {
     const redirectUrl = request.nextUrl.clone();
     redirectUrl.pathname = "/dashboard";
-    return NextResponse.redirect(redirectUrl);
+    return withSecurityHeaders(NextResponse.redirect(redirectUrl));
   }
 
-  if (!token && publicRoute) return NextResponse.next();
+  if (!token && publicRoute) {
+    return withSecurityHeaders(NextResponse.next());
+  }
 
   if (!token && !publicRoute) {
     const redirectUrl = request.nextUrl.clone();
     redirectUrl.pathname = REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE;
-    return NextResponse.redirect(redirectUrl);
+    return withSecurityHeaders(NextResponse.redirect(redirectUrl));
   }
 
-  if (token && publicRoute && publicRoute.whenAuthenticated === "redirect") {
+  if (token && publicRoute?.whenAuthenticated === "redirect") {
     const redirectUrl = request.nextUrl.clone();
     redirectUrl.pathname = "/dashboard";
-    return NextResponse.redirect(redirectUrl);
+    return withSecurityHeaders(NextResponse.redirect(redirectUrl));
   }
 
   if (token && !publicRoute) {
-    //check if token is valid
-    return NextResponse.next();
+    return withSecurityHeaders(NextResponse.next());
   }
 
-  return NextResponse.next();
+  return withSecurityHeaders(NextResponse.next());
 }
 
 export const config: MiddlewareConfig = {
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     */
-    "/((?!api|_next/|favicon.ico|.*\\.svg$).*)",
-  ],
+  matcher: ["/((?!api|_next/|favicon.ico|.*\\.svg$).*)"],
 };

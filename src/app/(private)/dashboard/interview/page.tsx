@@ -1,73 +1,46 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import styles from "./interview.module.css";
 
 import InterviewCard from "@/features/dashboard/pages/interview/Card";
-import Table from "@/features/dashboard/pages/interview/table";
-import { TableHeader, TableRow } from "@/features/dashboard/types";
+import Table, { TableHeader } from "@/features/dashboard/pages/interview/table";
 import Button from "@/shared/ui/components/Button";
-import Card from "@/shared/ui/components/card";
 import Input from "@/shared/ui/components/Input";
-import Modal from "@/shared/ui/components/Modal";
 
-import Select from "@/shared/ui/components/Select";
+import InterviewTypeModal from "@/features/dashboard/pages/interview/Modal/InterviewType";
+import TechnologyModal from "@/features/dashboard/pages/interview/Modal/TechnologyModal";
+import { InterviewResponseType } from "@/features/interview/whitebord/types/types";
+import { useWhiteboardStore } from "@/shared/store/whiteboardStore";
 import AddIcon from "@/shared/ui/icons/addLarge.svg";
 import CodeReviewIcon from "@/shared/ui/icons/code-review.svg";
 import CodechallengeIcon from "@/shared/ui/icons/codechallenge.svg";
 import PlayIcon from "@/shared/ui/icons/paly.svg";
+import TrashIconLarge from "@/shared/ui/icons/trash-large.svg";
 import TrashIcon from "@/shared/ui/icons/trash.svg";
 import ViewIcon from "@/shared/ui/icons/view.svg";
 import WhiteboardIcon from "@/shared/ui/icons/whiteboard.svg";
+import { useRouter } from "next/navigation";
 
 export default function Interview() {
   const router = useRouter();
-  // ============================
-  // Estados e Refs
-  // ============================
-
-  const [interviewType, setInterviewType] = useState("");
   const interviewTypeRef = useRef("");
-
+  const [interviewType, setInterviewType] = useState("");
   const [isInterviewTypeModalOpen, setIsInterviewTypeModalOpen] =
     useState(false);
   const [isTechnologyModalOpen, setIsTechnologyModal] = useState(false);
-  // ============================
-  // Opções dos selects
-  // ============================
+  const { interviews, readAll, deleteOne, deleteMany, setIntverview } =
+    useWhiteboardStore();
 
-  const roleOptions = useMemo(
-    () => [
-      { label: "Frontend", value: "frontend" },
-      { label: "Mobile", value: "mobile" },
-      { label: "Fullstack", value: "fullstack" },
-    ],
-    []
-  );
+  const [selectedIds, setSelectedIds] = useState<(string | number)[]>([]);
 
-  const programmingLanguages = useMemo(
-    () => [
-      { label: "Java", value: "java" },
-      { label: "Javascript", value: "javascript" },
-      { label: "Dart", value: "dart" },
-    ],
-    []
-  );
-
-  const levels = useMemo(
-    () => [
-      { label: "Junior", value: "junior" },
-      { label: "Mid Level", value: "midlevel" },
-      { label: "Senior", value: "senior" },
-    ],
-    []
-  );
-
-  // ============================
-  // Handlers
-  // ============================
+  useEffect(() => {
+    const fetchInterviews = async () => {
+      await readAll();
+    };
+    fetchInterviews();
+  }, [readAll]);
 
   const handleClickCard = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
@@ -79,16 +52,19 @@ export default function Interview() {
     setIsTechnologyModal(true);
   };
 
-  const handleClickNext = (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-    const type = interviewTypeRef.current;
-    if (!type) return;
-    router.push(`/interview/${type.toLowerCase().replace(/\s+/g, "-")}`);
+  const handleDeleteRow = async (id: number) => {
+    await deleteOne(id);
   };
 
-  // ============================
-  // Dados Estáticos
-  // ============================
+  const handleDeleteSelected = async () => {
+    await deleteMany(selectedIds as number[]);
+    setSelectedIds([]);
+  };
+
+  const handlePlayClick = (interview: InterviewResponseType) => {
+    setIntverview(interview);
+    router.push(`/interview/${interview.type.toLowerCase()}`);
+  };
 
   const headers: TableHeader[] = [
     { key: "select", label: "", isCheckbox: true },
@@ -102,71 +78,37 @@ export default function Interview() {
     { key: "actions", label: "Actions" },
   ];
 
-  const rows: TableRow[] = [
-    {
-      select: false,
-      type: "Whiteboard",
-      role: "Backend",
-      level: "Senior",
-      tech: "Java",
-      date: "2025-07-23",
-      score: 50,
-      status: "Done",
-      actions: (
-        <>
+  const rows = interviews.map((interview) => ({
+    select: false,
+    id: interview.id,
+    type: interview.type,
+    role: interview.role,
+    level: interview.level,
+    tech: interview.technology,
+    date: interview.date,
+    score: interview.score,
+    status: interview.status,
+    actions: (
+      <>
+        {interview.status === "pending".toUpperCase() ? (
+          <Button
+            handleClick={() => handlePlayClick(interview)}
+            className={styles.view}
+            type="iconBtn"
+            value={<PlayIcon />}
+          />
+        ) : (
           <Button className={styles.view} type="iconBtn" value={<ViewIcon />} />
-          <Button
-            className={styles.trash}
-            type="iconBtn"
-            value={<TrashIcon />}
-          />
-        </>
-      ),
-    },
-    {
-      select: false,
-      type: "Code Review",
-      role: "Mobile",
-      level: "Mid Level",
-      tech: "React Native",
-      date: "2025-07-23",
-      score: 50,
-      status: "Pending",
-      actions: (
-        <>
-          <Button className={styles.view} type="iconBtn" value={<PlayIcon />} />
-          <Button
-            className={styles.trash}
-            type="iconBtn"
-            value={<TrashIcon />}
-          />
-        </>
-      ),
-    },
-    // outros omitidos por brevidade...
-  ];
-
-  const interviewCards = [
-    {
-      icon: <WhiteboardIcon />,
-      title: "Whiteboard",
-      desc: "Challenges focused on logic, code structure, and problem-solving.",
-    },
-    {
-      icon: <CodeReviewIcon />,
-      title: "Code Review",
-      desc: "Analyze code snippets, identify issues, and suggest improvements.",
-    },
-    {
-      icon: <CodechallengeIcon />,
-      title: "Code Challenge",
-      desc: "Solve real programming challenges with instant technical feedback.",
-    },
-  ];
-
-  // ============================
-  // JSX
-  // ============================
+        )}
+        <Button
+          handleClick={() => handleDeleteRow(interview.id)}
+          className={styles.trash}
+          type="iconBtn"
+          value={<TrashIcon />}
+        />
+      </>
+    ),
+  }));
 
   return (
     <div className={styles.content}>
@@ -200,87 +142,44 @@ export default function Interview() {
 
       {/* Tabela */}
       <div className={styles.tableContainer}>
-        <div className={styles.searchAndAdd}>
-          <Input id="search" type="search" placeholder="Search ..." />
-          <Button
-            className={styles.add}
-            type="iconBtn"
-            value={<AddIcon />}
-            handleClick={() => setIsInterviewTypeModalOpen(true)}
-          />
+        <div className={styles.wrapper}>
+          <div className={styles.searchAndAdd}>
+            <Input id="search" type="search" placeholder="Search ..." />
+            <Button
+              className={styles.add}
+              type="iconBtn"
+              value={<AddIcon />}
+              handleClick={() => setIsInterviewTypeModalOpen(true)}
+            />
+            <Button
+              className={`${styles.deleteAll} ${!selectedIds.length && styles.disabled}`}
+              type="iconBtn"
+              value={<TrashIconLarge />}
+              handleClick={handleDeleteSelected}
+            />
+          </div>
+          <h1>{interviews.length} interviews</h1>
         </div>
-        <Table headers={headers} rows={rows} />
+        <Table
+          rows={rows}
+          headers={headers}
+          onDeleteRow={handleDeleteRow}
+          onSelectionChange={setSelectedIds}
+        />
       </div>
 
-      {/* Modal 1: Tipo de Entrevista */}
       {isInterviewTypeModalOpen && (
-        <Modal
-          className={styles.modal}
+        <InterviewTypeModal
           onClose={() => setIsInterviewTypeModalOpen(false)}
-        >
-          <form className={styles.form}>
-            <h1>
-              Choose the type of technical interview you want to simulate.
-            </h1>
-            <div className={styles.cards}>
-              {interviewCards.map((card, index) => (
-                <Card
-                  key={index}
-                  className={styles.card}
-                  value={card.title}
-                  icon={card.icon}
-                  title={card.title}
-                  desc={card.desc}
-                  onClick={handleClickCard}
-                />
-              ))}
-            </div>
-          </form>
-        </Modal>
+          onClick={handleClickCard}
+        />
       )}
 
-      {/* Modal 2: Tecnologia */}
       {isTechnologyModalOpen && (
-        <Modal
-          className={styles.modal}
+        <TechnologyModal
+          interviewType={interviewType}
           onClose={() => setIsTechnologyModal(false)}
-        >
-          <form className={styles.form}>
-            <h1>{interviewType} mode activated</h1>
-            <p>
-              Please provide the specialization, programming language, and
-              seniority level to begin the simulation.
-            </p>
-            <div className={styles.fields}>
-              <Select
-                id="role"
-                name="role"
-                label="Slect a Role"
-                placeholder="Choose your role"
-                options={roleOptions}
-              />
-
-              <Select
-                id="programingLanguage"
-                name="programingLanguage"
-                label="Select a Programing Language"
-                placeholder="Choose your programing language"
-                options={programmingLanguages}
-              />
-
-              <Select
-                id="level"
-                name="level"
-                label="Select a Level"
-                placeholder="Choose a level"
-                options={levels}
-              />
-            </div>
-            <span>
-              <Button handleClick={handleClickNext} value="Next" />
-            </span>
-          </form>
-        </Modal>
+        />
       )}
     </div>
   );

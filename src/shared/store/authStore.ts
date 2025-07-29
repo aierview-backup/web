@@ -1,0 +1,113 @@
+"use client";
+
+import AuthService from "@/shared/services/impl/auth.service";
+import UserService from "@/shared/services/impl/user.service";
+import { GoogleSinginType, SigninType, SignupType, User } from "@/shared/types";
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+
+type AuthStore = {
+  title: string | null;
+  isAsideOpen: boolean;
+
+  toggleAside: () => void;
+  setTitle: (value: string) => void;
+
+  user: User | null;
+  isLoading: boolean;
+  error: string | null;
+
+  signout: () => Promise<boolean>;
+  setUser: (user: User | null) => void;
+  signin: (params: SigninType) => Promise<boolean>;
+  signup: (params: SignupType) => Promise<boolean>;
+  googleSignin: (params: GoogleSinginType) => Promise<boolean>;
+};
+
+export const useAuthStore = create<AuthStore>()(
+  persist(
+    (set) => {
+      const authService = new AuthService();
+      const userService = new UserService();
+
+      return {
+        title: null,
+        isAsideOpen: true,
+
+        setTitle: (value) => set({ title: value }),
+        toggleAside: () =>
+          set((state) => ({ isAsideOpen: !state.isAsideOpen })),
+
+        user: null,
+        isLoading: false,
+        error: null,
+
+        setUser: (user) => set({ user }),
+
+        signin: async (params) => {
+          let result = false;
+          set({ isLoading: true, error: null });
+          try {
+            await authService.signin(params);
+            const user = await userService.getUserDetails();
+            set({ user });
+            result = true;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          } catch (err: any) {
+            set({ error: err?.response?.data?.message });
+            result = false;
+          } finally {
+            set({ isLoading: false });
+          }
+          return result;
+        },
+
+        signup: async (params) => {
+          let result = false;
+          set({ isLoading: true, error: null });
+          try {
+            await authService.signup(params);
+            result = true;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          } catch (err: any) {
+            set({ error: err?.response?.data?.message || "Signup failed" });
+            result = false;
+          } finally {
+            set({ isLoading: false });
+          }
+          return result;
+        },
+
+        googleSignin: async (params) => {
+          let result = false;
+          set({ isLoading: true, error: null });
+          try {
+            await authService.googleSingin(params);
+            const user = await userService.getUserDetails();
+            set({ user });
+            result = true;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          } catch (err: any) {
+            set({
+              error: err?.response?.data?.message || "Google login failed",
+            });
+            result = false;
+          } finally {
+            set({ isLoading: false });
+          }
+          return result;
+        },
+
+        signout: async () => {
+          await authService.signout();
+          set({ user: null });
+          return true;
+        },
+      };
+    },
+    {
+      name: "auth-storage", // localStorage key
+      partialize: (state) => ({ user: state.user }), // persist only user
+    }
+  )
+);
