@@ -21,6 +21,11 @@
   padding: 3.625rem 7.1875rem; /* 58px 115px */
 }
 
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
 .searchAndAdd {
   display: flex;
   align-items: center;
@@ -29,8 +34,8 @@
 }
 
 .add {
+  margin-bottom: 20px;
   color: var(--primary-500);
-  transition: color 0.2s ease;
 }
 
 .add:hover {
@@ -55,4 +60,19 @@
 
 .trash:hover {
   color: var(--red-800);
+}
+
+.deleteAll {
+  margin-bottom: 20px;
+  color: var(--red-500);
+  transition: color 0.2s ease;
+}
+
+.deleteAll:hover {
+  color: var(--red-800);
+}
+
+.disabled {
+  pointer-events: none;
+  color: var(--red-300);
 }

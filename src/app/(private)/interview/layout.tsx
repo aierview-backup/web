@@ -1,7 +1,7 @@
 "use client";
 
 import HeaderInterview from "@/features/interview/components/Header";
-import { GOOGLE_CLIENT_ID } from "@/shared/utils/lib.";
+import { GOOGLE_CLIENT_ID } from "@/shared/utils/lib";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 import styles from "./layout.module.css";

@@ -1,7 +1,7 @@
 import IAuthService from "@/shared/services/contract/IAuthService";
 import { GoogleSinginType, SigninType, SignupType } from "@/shared/types";
 import HttpClient from "@/shared/utils/HttpClient";
-import { NEXT_PUBLIC_API_URL } from "@/shared/utils/lib.";
+import { NEXT_PUBLIC_API_URL } from "@/shared/utils/lib";
 
 export default class AuthService implements IAuthService {
   private readonly localHttp = HttpClient.getInstance();

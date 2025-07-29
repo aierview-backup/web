@@ -3,12 +3,20 @@
 import { useWhiteboardStore } from "@/shared/store/whiteboardStore";
 import Button from "@/shared/ui/components/Button";
 import Textarea from "@/shared/ui/components/Textarea";
+import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import styles from "./whiteboard.module.css";
 
 export default function WhiteboardPage() {
-  const { questions, setAnswer: setZustandAnswer } = useWhiteboardStore();
+  const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const {
+    interview,
+    setAnswer: setZustandAnswer,
+    sendAnswers,
+  } = useWhiteboardStore();
+
+  const questions = interview?.questions || [];
   const currentQuestion = questions[currentIndex];
 
   const [answer, setAnswer] = useState("");
@@ -22,7 +30,7 @@ export default function WhiteboardPage() {
 
   const isFirst = currentIndex === 0;
   const isLast = currentIndex === questions.length - 1;
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (answer.trim() === "" && !currentQuestion.answer) {
@@ -33,18 +41,21 @@ export default function WhiteboardPage() {
     setError("");
     setZustandAnswer(currentIndex, answer ? answer : currentQuestion.answer);
 
-    if (currentIndex === questions.length - 1) {
-      sendAnsweres();
-      return;
-    }
-
     if (currentIndex < questions.length - 1) {
       setCurrentIndex((prev) => prev + 1);
       setAnswer("");
     }
+
+    if (isLast) {
+      const result = await handleSendAnswers();
+      if (result) router.push("/interview/whiteboard/feedback");
+    }
   };
 
-  const sendAnsweres = async () => {};
+  const handleSendAnswers = async (): Promise<boolean> => {
+    if (!interview) return false;
+    return await sendAnswers(interview);
+  };
 
   return (
     <div className={styles.container}>
@@ -54,9 +65,6 @@ export default function WhiteboardPage() {
           <div className={styles.answer}>
             <p>
               Your Answer : <span>{currentQuestion?.answer}</span>
-            </p>
-            <p>
-              Feeback : <span>Hooo</span>
             </p>
           </div>
           <Textarea
@@ -75,7 +83,6 @@ export default function WhiteboardPage() {
             value="Prev"
           />
         )}
-        {isLast && <Button handleClick={sendAnsweres} value="Finish" />}
       </div>
     </div>
   );

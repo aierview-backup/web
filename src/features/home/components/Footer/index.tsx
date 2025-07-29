@@ -12,7 +12,7 @@ export default function FooterHome() {
           Start training today with AIERVIEW and take the next step in your
           career.
         </p>
-        <Link href="/sign-up">
+        <Link href="/signup">
           Get Started <ArrowRightIcon className={styles.icon} />
         </Link>
       </section>

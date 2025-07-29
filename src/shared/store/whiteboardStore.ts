@@ -1,6 +1,8 @@
+"use client";
+
 import { WhiteboardService } from "@/features/interview/whitebord/services/impl/whiteboard.service";
 import {
-  QuestionResponseType,
+  InterviewResponseType,
   WhiteBoardType,
 } from "@/features/interview/whitebord/types/types";
 import { create } from "zustand";
@@ -9,13 +11,18 @@ import { persist } from "zustand/middleware";
 type WhiteboardStore = {
   isLoading: boolean;
   error: string | null;
-  questions: QuestionResponseType[];
+  interview: InterviewResponseType | null;
+  interviews: InterviewResponseType[];
 
   clear: () => void;
-  // sendAnswers: () => void;
-  setQuestions: (q: QuestionResponseType[]) => void;
+  readAll: () => Promise<boolean>;
+  deleteOne(id: number): Promise<boolean>;
+  deleteMany(ids: number[]): Promise<boolean>;
   setAnswer: (index: number, answer: string) => void;
   begin: (params: WhiteBoardType) => Promise<boolean>;
+  setIntverview: (interview: InterviewResponseType) => void;
+  pause: (interview: InterviewResponseType) => Promise<boolean>;
+  sendAnswers: (params: InterviewResponseType) => Promise<boolean>;
 };
 
 export const useWhiteboardStore = create<WhiteboardStore>()(
@@ -24,24 +31,33 @@ export const useWhiteboardStore = create<WhiteboardStore>()(
       const service = new WhiteboardService();
 
       return {
-        questions: [],
-        isLoading: false,
         error: null,
+        interviews: [],
+        interview: null,
+        isLoading: false,
 
-        setQuestions: (questions) => set({ questions }),
+        setIntverview: (interview) => set({ interview }),
 
-        clear: () => set({ questions: [], isLoading: false, error: null }),
+        clear: () => set({ interview: null, isLoading: false, error: null }),
 
         setAnswer: (index, answer) =>
           set((state) => {
-            const updatedQuestions = [...state.questions];
+            if (!state.interview) return state;
+            const updatedQuestions = [...state.interview.questions];
+
             if (updatedQuestions[index]) {
               updatedQuestions[index] = {
                 ...updatedQuestions[index],
                 answer,
               };
             }
-            return { questions: updatedQuestions };
+
+            return {
+              interview: {
+                ...state.interview,
+                questions: updatedQuestions,
+              },
+            };
           }),
 
         begin: async (params: WhiteBoardType) => {
@@ -49,11 +65,11 @@ export const useWhiteboardStore = create<WhiteboardStore>()(
           set({ isLoading: true, error: null });
           try {
             const interview = await service.begin(params);
-            if (!interview) throw new Error("Interview not returned");
-            set({ questions: interview.questions });
+            set({ interview });
             result = true;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
           } catch (err: any) {
-            set({ error: err?.response?.data?.message || "Signup failed" });
+            set({ error: err?.response?.data?.message });
             result = false;
           } finally {
             set({ isLoading: false });
@@ -61,27 +77,99 @@ export const useWhiteboardStore = create<WhiteboardStore>()(
           return result;
         },
 
-        // sendAnswers: async () => {
-        //   let result = false;
-        //   set({ isLoading: true, error: null });
-        //   try {
-        //     const interview = await service.begin(params);
-        //     if (!interview) throw new Error("Interview not returned");
-        //     set({ questions: interview.questions });
-        //     result = true;
-        //   } catch (err: any) {
-        //     set({ error: err?.response?.data?.message || "Signup failed" });
-        //     result = false;
-        //   } finally {
-        //     set({ isLoading: false });
-        //   }
-        //   return result;
-        // },
+        pause: async (interview: InterviewResponseType) => {
+          let result = false;
+          set({ isLoading: true, error: null });
+          try {
+            await service.pause(interview);
+            set({ interview: null });
+            result = true;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          } catch (err: any) {
+            set({ error: err?.response?.data?.message });
+            result = false;
+          } finally {
+            set({ isLoading: false });
+          }
+          return result;
+        },
+
+        sendAnswers: async (
+          params: InterviewResponseType
+        ): Promise<boolean> => {
+          let result = false;
+          set({ isLoading: true, error: null });
+          try {
+            const interview = await service.sendAnswers(params);
+            set({ interview });
+            result = true;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          } catch (err: any) {
+            set({ error: err?.response?.data?.message });
+            result = false;
+          } finally {
+            set({ isLoading: false });
+          }
+          return result;
+        },
+
+        readAll: async (): Promise<boolean> => {
+          let result = false;
+          set({ isLoading: true, error: null });
+          try {
+            const interviews = await service.readAll();
+            set({ interviews });
+            result = true;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          } catch (err: any) {
+            set({ error: err?.response?.data?.message });
+            result = false;
+          } finally {
+            set({ isLoading: false });
+          }
+          return result;
+        },
+
+        deleteOne: async (id: number): Promise<boolean> => {
+          let result = false;
+          set({ isLoading: true, error: null });
+          try {
+            await service.deleteOne(id);
+            const interviews = await service.readAll();
+            set({ interviews });
+            result = true;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          } catch (err: any) {
+            set({ error: err?.response?.data?.message });
+            result = false;
+          } finally {
+            set({ isLoading: false });
+          }
+          return result;
+        },
+
+        deleteMany: async (ids: number[]): Promise<boolean> => {
+          let result = false;
+          set({ isLoading: true, error: null });
+          try {
+            await service.deleteMany(ids);
+            const interviews = await service.readAll();
+            set({ interviews });
+            result = true;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          } catch (err: any) {
+            set({ error: err?.response?.data?.message });
+            result = false;
+          } finally {
+            set({ isLoading: false });
+          }
+          return result;
+        },
       };
     },
     {
       name: "whiteboard-storage",
-      partialize: (state) => ({ questions: state.questions }),
+      partialize: (state) => ({ interview: state.interview }),
     }
   )
 );

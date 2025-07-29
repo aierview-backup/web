@@ -1,3 +1,5 @@
+"use client";
+
 import AuthService from "@/shared/services/impl/auth.service";
 import UserService from "@/shared/services/impl/user.service";
 import { GoogleSinginType, SigninType, SignupType, User } from "@/shared/types";
@@ -50,8 +52,9 @@ export const useAuthStore = create<AuthStore>()(
             const user = await userService.getUserDetails();
             set({ user });
             result = true;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
           } catch (err: any) {
-            set({ error: err?.response?.data?.message || "Signin failed" });
+            set({ error: err?.response?.data?.message });
             result = false;
           } finally {
             set({ isLoading: false });
@@ -65,6 +68,7 @@ export const useAuthStore = create<AuthStore>()(
           try {
             await authService.signup(params);
             result = true;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
           } catch (err: any) {
             set({ error: err?.response?.data?.message || "Signup failed" });
             result = false;
@@ -82,6 +86,7 @@ export const useAuthStore = create<AuthStore>()(
             const user = await userService.getUserDetails();
             set({ user });
             result = true;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
           } catch (err: any) {
             set({
               error: err?.response?.data?.message || "Google login failed",

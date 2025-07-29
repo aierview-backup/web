@@ -4,7 +4,7 @@
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 import { useAuthStore } from "@/shared/store/authStore";
-import { GOOGLE_CLIENT_ID } from "@/shared/utils/lib.";
+import { GOOGLE_CLIENT_ID } from "@/shared/utils/lib";
 import styles from "./layout.module.css";
 
 export default function AuthLayout({

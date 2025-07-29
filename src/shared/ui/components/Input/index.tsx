@@ -11,6 +11,8 @@ export type InputType = {
   label?: string;
   message?: string;
   register?: UseFormRegisterReturn;
+  checked?: boolean;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export default function Input(props: InputType) {
@@ -24,7 +26,7 @@ export default function Input(props: InputType) {
           <span className={styles.inputIcon}>
             <input
               id={props.id}
-              type={props.type}
+              // type={props.type}
               placeholder={props.placeholder}
               {...props.register}
             />
@@ -32,19 +34,20 @@ export default function Input(props: InputType) {
               <Search />
             </span>
           </span>
-          {props.message && (
-            <span className={styles.errorMessage}>{props.message}</span>
-          )}
+          <span className={styles.errorMessage}>{props.message}</span>
         </div>
       );
     case "checkbox":
       return (
-        <label className={styles.checkbox}>
+        <label className={styles.checkbox} htmlFor={props.id}>
           <input
             id={props.id}
-            type={props.type}
-            placeholder={props.placeholder}
+            type="checkbox"
             {...props.register}
+            checked={props.checked}
+            onChange={props.onChange}
+            placeholder={props.placeholder}
+            {...props}
           />
           <span></span>
           {props.label}
@@ -66,9 +69,7 @@ export default function Input(props: InputType) {
               {showPassword ? <EyeIcon /> : <EyeOffIcon />}
             </span>
           </span>
-          {props.message && (
-            <span className={styles.errorMessage}>{props.message}</span>
-          )}
+          <span className={styles.errorMessage}>{props.message}</span>
         </div>
       );
 
@@ -83,9 +84,7 @@ export default function Input(props: InputType) {
             value={props.value}
             {...props.register}
           />
-          {props.message && (
-            <span className={styles.errorMessage}>{props.message}</span>
-          )}
+          <span className={styles.errorMessage}>{props.message}</span>
         </div>
       );
   }

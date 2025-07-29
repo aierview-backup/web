@@ -4,8 +4,8 @@ import {
   AccountDetailsFormData,
   accountDetailsSchema,
 } from "@/features/account-details/validations/account-details.validation";
-import { useApp } from "@/shared/hooks/useApp";
-import { useUser } from "@/shared/hooks/useUser";
+import { useAuthStore } from "@/shared/store/authStore";
+import { useUserStore } from "@/shared/store/userStore";
 import Button from "@/shared/ui/components/Button";
 import Input from "@/shared/ui/components/Input";
 import Select from "@/shared/ui/components/Select";
@@ -15,8 +15,8 @@ import { useForm } from "react-hook-form";
 import styles from "./accountdetails.module.css";
 
 export default function AccountDetails() {
-  const { user } = useApp();
-  const { updateUserDetails, error } = useUser();
+  const { user, setUser, error } = useAuthStore();
+  const { update } = useUserStore();
   const router = useRouter();
 
   const roleOptions = [
@@ -35,11 +35,14 @@ export default function AccountDetails() {
 
   const onSubmit = async (data: AccountDetailsFormData) => {
     if (!user) return;
-    await updateUserDetails({
-      email: user.email,
-      name: data.name,
-      role: data.role,
-    });
+    await update(
+      {
+        email: user.email,
+        name: data.name,
+        role: data.role,
+      },
+      setUser
+    );
     if (error) return;
     router.push("/dashboard");
   };

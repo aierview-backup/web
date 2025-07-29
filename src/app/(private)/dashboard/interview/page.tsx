@@ -1,31 +1,46 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import styles from "./interview.module.css";
 
 import InterviewCard from "@/features/dashboard/pages/interview/Card";
-import Table from "@/features/dashboard/pages/interview/table";
-import { TableHeader, TableRow } from "@/features/dashboard/types";
+import Table, { TableHeader } from "@/features/dashboard/pages/interview/table";
 import Button from "@/shared/ui/components/Button";
 import Input from "@/shared/ui/components/Input";
 
 import InterviewTypeModal from "@/features/dashboard/pages/interview/Modal/InterviewType";
 import TechnologyModal from "@/features/dashboard/pages/interview/Modal/TechnologyModal";
+import { InterviewResponseType } from "@/features/interview/whitebord/types/types";
+import { useWhiteboardStore } from "@/shared/store/whiteboardStore";
 import AddIcon from "@/shared/ui/icons/addLarge.svg";
 import CodeReviewIcon from "@/shared/ui/icons/code-review.svg";
 import CodechallengeIcon from "@/shared/ui/icons/codechallenge.svg";
 import PlayIcon from "@/shared/ui/icons/paly.svg";
+import TrashIconLarge from "@/shared/ui/icons/trash-large.svg";
 import TrashIcon from "@/shared/ui/icons/trash.svg";
 import ViewIcon from "@/shared/ui/icons/view.svg";
 import WhiteboardIcon from "@/shared/ui/icons/whiteboard.svg";
+import { useRouter } from "next/navigation";
 
 export default function Interview() {
+  const router = useRouter();
   const interviewTypeRef = useRef("");
   const [interviewType, setInterviewType] = useState("");
   const [isInterviewTypeModalOpen, setIsInterviewTypeModalOpen] =
     useState(false);
   const [isTechnologyModalOpen, setIsTechnologyModal] = useState(false);
+  const { interviews, readAll, deleteOne, deleteMany, setIntverview } =
+    useWhiteboardStore();
+
+  const [selectedIds, setSelectedIds] = useState<(string | number)[]>([]);
+
+  useEffect(() => {
+    const fetchInterviews = async () => {
+      await readAll();
+    };
+    fetchInterviews();
+  }, [readAll]);
 
   const handleClickCard = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
@@ -35,6 +50,20 @@ export default function Interview() {
     interviewTypeRef.current = value;
     setIsInterviewTypeModalOpen(false);
     setIsTechnologyModal(true);
+  };
+
+  const handleDeleteRow = async (id: number) => {
+    await deleteOne(id);
+  };
+
+  const handleDeleteSelected = async () => {
+    await deleteMany(selectedIds as number[]);
+    setSelectedIds([]);
+  };
+
+  const handlePlayClick = (interview: InterviewResponseType) => {
+    setIntverview(interview);
+    router.push(`/interview/${interview.type.toLowerCase()}`);
   };
 
   const headers: TableHeader[] = [
@@ -49,49 +78,37 @@ export default function Interview() {
     { key: "actions", label: "Actions" },
   ];
 
-  const rows: TableRow[] = [
-    {
-      select: false,
-      type: "Whiteboard",
-      role: "Backend",
-      level: "Senior",
-      tech: "Java",
-      date: "2025-07-23",
-      score: 50,
-      status: "Done",
-      actions: (
-        <>
+  const rows = interviews.map((interview) => ({
+    select: false,
+    id: interview.id,
+    type: interview.type,
+    role: interview.role,
+    level: interview.level,
+    tech: interview.technology,
+    date: interview.date,
+    score: interview.score,
+    status: interview.status,
+    actions: (
+      <>
+        {interview.status === "pending".toUpperCase() ? (
+          <Button
+            handleClick={() => handlePlayClick(interview)}
+            className={styles.view}
+            type="iconBtn"
+            value={<PlayIcon />}
+          />
+        ) : (
           <Button className={styles.view} type="iconBtn" value={<ViewIcon />} />
-          <Button
-            className={styles.trash}
-            type="iconBtn"
-            value={<TrashIcon />}
-          />
-        </>
-      ),
-    },
-    {
-      select: false,
-      type: "Code Review",
-      role: "Mobile",
-      level: "Mid Level",
-      tech: "React Native",
-      date: "2025-07-23",
-      score: 50,
-      status: "Pending",
-      actions: (
-        <>
-          <Button className={styles.view} type="iconBtn" value={<PlayIcon />} />
-          <Button
-            className={styles.trash}
-            type="iconBtn"
-            value={<TrashIcon />}
-          />
-        </>
-      ),
-    },
-    // outros omitidos por brevidade...
-  ];
+        )}
+        <Button
+          handleClick={() => handleDeleteRow(interview.id)}
+          className={styles.trash}
+          type="iconBtn"
+          value={<TrashIcon />}
+        />
+      </>
+    ),
+  }));
 
   return (
     <div className={styles.content}>
@@ -125,16 +142,30 @@ export default function Interview() {
 
       {/* Tabela */}
       <div className={styles.tableContainer}>
-        <div className={styles.searchAndAdd}>
-          <Input id="search" type="search" placeholder="Search ..." />
-          <Button
-            className={styles.add}
-            type="iconBtn"
-            value={<AddIcon />}
-            handleClick={() => setIsInterviewTypeModalOpen(true)}
-          />
+        <div className={styles.wrapper}>
+          <div className={styles.searchAndAdd}>
+            <Input id="search" type="search" placeholder="Search ..." />
+            <Button
+              className={styles.add}
+              type="iconBtn"
+              value={<AddIcon />}
+              handleClick={() => setIsInterviewTypeModalOpen(true)}
+            />
+            <Button
+              className={`${styles.deleteAll} ${!selectedIds.length && styles.disabled}`}
+              type="iconBtn"
+              value={<TrashIconLarge />}
+              handleClick={handleDeleteSelected}
+            />
+          </div>
+          <h1>{interviews.length} interviews</h1>
         </div>
-        <Table headers={headers} rows={rows} />
+        <Table
+          rows={rows}
+          headers={headers}
+          onDeleteRow={handleDeleteRow}
+          onSelectionChange={setSelectedIds}
+        />
       </div>
 
       {isInterviewTypeModalOpen && (

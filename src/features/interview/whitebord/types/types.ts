@@ -26,7 +26,10 @@ export type InterviewResponseType = {
   id: number;
   type: string;
   role: string;
+  date: string;
+  score: number;
   level: string;
+  status: string;
   technology: string;
   questions: QuestionResponseType[];
 };

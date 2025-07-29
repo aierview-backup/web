@@ -1,5 +1,7 @@
+import LoadingListener from "@/shared/hooks/loading-listener";
+import GlobalLoading from "@/shared/ui/components/GlobalLoading";
 import "@/shared/ui/styles/globals.css";
-import { GOOGLE_CLIENT_ID } from "@/shared/utils/lib.";
+import { GOOGLE_CLIENT_ID } from "@/shared/utils/lib";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -26,6 +28,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+          <GlobalLoading />
+          <LoadingListener />
           <div id="modal"></div>
           {children}
         </GoogleOAuthProvider>

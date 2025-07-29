@@ -1,5 +1,5 @@
 import HttpClient from "@/shared/utils/HttpClient";
-import { NEXT_PUBLIC_API_URL } from "@/shared/utils/lib.";
+import { NEXT_PUBLIC_API_URL } from "@/shared/utils/lib";
 import { AxiosError } from "axios";
 import { serialize } from "cookie";
 import { NextRequest, NextResponse } from "next/server";

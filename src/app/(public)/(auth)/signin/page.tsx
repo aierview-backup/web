@@ -10,6 +10,7 @@ import {
   signinSchema,
 } from "@/features/auth/validations/signin/signin.validation";
 import { useAuthStore } from "@/shared/store/authStore";
+import Spinner from "@/shared/ui/components/Spinner/Spinner";
 import { logger } from "@/shared/utils/logger";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
@@ -24,7 +25,7 @@ export default function SigninPage() {
 
   useEffect(() => {
     setTitle("Sign-in");
-  }, []);
+  }, [setTitle]);
 
   const {
     register,
@@ -78,6 +79,7 @@ export default function SigninPage() {
       <span className={`${styles.error} ${!error && styles.hidden}`}>
         {error}
       </span>
+      <Spinner hidden={!isSubmitting} />
 
       <div className={styles.auth}>
         <GoogleLogin onSuccess={google} onError={onError} />

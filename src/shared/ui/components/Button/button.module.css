@@ -19,3 +19,8 @@
 .iconBtn:hover {
   background: var(--primary-800);
 }
+
+.disabled {
+  pointer-events: none;
+  background: var(--primary-300);
+}

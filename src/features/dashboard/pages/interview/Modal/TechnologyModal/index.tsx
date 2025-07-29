@@ -14,6 +14,7 @@ import styles from "./technology.module.css";
 const roleOptions = [
   { label: "Frontend", value: "frontend" },
   { label: "Mobile", value: "mobile" },
+  { label: "Backend", value: "backend" },
   { label: "Fullstack", value: "fullstack" },
 ];
 

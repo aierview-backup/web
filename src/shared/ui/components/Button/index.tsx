@@ -17,7 +17,7 @@ export default function Button(props: ButtonType) {
         type={props.action}
         disabled={props.disabled}
         onClick={props.handleClick}
-        className={`${styles.iconBtn} ${props.className}`}
+        className={`${styles.iconBtn} ${props.className} ${props.className && styles[props.className]} `}
       >
         {props.value}
       </button>
@@ -29,7 +29,7 @@ export default function Button(props: ButtonType) {
       type={props.action}
       disabled={props.disabled}
       onClick={props.handleClick}
-      className={`${styles.button} ${styles.className}`}
+      className={`${styles.button} ${props.className} ${props.className && styles[props.className]} `}
     >
       {props.value}
     </button>
