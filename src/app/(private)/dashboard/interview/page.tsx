@@ -12,7 +12,7 @@ import Input from "@/shared/ui/components/Input";
 import InterviewTypeModal from "@/features/dashboard/pages/interview/Modal/InterviewType";
 import TechnologyModal from "@/features/dashboard/pages/interview/Modal/TechnologyModal";
 import { InterviewResponseType } from "@/features/interview/whitebord/types/types";
-import { useWhiteboardStore } from "@/shared/store/whiteboardStore";
+import { useInterviewStore } from "@/shared/store/useInterviewStore";
 import AddIcon from "@/shared/ui/icons/addLarge.svg";
 import CodeReviewIcon from "@/shared/ui/icons/code-review.svg";
 import CodechallengeIcon from "@/shared/ui/icons/codechallenge.svg";
@@ -23,15 +23,21 @@ import ViewIcon from "@/shared/ui/icons/view.svg";
 import WhiteboardIcon from "@/shared/ui/icons/whiteboard.svg";
 import { useRouter } from "next/navigation";
 
-export default function Interview() {
+export default function DashboardInterview() {
   const router = useRouter();
   const interviewTypeRef = useRef("");
   const [interviewType, setInterviewType] = useState("");
   const [isInterviewTypeModalOpen, setIsInterviewTypeModalOpen] =
     useState(false);
   const [isTechnologyModalOpen, setIsTechnologyModal] = useState(false);
-  const { interviews, readAll, deleteOne, deleteMany, setIntverview } =
-    useWhiteboardStore();
+  const {
+    interviews,
+    readAll,
+    deleteOne,
+    deleteMany,
+    setInterview,
+    readIntervirewQuestions,
+  } = useInterviewStore();
 
   const [selectedIds, setSelectedIds] = useState<(string | number)[]>([]);
 
@@ -61,9 +67,21 @@ export default function Interview() {
     setSelectedIds([]);
   };
 
-  const handlePlayClick = (interview: InterviewResponseType) => {
-    setIntverview(interview);
-    router.push(`/interview/${interview.type.toLowerCase()}`);
+  const handlePlayClick = async (interview: InterviewResponseType) => {
+    const questions = await readIntervirewQuestions(interview.id);
+    const notAswered = questions.filter(
+      (question) => !question.answer && !question.feedback
+    );
+
+    interview.questions = notAswered;
+    if (interview.questions.length > 0) {
+      setInterview(interview);
+      router.push("/interview/whiteboard");
+    }
+  };
+
+  const handleViewClick = async (id: number) => {
+    router.push(`/interview/whiteboard/feedback/${id}`);
   };
 
   const headers: TableHeader[] = [
@@ -98,7 +116,12 @@ export default function Interview() {
             value={<PlayIcon />}
           />
         ) : (
-          <Button className={styles.view} type="iconBtn" value={<ViewIcon />} />
+          <Button
+            handleClick={() => handleViewClick(interview.id)}
+            className={styles.view}
+            type="iconBtn"
+            value={<ViewIcon />}
+          />
         )}
         <Button
           handleClick={() => handleDeleteRow(interview.id)}

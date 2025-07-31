@@ -3,7 +3,7 @@
 "use client";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
-import { useAuthStore } from "@/shared/store/authStore";
+import { useAuthStore } from "@/shared/store/useAuthStore";
 import { GOOGLE_CLIENT_ID } from "@/shared/utils/lib";
 import styles from "./layout.module.css";
 

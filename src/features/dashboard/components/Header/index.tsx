@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuthStore } from "@/shared/store/authStore";
+import { useAuthStore } from "@/shared/store/useAuthStore";
 import Button from "@/shared/ui/components/Button";
 import MenuIcon from "@/shared/ui/icons/menu.svg";
 import SignoutIcon from "@/shared/ui/icons/singout.svg";

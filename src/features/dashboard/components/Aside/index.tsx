@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuthStore } from "@/shared/store/authStore";
+import { useAuthStore } from "@/shared/store/useAuthStore";
 import DashboardIcon from "@/shared/ui/icons/dashboard.svg";
 import InterviewIcon from "@/shared/ui/icons/interview.svg";
 import Image from "next/image";

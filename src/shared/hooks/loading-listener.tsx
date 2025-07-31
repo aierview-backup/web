@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
-import { useLoadingStore } from "../store/loadingStore";
+import { useLoadingStore } from "../store/useLoadingStore";
 
 export default function LoadingListener() {
   const pathname = usePathname();

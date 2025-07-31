@@ -22,6 +22,11 @@ export type QuestionResponseType = {
   feedback: string;
 };
 
+export type getCurrentQuestionResponseType = {
+  question: QuestionResponseType;
+  hasNext: boolean;
+};
+
 export type InterviewResponseType = {
   id: number;
   type: string;

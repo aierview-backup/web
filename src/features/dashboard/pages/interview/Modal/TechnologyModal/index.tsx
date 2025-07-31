@@ -2,7 +2,8 @@ import {
   technologySchema,
   TechnologySchemaFormData,
 } from "@/features/dashboard/validations/technology/technology.validation";
-import { useWhiteboardStore } from "@/shared/store/whiteboardStore";
+import { useInterviewStore } from "@/shared/store/useInterviewStore";
+import { useWhiteboardStore } from "@/shared/store/useWhiteboardStore";
 import Button from "@/shared/ui/components/Button";
 import Modal from "@/shared/ui/components/Modal";
 import Select from "@/shared/ui/components/Select";
@@ -38,6 +39,7 @@ type TechnologyModalType = {
 export default function TechnologyModal(props: TechnologyModalType) {
   const router = useRouter();
   const { begin } = useWhiteboardStore();
+  const { setInterview } = useInterviewStore();
 
   const {
     register,
@@ -48,11 +50,14 @@ export default function TechnologyModal(props: TechnologyModalType) {
   });
 
   const onSubmit = async (data: TechnologySchemaFormData) => {
-    const result = await begin({
-      level: data.level,
-      role: data.role,
-      technology: data.programingLanguage,
-    });
+    const result = await begin(
+      {
+        level: data.level,
+        role: data.role,
+        technology: data.programingLanguage,
+      },
+      setInterview
+    );
 
     if (result) router.push("/interview/whiteboard");
   };

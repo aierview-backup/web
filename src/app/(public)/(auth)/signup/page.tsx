@@ -9,7 +9,7 @@ import {
   SignupFormData,
   signupSchema,
 } from "@/features/auth/validations/signup/signup.validation";
-import { useAuthStore } from "@/shared/store/authStore";
+import { useAuthStore } from "@/shared/store/useAuthStore";
 import Spinner from "@/shared/ui/components/Spinner/Spinner";
 import { logger } from "@/shared/utils/logger";
 import { zodResolver } from "@hookform/resolvers/zod";

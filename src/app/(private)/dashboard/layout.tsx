@@ -1,7 +1,7 @@
 "use client";
 import Aside from "@/features/dashboard/components/Aside";
 import HeaderDash from "@/features/dashboard/components/Header";
-import { useAuthStore } from "@/shared/store/authStore";
+import { useAuthStore } from "@/shared/store/useAuthStore";
 import { GOOGLE_CLIENT_ID } from "@/shared/utils/lib";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import styles from "./layout.module.css";

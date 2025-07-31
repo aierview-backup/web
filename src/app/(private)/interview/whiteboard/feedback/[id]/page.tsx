@@ -1,10 +1,21 @@
 "use client";
-import { useWhiteboardStore } from "@/shared/store/whiteboardStore";
+import { useInterviewStore } from "@/shared/store/useInterviewStore";
 import Image from "next/image";
+import { useParams } from "next/navigation";
+import { useEffect } from "react";
 import styles from "./feedback.module.css";
 
 export default function FeedbackWhiteboard() {
-  const { interview } = useWhiteboardStore();
+  const params = useParams();
+  const interviewId = params.id;
+  const { interview, readInterview } = useInterviewStore();
+
+  useEffect(() => {
+    const fetchInterview = async () => {
+      await readInterview(Number(interviewId));
+    };
+    fetchInterview();
+  }, [readInterview]);
 
   return (
     <div className={styles.container}>
@@ -43,8 +54,8 @@ export default function FeedbackWhiteboard() {
             Answer {index + 1}: <span>{question.answer}</span>
           </p>
           <p>
-            {question.feedback.split(":")[0]}:
-            <span>{question.feedback.split(":")[1]}</span>
+            Feedback {index + 1}:
+            <span>{question.feedback.split("feedback:")[1]}</span>
           </p>
           <hr />
         </div>
