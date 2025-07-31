@@ -25,7 +25,7 @@ const NAV_LINKS = [
 export default function Aside() {
   const router = useRouter();
   const pathname = usePathname();
-  const { user, isAsideOpen, setTitle } = useAuthStore();
+  const { user, fetchUser, isAsideOpen, setTitle } = useAuthStore();
 
   const activeLink = useMemo(
     () => NAV_LINKS.find((link) => pathname === link.href),
@@ -37,6 +37,13 @@ export default function Aside() {
       setTitle(activeLink.title);
     }
   }, [activeLink, setTitle]);
+
+  useEffect(() => {
+    const fetchUserFn = async () => {
+      await fetchUser();
+    };
+    fetchUserFn();
+  }, [fetchUser]);
 
   const handleClick = useCallback(
     (title: string, href: string) => (e: MouseEvent<HTMLAnchorElement>) => {

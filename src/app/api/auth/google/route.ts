@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
       );
 
     //GETTING USER DETAILS
-    response = await externalHttp.post("/users/details", null, {
+    response = await externalHttp.get("/users/details", {
       headers: {
         Cookie: `token=${token}`,
       },
@@ -43,8 +43,7 @@ export async function POST(req: NextRequest) {
     const tokenCookie = serialize("token", token, {
       httpOnly: true,
       secure: true,
-      // secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: "none",
       path: "/",
       // maxAge: 60 * 60 * 24 * 7, // 7 dias
     });

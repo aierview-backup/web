@@ -1,6 +1,7 @@
+import { InterviewResponseType } from "@/features/interview/types/types";
 import HttpClient from "@/shared/utils/HttpClient";
 import { NEXT_PUBLIC_API_URL } from "@/shared/utils/lib";
-import { InterviewResponseType, WhiteBoardType } from "../../types/types";
+import { WhiteBoardType } from "../../types/types";
 import { IWhiteboardService } from "../contract/IWhiteboardService";
 
 export class WhiteboardService implements IWhiteboardService {
