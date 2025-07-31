@@ -1,3 +1,5 @@
+import { QuestionResponseType } from "../../types/types";
+
 export type WhiteboardContextType = {
   isLoading: boolean;
   error: string | null;
@@ -13,28 +15,4 @@ export type WhiteBoardType = {
   role: string;
   level: string;
   technology: string;
-};
-
-export type QuestionResponseType = {
-  id: number;
-  question: string;
-  answer: string;
-  feedback: string;
-};
-
-export type getCurrentQuestionResponseType = {
-  question: QuestionResponseType;
-  hasNext: boolean;
-};
-
-export type InterviewResponseType = {
-  id: number;
-  type: string;
-  role: string;
-  date: string;
-  score: number;
-  level: string;
-  status: string;
-  technology: string;
-  questions: QuestionResponseType[];
 };

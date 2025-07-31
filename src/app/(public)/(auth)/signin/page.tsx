@@ -47,7 +47,7 @@ export default function SigninPage() {
   };
 
   const onError = () => {
-    logger.info("Google login failed");
+    logger.info("Google login failed  hashahs");
   };
 
   return (

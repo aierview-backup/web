@@ -55,7 +55,7 @@ export default function FeedbackWhiteboard() {
           </p>
           <p>
             Feedback {index + 1}:
-            <span>{question.feedback.split("feedback:")[1]}</span>
+            <span>{question.feedback?.split("feedback:")[1]}</span>
           </p>
           <hr />
         </div>

@@ -1,5 +1,7 @@
 import HttpClient from "@/shared/utils/HttpClient";
 import { NEXT_PUBLIC_API_URL } from "@/shared/utils/lib";
+import { logger } from "@/shared/utils/logger";
+
 import {
   getCurrentQuestionResponseType,
   InterviewResponseType,
@@ -16,11 +18,16 @@ export class InterviewService implements IInterviewService {
   );
 
   async readAll(): Promise<InterviewResponseType[]> {
-    const response = await this.externalHttp.get("", {
-      withCredentials: true,
-    });
-    const result = response.data?.data;
-    return result;
+    try {
+      const response = await this.externalHttp.get("", {
+        withCredentials: true,
+      });
+      const result = response.data?.data;
+      return result;
+    } catch (error) {
+      logger.info("Error => ", error);
+      return [];
+    }
   }
 
   async deleteOne(id: number): Promise<void> {

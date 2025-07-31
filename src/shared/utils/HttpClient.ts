@@ -8,7 +8,7 @@ export default class HttpClient {
     if (!HttpClient.instances.has(baseUrl)) {
       const instance = axios.create({
         baseURL: baseUrl,
-        timeout: 20000,
+        timeout: 30000,
         headers: {
           "Content-Type": "application/json",
         },

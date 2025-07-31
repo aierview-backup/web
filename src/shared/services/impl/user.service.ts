@@ -5,11 +5,18 @@ import { NEXT_PUBLIC_API_URL } from "@/shared/utils/lib";
 
 export default class UserService implements IUserService {
   private readonly externalHttp = HttpClient.getInstance(NEXT_PUBLIC_API_URL);
+  private readonly localHttp = HttpClient.getInstance();
 
   async getUserDetails(): Promise<User> {
-    const response = await this.externalHttp.post("/users/details", null, {
+    const response = await this.externalHttp.get("/users/details", {
       withCredentials: true,
     });
+    const result = response.data?.data;
+    return result;
+  }
+
+  async getCookieUser(): Promise<User> {
+    const response = await this.localHttp.get("/api/users/details");
     const result = response.data?.data;
     return result;
   }

@@ -1,6 +1,6 @@
 "use client";
 
-import { InterviewService } from "@/features/interview/whitebord/services/impl/interview.service";
+import { InterviewService } from "@/features/interview/services/impl/interview.service";
 import {
   InterviewResponseType,
   QuestionResponseType,

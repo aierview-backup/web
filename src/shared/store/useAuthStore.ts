@@ -18,6 +18,7 @@ type AuthStore = {
   error: string | null;
 
   signout: () => Promise<boolean>;
+  fetchUser: () => void;
   setUser: (user: User | null) => void;
   signin: (params: SigninType) => Promise<boolean>;
   signup: (params: SignupType) => Promise<boolean>;
@@ -26,7 +27,7 @@ type AuthStore = {
 
 export const useAuthStore = create<AuthStore>()(
   persist(
-    (set) => {
+    (set, get) => {
       const authService = new AuthService();
       const userService = new UserService();
 
@@ -49,8 +50,7 @@ export const useAuthStore = create<AuthStore>()(
           set({ isLoading: true, error: null });
           try {
             await authService.signin(params);
-            const user = await userService.getUserDetails();
-            set({ user });
+            await get().fetchUser;
             result = true;
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
           } catch (err: any) {
@@ -83,8 +83,7 @@ export const useAuthStore = create<AuthStore>()(
           set({ isLoading: true, error: null });
           try {
             await authService.googleSingin(params);
-            const user = await userService.getUserDetails();
-            set({ user });
+            await get().fetchUser;
             result = true;
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
           } catch (err: any) {
@@ -101,6 +100,11 @@ export const useAuthStore = create<AuthStore>()(
         signout: async () => {
           await authService.signout();
           set({ user: null });
+          return true;
+        },
+        fetchUser: async () => {
+          const user = await userService.getCookieUser();
+          set({ user });
           return true;
         },
       };
