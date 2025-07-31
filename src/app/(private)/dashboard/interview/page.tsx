@@ -11,7 +11,7 @@ import Input from "@/shared/ui/components/Input";
 
 import InterviewTypeModal from "@/features/dashboard/pages/interview/Modal/InterviewType";
 import TechnologyModal from "@/features/dashboard/pages/interview/Modal/TechnologyModal";
-import { InterviewResponseType } from "@/features/interview/whitebord/types/types";
+import { InterviewResponseType } from "@/features/interview/types/types";
 import { useInterviewStore } from "@/shared/store/useInterviewStore";
 import AddIcon from "@/shared/ui/icons/addLarge.svg";
 import CodeReviewIcon from "@/shared/ui/icons/code-review.svg";

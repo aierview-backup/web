@@ -2,11 +2,11 @@ import HttpClient from "@/shared/utils/HttpClient";
 import { NEXT_PUBLIC_API_URL } from "@/shared/utils/lib";
 import { AxiosError } from "axios";
 import { serialize } from "cookie";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 const externalHttp = HttpClient.getInstance(NEXT_PUBLIC_API_URL);
 
-export async function POST(req: NextRequest) {
+export async function POST() {
   try {
     await externalHttp.post("/auth/signout", null, {
       withCredentials: true,
