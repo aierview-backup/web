@@ -4,8 +4,8 @@ import {
   AccountDetailsFormData,
   accountDetailsSchema,
 } from "@/features/account-details/validations/account-details.validation";
-import { useAuthStore } from "@/shared/store/authStore";
-import { useUserStore } from "@/shared/store/userStore";
+import { useAuthStore } from "@/shared/store/useAuthStore";
+import { useUserStore } from "@/shared/store/useUserStore";
 import Button from "@/shared/ui/components/Button";
 import Input from "@/shared/ui/components/Input";
 import Select from "@/shared/ui/components/Select";

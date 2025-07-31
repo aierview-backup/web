@@ -1,7 +1,7 @@
 // app/components/GlobalLoading.tsx
 "use client";
 
-import { useLoadingStore } from "@/shared/store/loadingStore";
+import { useLoadingStore } from "@/shared/store/useLoadingStore";
 
 export default function GlobalLoading() {
   const loading = useLoadingStore((state) => state.loading);

@@ -1,88 +1,112 @@
 "use client";
 
-import { useWhiteboardStore } from "@/shared/store/whiteboardStore";
+import { useInterviewStore } from "@/shared/store/useInterviewStore";
+import { useWhiteboardStore } from "@/shared/store/useWhiteboardStore";
 import Button from "@/shared/ui/components/Button";
-import Textarea from "@/shared/ui/components/Textarea";
+import Listiningloader from "@/shared/ui/components/ListiningLoader";
+import VoiceRecordStopIcon from "@/shared/ui/icons/voice-record-stop.svg";
+import VoiceRecordIcon from "@/shared/ui/icons/voice-record.svg";
 import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./whiteboard.module.css";
 
 export default function WhiteboardPage() {
   const router = useRouter();
-  const [currentIndex, setCurrentIndex] = useState(0);
   const {
     interview,
-    setAnswer: setZustandAnswer,
-    sendAnswers,
-  } = useWhiteboardStore();
+    setInterviews,
+    currentQuestion,
+    setCurrentQuestion,
+    hasNextQuestion,
+  } = useInterviewStore();
+  const { sendAnswer, finish, isLoading } = useWhiteboardStore();
 
-  const questions = interview?.questions || [];
-  const currentQuestion = questions[currentIndex];
+  useEffect(() => {
+    const fetchCurrentQuestion = async () => {
+      if (!interview?.id) return;
+      await setCurrentQuestion(interview?.id);
+    };
+    fetchCurrentQuestion();
+  }, [setCurrentQuestion, interview?.id]);
 
-  const [answer, setAnswer] = useState("");
-  const [error, setError] = useState("");
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const [isRecording, setIsRecording] = useState(false);
 
-  const handlePrev = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex((prev) => prev - 1);
-    }
+  const startRecording = async () => {
+    const stream = await navigator.mediaDevices.getUserMedia({
+      audio: true,
+      video: true,
+    });
+
+    const recorder = new MediaRecorder(stream);
+    mediaRecorderRef.current = recorder;
+
+    const chunks: Blob[] = [];
+
+    recorder.ondataavailable = (e) => chunks.push(e.data);
+    recorder.onstop = async () => {
+      const blob = new Blob(chunks, { type: "video/webm" });
+      const formData = new FormData();
+      formData.append("interviewId", String(interview?.id));
+      formData.append("questionId", String(currentQuestion?.id));
+      formData.append(
+        "file",
+        blob,
+        `${interview?.id}-${currentQuestion?.id}.webm`
+      );
+
+      const result = await sendAnswer(formData);
+
+      if (result) {
+        if (!hasNextQuestion && interview?.id) {
+          const finished = await finish(interview.id, setInterviews);
+          if (finished) {
+            router.push(`/interview/whiteboard/feedback/${interview?.id}`);
+          }
+        } else if (interview?.id) {
+          await setCurrentQuestion(interview.id);
+        }
+      }
+    };
+
+    recorder.start();
+    setIsRecording(true);
   };
 
-  const isFirst = currentIndex === 0;
-  const isLast = currentIndex === questions.length - 1;
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (answer.trim() === "" && !currentQuestion.answer) {
-      setError("Answer is required");
-      return;
-    }
-
-    setError("");
-    setZustandAnswer(currentIndex, answer ? answer : currentQuestion.answer);
-
-    if (currentIndex < questions.length - 1) {
-      setCurrentIndex((prev) => prev + 1);
-      setAnswer("");
-    }
-
-    if (isLast) {
-      const result = await handleSendAnswers();
-      if (result) router.push("/interview/whiteboard/feedback");
-    }
+  const stopRecording = () => {
+    mediaRecorderRef.current?.stop();
+    setIsRecording(false);
   };
 
-  const handleSendAnswers = async (): Promise<boolean> => {
-    if (!interview) return false;
-    return await sendAnswers(interview);
+  const shouldShowListeningLoader = () => {
+    return isRecording || isLoading;
   };
 
   return (
     <div className={styles.container}>
-      <form className={styles.form} onSubmit={handleSubmit}>
+      <div className={styles.form}>
         <div className={styles.question}>
           <h2>{currentQuestion?.question}</h2>
-          <div className={styles.answer}>
-            <p>
-              Your Answer : <span>{currentQuestion?.answer}</span>
-            </p>
-          </div>
-          <Textarea
-            value={answer}
-            onChange={(e) => setAnswer(e.target.value)}
-            error={error}
-          />
         </div>
-      </form>
-
-      <div className={styles.controls}>
-        {!isFirst && (
-          <Button
-            className={isFirst ? styles.disabled : ""}
-            handleClick={handlePrev}
-            value="Prev"
-          />
-        )}
+        <Listiningloader hidden={!shouldShowListeningLoader()} />
+        <div className={styles.record}>
+          {isRecording ? (
+            <Button
+              handleClick={stopRecording}
+              type="composedBtn"
+              value="Stop Recording"
+              icon={<VoiceRecordStopIcon />}
+            />
+          ) : (
+            <Button
+              className={isLoading ? styles.disabled : ""}
+              handleClick={startRecording}
+              type="composedBtn"
+              value="Start Recording"
+              icon={<VoiceRecordIcon />}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

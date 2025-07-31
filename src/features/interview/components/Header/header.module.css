@@ -29,3 +29,11 @@
 .close:hover {
   color: var(--red-800);
 }
+
+.stop {
+  color: var(--primary-500);
+}
+
+.stop:hover {
+  color: var(--primary-800);
+}

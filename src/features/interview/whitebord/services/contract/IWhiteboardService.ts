@@ -1,10 +1,7 @@
 import { InterviewResponseType, WhiteBoardType } from "../../types/types";
 
 export interface IWhiteboardService {
-  deleteOne(id: number): Promise<void>;
-  deleteMany(ids: number[]): Promise<void>;
-  readAll(): Promise<InterviewResponseType[]>;
-  pause(params: InterviewResponseType): Promise<void>;
   begin(params: WhiteBoardType): Promise<InterviewResponseType>;
-  sendAnswers(params: InterviewResponseType): Promise<InterviewResponseType>;
+  sendAnswer(form: FormData): Promise<void>;
+  finish(interviewId: number): Promise<void>;
 }

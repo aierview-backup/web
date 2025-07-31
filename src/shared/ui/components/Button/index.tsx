@@ -6,32 +6,48 @@ type ButtonType = {
   action?: "button" | "submit" | "reset" | undefined;
   className?: string;
   disabled?: boolean;
+  icon?: ReactNode;
   value?: string | ReactNode;
   handleClick?: MouseEventHandler<HTMLButtonElement>;
 };
 
 export default function Button(props: ButtonType) {
-  if (props.type === "iconBtn") {
-    return (
-      <button
-        type={props.action}
-        disabled={props.disabled}
-        onClick={props.handleClick}
-        className={`${styles.iconBtn} ${props.className} ${props.className && styles[props.className]} `}
-      >
-        {props.value}
-      </button>
-    );
-  }
+  switch (props.type) {
+    case "composedBtn":
+      return (
+        <button
+          type={props.action}
+          disabled={props.disabled}
+          onClick={props.handleClick}
+          className={`${styles.composedBtn} ${props.className} ${props.className && styles[props.className]} `}
+        >
+          {props.icon}
+          {props.value}
+        </button>
+      );
 
-  return (
-    <button
-      type={props.action}
-      disabled={props.disabled}
-      onClick={props.handleClick}
-      className={`${styles.button} ${props.className} ${props.className && styles[props.className]} `}
-    >
-      {props.value}
-    </button>
-  );
+    case "iconBtn":
+      return (
+        <button
+          type={props.action}
+          disabled={props.disabled}
+          onClick={props.handleClick}
+          className={`${styles.iconBtn} ${props.className} ${props.className && styles[props.className]} `}
+        >
+          {props.value}
+        </button>
+      );
+
+    default:
+      return (
+        <button
+          type={props.action}
+          disabled={props.disabled}
+          onClick={props.handleClick}
+          className={`${styles.button} ${props.className} ${props.className && styles[props.className]} `}
+        >
+          {props.value}
+        </button>
+      );
+  }
 }
