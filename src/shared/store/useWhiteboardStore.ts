@@ -1,11 +1,9 @@
 "use client";
 
 import { InterviewService } from "@/features/interview/services/impl/interview.service";
+import { InterviewResponseType } from "@/features/interview/types/types";
 import { WhiteboardService } from "@/features/interview/whitebord/services/impl/whiteboard.service";
-import {
-  InterviewResponseType,
-  WhiteBoardType,
-} from "@/features/interview/whitebord/types/types";
+import { WhiteBoardType } from "@/features/interview/whitebord/types/types";
 import { create } from "zustand";
 
 type WhiteboardStore = {

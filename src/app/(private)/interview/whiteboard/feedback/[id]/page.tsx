@@ -15,7 +15,7 @@ export default function FeedbackWhiteboard() {
       await readInterview(Number(interviewId));
     };
     fetchInterview();
-  }, [readInterview]);
+  }, [readInterview, interviewId]);
 
   return (
     <div className={styles.container}>

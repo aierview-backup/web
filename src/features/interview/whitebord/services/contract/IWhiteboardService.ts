@@ -1,4 +1,5 @@
-import { InterviewResponseType, WhiteBoardType } from "../../types/types";
+import { InterviewResponseType } from "@/features/interview/types/types";
+import { WhiteBoardType } from "../../types/types";
 
 export interface IWhiteboardService {
   begin(params: WhiteBoardType): Promise<InterviewResponseType>;

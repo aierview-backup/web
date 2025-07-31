@@ -4,7 +4,8 @@ import { InterviewService } from "@/features/interview/services/impl/interview.s
 import {
   InterviewResponseType,
   QuestionResponseType,
-} from "@/features/interview/whitebord/types/types";
+} from "@/features/interview/types/types";
+
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
