@@ -10,13 +10,11 @@ export class WhiteboardService implements IWhiteboardService {
   );
 
   async begin(params: WhiteBoardType): Promise<InterviewResponseType> {
-    const response = await this.externalHttp.post(
-      "/begin",
-      { role: params.role, level: params.level, technology: params.technology },
-      {
-        withCredentials: true,
-      }
-    );
+    const response = await this.externalHttp.post("/begin", {
+      role: params.role,
+      level: params.level,
+      technology: params.technology,
+    });
     const result = response.data?.data;
     return result;
   }
@@ -26,13 +24,10 @@ export class WhiteboardService implements IWhiteboardService {
       headers: {
         "Content-Type": "multipart/form-data",
       },
-      withCredentials: true,
     });
   }
 
   async finish(interviewId: number): Promise<void> {
-    await this.externalHttp.post(`/finish/${interviewId}`, null, {
-      withCredentials: true,
-    });
+    await this.externalHttp.post(`/finish/${interviewId}`, null);
   }
 }

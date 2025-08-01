@@ -12,6 +12,7 @@ export default class HttpClient {
         headers: {
           "Content-Type": "application/json",
         },
+        withCredentials: true,
       });
 
       instance.interceptors.response.use(

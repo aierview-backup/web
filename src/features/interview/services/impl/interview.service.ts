@@ -1,7 +1,6 @@
 import HttpClient from "@/shared/utils/HttpClient";
 import { NEXT_PUBLIC_API_URL } from "@/shared/utils/lib";
 import { logger } from "@/shared/utils/logger";
-
 import {
   getCurrentQuestionResponseType,
   InterviewResponseType,
@@ -10,6 +9,9 @@ import {
 import { IInterviewService } from "../contract/IInterviewService";
 
 export class InterviewService implements IInterviewService {
+  getCuurentQuestion(interviewId: number): Promise<QuestionResponseType> {
+    throw new Error("Method not implemented.");
+  }
   private readonly externalHttp = HttpClient.getInstance(
     `${NEXT_PUBLIC_API_URL}/interviews`
   );

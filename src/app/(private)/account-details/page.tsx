@@ -11,19 +11,27 @@ import Input from "@/shared/ui/components/Input";
 import Select from "@/shared/ui/components/Select";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styles from "./accountdetails.module.css";
 
+const roleOptions = [
+  { label: "Frontend", value: "frontend" },
+  { label: "Mobile", value: "mobile" },
+  { label: "Fullstack", value: "fullstack" },
+];
+
 export default function AccountDetails() {
-  const { user, setUser, error } = useAuthStore();
+  const { user, fetchUser, setUser, error } = useAuthStore();
   const { update } = useUserStore();
   const router = useRouter();
 
-  const roleOptions = [
-    { label: "Frontend", value: "frontend" },
-    { label: "Mobile", value: "mobile" },
-    { label: "Fullstack", value: "fullstack" },
-  ];
+  useEffect(() => {
+    const fetchUserFn = async () => {
+      await fetchUser();
+    };
+    fetchUserFn();
+  }, [fetchUser]);
 
   const {
     register,

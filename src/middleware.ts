@@ -20,16 +20,6 @@ export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
   const publicRoute = publicRoutes.find((route) => route.path === path);
   const token = request.cookies.get("token");
-  const rawUser = request.cookies.get("user");
-
-  let user = null;
-  if (rawUser?.value) user = JSON.parse(rawUser.value);
-
-  if (token && path === "/account-details" && user?.name) {
-    const redirectUrl = request.nextUrl.clone();
-    redirectUrl.pathname = "/dashboard";
-    return withSecurityHeaders(NextResponse.redirect(redirectUrl));
-  }
 
   if (!token && publicRoute) {
     return withSecurityHeaders(NextResponse.next());
