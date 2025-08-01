@@ -26,7 +26,7 @@ export default function SigninPage() {
   useEffect(() => {
     clear();
     setTitle("Sign-in");
-  }, [setTitle]);
+  }, [setTitle, clear]);
 
   const {
     register,

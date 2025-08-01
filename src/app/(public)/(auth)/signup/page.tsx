@@ -26,7 +26,7 @@ export default function SignupPage() {
   useEffect(() => {
     clear();
     setTitle("Sign-up");
-  }, [setTitle]);
+  }, [setTitle, clear]);
 
   const {
     register,
