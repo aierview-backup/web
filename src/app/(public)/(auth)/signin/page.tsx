@@ -14,13 +14,11 @@ import Spinner from "@/shared/ui/components/Spinner/Spinner";
 import { logger } from "@/shared/utils/logger";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styles from "./signin.module.css";
 
 export default function SigninPage() {
-  const router = useRouter();
   const { signin, googleSignin, error, setTitle, clear } = useAuthStore();
 
   useEffect(() => {
@@ -38,13 +36,13 @@ export default function SigninPage() {
 
   const onSubmit = async (data: SigninFormData) => {
     const sucess = await signin({ email: data.email, password: data.password });
-    if (sucess) router.push("/dashboard");
+    if (sucess) window.location.href = "/dashboard";
   };
 
   const google = async (credentialResponse: CredentialResponse) => {
     const idToken = credentialResponse.credential as string;
     const result = await googleSignin({ idToken });
-    if (result) router.push("/dashboard");
+    if (result) window.location.href = "/dashboard";
   };
 
   const onError = () => {
