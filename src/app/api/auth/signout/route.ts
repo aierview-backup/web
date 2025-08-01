@@ -2,17 +2,15 @@ import { serialize } from "cookie";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const body = await req.json();
-  const { user } = body;
-
-  const userCookie = serialize("user", JSON.stringify(user), {
+  const deletedCookie = serialize("user", "", {
     httpOnly: true,
     secure: true,
     sameSite: "strict",
     path: "/",
+    maxAge: 0,
   });
 
   const res = NextResponse.json({ success: true });
-  res.headers.append("Set-Cookie", userCookie);
+  res.headers.set("Set-Cookie", deletedCookie);
   return res;
 }

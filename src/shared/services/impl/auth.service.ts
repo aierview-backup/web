@@ -25,5 +25,6 @@ export default class AuthService implements IAuthService {
 
   async signout(): Promise<void> {
     await this.externalHttp.post("/auth/signout", null);
+    await this.localHttp.post(`/api/auth/signout`, null);
   }
 }

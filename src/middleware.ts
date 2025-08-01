@@ -1,5 +1,4 @@
 import { MiddlewareConfig, NextRequest, NextResponse } from "next/server";
-import { logger } from "./shared/utils/logger";
 
 const publicRoutes = [
   { path: "/signin", whenAuthenticated: "redirect" },
@@ -22,8 +21,6 @@ export function middleware(request: NextRequest) {
   const publicRoute = publicRoutes.find((route) => route.path === path);
   const user = request.cookies.get("user");
 
-  logger.info("token", user);
-  console.log("token", user);
   if (!user && publicRoute) {
     return withSecurityHeaders(NextResponse.next());
   }
