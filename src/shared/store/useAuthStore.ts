@@ -103,7 +103,7 @@ export const useAuthStore = create<AuthStore>()(
           return true;
         },
         fetchUser: async () => {
-          const user = await userService.getCookieUser();
+          const user = await userService.getUserDetails();
           set({ user });
           return true;
         },

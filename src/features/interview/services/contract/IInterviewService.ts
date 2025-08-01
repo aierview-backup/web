@@ -1,9 +1,8 @@
-import {} from "@/features/interview/services/impl/interview.service";
 import {
   getCurrentQuestionResponseType,
   InterviewResponseType,
   QuestionResponseType,
-} from "@/features/interview/types/types";
+} from "../../types/types";
 
 export interface IInterviewService {
   pause(interviewId: number): Promise<void>;

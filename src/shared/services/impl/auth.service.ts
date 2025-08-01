@@ -4,11 +4,10 @@ import HttpClient from "@/shared/utils/HttpClient";
 import { NEXT_PUBLIC_API_URL } from "@/shared/utils/lib";
 
 export default class AuthService implements IAuthService {
-  private readonly localHttp = HttpClient.getInstance();
   private readonly externalHttp = HttpClient.getInstance(NEXT_PUBLIC_API_URL);
 
   async googleSingin(params: GoogleSinginType): Promise<void> {
-    await this.localHttp.post(`/api/auth/google`, params);
+    await this.externalHttp.post(`/auth/external/google`, params);
   }
 
   async signup(params: SignupType): Promise<void> {
@@ -16,10 +15,10 @@ export default class AuthService implements IAuthService {
   }
 
   async signin(params: SigninType): Promise<void> {
-    await this.localHttp.post("/api/auth/signin", params);
+    await this.externalHttp.post("/auth/local/signin", params);
   }
 
   async signout(): Promise<void> {
-    await this.localHttp.post("/api/auth/signout", null);
+    await this.externalHttp.post("/auth/signout", null);
   }
 }

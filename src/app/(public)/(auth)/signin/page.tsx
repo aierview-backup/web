@@ -37,13 +37,13 @@ export default function SigninPage() {
 
   const onSubmit = async (data: SigninFormData) => {
     const sucess = await signin({ email: data.email, password: data.password });
-    if (sucess) router.push("/account-details");
+    if (sucess) router.push("/dashboard");
   };
 
   const google = async (credentialResponse: CredentialResponse) => {
     const idToken = credentialResponse.credential as string;
     const result = await googleSignin({ idToken });
-    if (result) router.push("/account-details");
+    if (result) router.push("/dashboard");
   };
 
   const onError = () => {
