@@ -23,6 +23,7 @@ export function middleware(request: NextRequest) {
   const token = request.cookies.get("token");
 
   logger.info("token", token);
+  console.log("token", token);
   if (!token && publicRoute) {
     return withSecurityHeaders(NextResponse.next());
   }
