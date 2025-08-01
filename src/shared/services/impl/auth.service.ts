@@ -12,7 +12,7 @@ export default class AuthService implements IAuthService {
   async googleSingin(params: GoogleSinginType): Promise<void> {
     await this.externalHttp.post(`/auth/external/google`, params);
     const user = await this.userService.getUserDetails();
-    await this.localHttp.post(`/api/auth/signin`, user);
+    await this.localHttp.post(`/api/auth/signin`, { user: user });
   }
 
   async signup(params: SignupType): Promise<void> {

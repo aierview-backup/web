@@ -20,27 +20,27 @@ function withSecurityHeaders(response: NextResponse) {
 export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
   const publicRoute = publicRoutes.find((route) => route.path === path);
-  const token = request.cookies.get("token");
+  const user = request.cookies.get("user");
 
-  logger.info("token", token);
-  console.log("token", token);
-  if (!token && publicRoute) {
+  logger.info("token", user);
+  console.log("token", user);
+  if (!user && publicRoute) {
     return withSecurityHeaders(NextResponse.next());
   }
 
-  if (!token && !publicRoute) {
+  if (!user && !publicRoute) {
     const redirectUrl = request.nextUrl.clone();
     redirectUrl.pathname = REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE;
     return withSecurityHeaders(NextResponse.redirect(redirectUrl));
   }
 
-  if (token && publicRoute?.whenAuthenticated === "redirect") {
+  if (user && publicRoute?.whenAuthenticated === "redirect") {
     const redirectUrl = request.nextUrl.clone();
     redirectUrl.pathname = "/dashboard";
     return withSecurityHeaders(NextResponse.redirect(redirectUrl));
   }
 
-  if (token && !publicRoute) {
+  if (user && !publicRoute) {
     return withSecurityHeaders(NextResponse.next());
   }
 

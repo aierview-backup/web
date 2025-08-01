@@ -9,6 +9,7 @@ export async function POST(req: NextRequest) {
   const body = await req.json();
   const { user } = body;
 
+  console.log(user);
   const userCookie = serialize("user", JSON.stringify(user), {
     httpOnly: true,
     secure: true,
