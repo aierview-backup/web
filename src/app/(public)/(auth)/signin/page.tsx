@@ -21,9 +21,10 @@ import styles from "./signin.module.css";
 
 export default function SigninPage() {
   const router = useRouter();
-  const { signin, googleSignin, error, setTitle } = useAuthStore();
+  const { signin, googleSignin, error, setTitle, clear } = useAuthStore();
 
   useEffect(() => {
+    clear();
     setTitle("Sign-in");
   }, [setTitle]);
 

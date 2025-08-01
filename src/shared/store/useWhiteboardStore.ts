@@ -10,6 +10,7 @@ type WhiteboardStore = {
   isLoading: boolean;
   error: string | null;
 
+  clear: () => void;
   begin: (
     params: WhiteBoardType,
     setInterview: (interview: InterviewResponseType) => void
@@ -31,6 +32,8 @@ export const useWhiteboardStore = create<WhiteboardStore>((set) => {
     interview: null,
     isLoading: false,
 
+    clear: () => set({ isLoading: false, error: null }),
+
     begin: async (
       params: WhiteBoardType,
       setInterview: (interview: InterviewResponseType) => void
@@ -43,7 +46,7 @@ export const useWhiteboardStore = create<WhiteboardStore>((set) => {
         result = true;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
-        set({ error: err?.response?.data?.message });
+        set({ error: err?.response?.data?.data });
         result = false;
       } finally {
         set({ isLoading: false });
@@ -60,7 +63,7 @@ export const useWhiteboardStore = create<WhiteboardStore>((set) => {
         result = true;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
-        set({ error: err?.response?.data?.message });
+        set({ error: err?.response?.data?.data });
         result = false;
       } finally {
         set({ isLoading: false });
@@ -81,7 +84,7 @@ export const useWhiteboardStore = create<WhiteboardStore>((set) => {
         result = true;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
-        set({ error: err?.response?.data?.message });
+        set({ error: err?.response?.data?.data });
         result = false;
       } finally {
         set({ isLoading: false });

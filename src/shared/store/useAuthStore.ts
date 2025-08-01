@@ -17,8 +17,9 @@ type AuthStore = {
   isLoading: boolean;
   error: string | null;
 
-  signout: () => Promise<boolean>;
+  clear: () => void;
   fetchUser: () => void;
+  signout: () => Promise<boolean>;
   setUser: (user: User | null) => void;
   signin: (params: SigninType) => Promise<boolean>;
   signup: (params: SignupType) => Promise<boolean>;
@@ -45,6 +46,8 @@ export const useAuthStore = create<AuthStore>()(
 
         setUser: (user) => set({ user }),
 
+        clear: () => set({ isLoading: false, error: null }),
+
         signin: async (params) => {
           let result = false;
           set({ isLoading: true, error: null });
@@ -54,7 +57,7 @@ export const useAuthStore = create<AuthStore>()(
             result = true;
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
           } catch (err: any) {
-            set({ error: err?.response?.data?.message });
+            set({ error: err?.response?.data?.data });
             result = false;
           } finally {
             set({ isLoading: false });
@@ -70,7 +73,7 @@ export const useAuthStore = create<AuthStore>()(
             result = true;
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
           } catch (err: any) {
-            set({ error: err?.response?.data?.message || "Signup failed" });
+            set({ error: err?.response?.data?.data });
             result = false;
           } finally {
             set({ isLoading: false });
@@ -87,9 +90,7 @@ export const useAuthStore = create<AuthStore>()(
             result = true;
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
           } catch (err: any) {
-            set({
-              error: err?.response?.data?.message || "Google login failed",
-            });
+            set({ error: err?.response?.data?.data });
             result = false;
           } finally {
             set({ isLoading: false });

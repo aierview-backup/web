@@ -64,7 +64,7 @@ export const useInterviewStore = create<WhiteboardStore>()(
             });
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
           } catch (err: any) {
-            set({ error: err?.response?.data?.message });
+            set({ error: err?.response?.data?.data });
           } finally {
             set({ isLoading: false });
           }
@@ -79,7 +79,7 @@ export const useInterviewStore = create<WhiteboardStore>()(
             result = true;
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
           } catch (err: any) {
-            set({ error: err?.response?.data?.message });
+            set({ error: err?.response?.data?.data });
             result = false;
           } finally {
             set({ isLoading: false });
@@ -97,7 +97,7 @@ export const useInterviewStore = create<WhiteboardStore>()(
             result = true;
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
           } catch (err: any) {
-            set({ error: err?.response?.data?.message });
+            set({ error: err?.response?.data?.data });
             result = false;
           } finally {
             set({ isLoading: false });
@@ -115,7 +115,7 @@ export const useInterviewStore = create<WhiteboardStore>()(
             result = true;
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
           } catch (err: any) {
-            set({ error: err?.response?.data?.message });
+            set({ error: err?.response?.data?.data });
             result = false;
           } finally {
             set({ isLoading: false });
@@ -130,7 +130,7 @@ export const useInterviewStore = create<WhiteboardStore>()(
             return await service.readIntervirewQuestions(interviewId);
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
           } catch (err: any) {
-            set({ error: err?.response?.data?.message });
+            set({ error: err?.response?.data?.data });
           } finally {
             set({ isLoading: false });
           }
@@ -145,7 +145,7 @@ export const useInterviewStore = create<WhiteboardStore>()(
             return true;
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
           } catch (err: any) {
-            set({ error: err?.response?.data?.message });
+            set({ error: err?.response?.data?.data });
           } finally {
             set({ isLoading: false });
           }
@@ -160,7 +160,7 @@ export const useInterviewStore = create<WhiteboardStore>()(
             result = true;
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
           } catch (err: any) {
-            set({ error: err?.response?.data?.message });
+            set({ error: err?.response?.data?.data });
             result = false;
           } finally {
             set({ isLoading: false });
@@ -179,7 +179,7 @@ export const useInterviewStore = create<WhiteboardStore>()(
             result = true;
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
           } catch (err: any) {
-            set({ error: err?.response?.data?.message });
+            set({ error: err?.response?.data?.data });
             result = false;
           } finally {
             set({ isLoading: false });

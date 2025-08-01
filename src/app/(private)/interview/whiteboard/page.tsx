@@ -49,11 +49,7 @@ export default function WhiteboardPage() {
       const formData = new FormData();
       formData.append("interviewId", String(interview?.id));
       formData.append("questionId", String(currentQuestion?.id));
-      formData.append(
-        "file",
-        blob,
-        `${interview?.id}-${currentQuestion?.id}.webm`
-      );
+      formData.append("file", blob, "record.webm");
 
       const result = await sendAnswer(formData);
 

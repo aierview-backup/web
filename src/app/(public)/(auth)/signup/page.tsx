@@ -21,9 +21,10 @@ import styles from "./signup.module.css";
 
 export default function SignupPage() {
   const router = useRouter();
-  const { signup, googleSignin, error, setTitle } = useAuthStore();
+  const { signup, googleSignin, error, setTitle, clear } = useAuthStore();
 
   useEffect(() => {
+    clear();
     setTitle("Sign-up");
   }, [setTitle]);
 
